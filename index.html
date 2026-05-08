@@ -1,0 +1,793 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Python + MBA Workspace</title>
+
+    <!-- Bundled markdown content (run `python build_site.py` to regenerate). -->
+    <script src="site_data.js" onerror="window.FILES_MISSING = true"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"></script>
+    <link
+      id="hljs-theme-light"
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/github.min.css"
+    />
+    <link
+      id="hljs-theme-dark"
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/github-dark.min.css"
+      disabled
+    />
+    <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/highlight.min.js"></script>
+
+    <style>
+      :root {
+        --bg: #f7f8fa;
+        --panel: #ffffff;
+        --text: #1f2328;
+        --text-muted: #57606a;
+        --border: #d8dee4;
+        --border-strong: #afb8c1;
+        --accent: #0969da;
+        --accent-hover: #0550ae;
+        --accent-bg: #ddf4ff;
+        --code-bg: #f3f4f6;
+        --shadow: 0 1px 0 rgba(31, 35, 40, 0.04), 0 4px 12px rgba(31, 35, 40, 0.04);
+      }
+
+      [data-theme="dark"] {
+        --bg: #0d1117;
+        --panel: #161b22;
+        --text: #e6edf3;
+        --text-muted: #8b949e;
+        --border: #30363d;
+        --border-strong: #444c56;
+        --accent: #58a6ff;
+        --accent-hover: #79c0ff;
+        --accent-bg: #1f6feb26;
+        --code-bg: #161b22;
+        --shadow: 0 1px 0 rgba(0, 0, 0, 0.4), 0 6px 18px rgba(0, 0, 0, 0.5);
+      }
+
+      * { box-sizing: border-box; }
+      html, body { margin: 0; padding: 0; height: 100%; }
+
+      body {
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", "Inter", Roboto,
+          "Helvetica Neue", Arial, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        font-size: 15.5px;
+        line-height: 1.65;
+        transition: background-color 0.18s ease, color 0.18s ease;
+      }
+
+      .layout {
+        display: grid;
+        grid-template-columns: 288px 1fr;
+        min-height: 100vh;
+      }
+
+      /* === Sidebar === */
+      aside {
+        background: var(--panel);
+        border-right: 1px solid var(--border);
+        padding: 18px 16px 24px;
+        overflow-y: auto;
+        max-height: 100vh;
+        position: sticky;
+        top: 0;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        padding: 6px 6px 14px;
+        margin-bottom: 8px;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .brand-text h1 {
+        font-size: 15px;
+        font-weight: 700;
+        margin: 0;
+        letter-spacing: -0.01em;
+      }
+      .brand-text .subtitle {
+        font-size: 11.5px;
+        color: var(--text-muted);
+        margin-top: 1px;
+      }
+
+      .theme-btn {
+        appearance: none;
+        background: transparent;
+        color: var(--text-muted);
+        border: 1px solid var(--border);
+        width: 32px; height: 32px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 14px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        transition: background 0.15s ease, color 0.15s ease, border 0.15s ease;
+      }
+      .theme-btn:hover {
+        background: var(--accent-bg);
+        color: var(--accent);
+        border-color: var(--accent);
+      }
+
+      .nav-group {
+        margin-top: 10px;
+      }
+
+      .section-label {
+        font-size: 10.5px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.07em;
+        color: var(--text-muted);
+        margin: 10px 8px 4px;
+      }
+
+      aside ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+      aside li { margin: 0; }
+
+      aside a {
+        display: block;
+        padding: 5px 10px;
+        color: var(--text);
+        text-decoration: none;
+        border-radius: 6px;
+        font-size: 13.5px;
+        line-height: 1.4;
+        transition: background 0.12s ease, color 0.12s ease;
+      }
+      aside a:hover {
+        background: var(--accent-bg);
+        color: var(--accent);
+      }
+      aside a.active {
+        background: var(--accent-bg);
+        color: var(--accent);
+        font-weight: 600;
+      }
+
+      /* === Reddit-style collapsible tree === */
+      .tree details {
+        margin: 0;
+      }
+      .tree > details {
+        margin: 1px 0;
+      }
+
+      .tree summary {
+        list-style: none;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 5px 8px 5px 6px;
+        border-radius: 6px;
+        font-size: 13.5px;
+        color: var(--text);
+        user-select: none;
+        transition: background 0.12s ease, color 0.12s ease;
+      }
+      .tree summary::-webkit-details-marker { display: none; }
+      .tree summary:hover {
+        background: var(--accent-bg);
+        color: var(--accent);
+      }
+
+      .tree summary .chev {
+        display: inline-block;
+        width: 12px;
+        flex: none;
+        font-size: 10px;
+        color: var(--text-muted);
+        transition: transform 0.15s ease;
+        text-align: center;
+      }
+      .tree details[open] > summary .chev {
+        transform: rotate(90deg);
+      }
+      .tree summary:hover .chev { color: var(--accent); }
+
+      .tree summary .label {
+        flex: 1;
+        min-width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .tree .phase > summary {
+        font-weight: 600;
+        font-size: 12.5px;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+      }
+
+      .tree .week > summary {
+        font-weight: 500;
+      }
+
+      /* Reddit-style indent guide line on nested groups */
+      .tree .children {
+        margin-left: 11px;
+        padding-left: 9px;
+        border-left: 1px solid var(--border);
+      }
+      .tree .children:hover {
+        border-left-color: var(--border-strong);
+      }
+
+      .tree .children a {
+        padding: 4px 10px;
+        font-size: 13px;
+        color: var(--text-muted);
+      }
+      .tree .children a:hover,
+      .tree .children a.active {
+        color: var(--accent);
+      }
+      .tree .children a.active { color: var(--accent); }
+
+      .tree .lessons-label {
+        padding: 6px 10px 2px;
+        font-size: 10.5px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: var(--text-muted);
+      }
+
+      .sidebar-footer {
+        margin-top: auto;
+        padding: 14px 8px 4px;
+        border-top: 1px solid var(--border);
+        font-size: 11.5px;
+        color: var(--text-muted);
+        line-height: 1.45;
+      }
+      .sidebar-footer .pkg {
+        font-weight: 600;
+        color: var(--text);
+      }
+
+      /* === Main === */
+      main {
+        padding: 36px 56px 80px;
+        max-width: 940px;
+      }
+
+      .breadcrumb {
+        font-size: 12.5px;
+        color: var(--text-muted);
+        margin-bottom: 14px;
+      }
+      .breadcrumb a { color: var(--text-muted); text-decoration: none; }
+      .breadcrumb a:hover { color: var(--accent); }
+
+      #content {
+        background: var(--panel);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 38px 46px;
+        box-shadow: var(--shadow);
+      }
+
+      #content h1, #content h2, #content h3, #content h4 {
+        color: var(--text);
+        font-weight: 600;
+      }
+      #content h1 {
+        margin-top: 0;
+        padding-bottom: 0.35em;
+        border-bottom: 1px solid var(--border);
+      }
+      #content h2 {
+        margin-top: 1.7em;
+        padding-bottom: 0.3em;
+        border-bottom: 1px solid var(--border);
+      }
+      #content h3 { margin-top: 1.4em; }
+
+      #content a {
+        color: var(--accent);
+        text-decoration: none;
+        border-bottom: 1px solid transparent;
+        transition: border-color 0.12s ease;
+      }
+      #content a:hover {
+        border-bottom-color: var(--accent);
+      }
+
+      #content code {
+        background: var(--code-bg);
+        padding: 0.18em 0.42em;
+        border-radius: 5px;
+        font-size: 0.88em;
+        font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+        border: 1px solid var(--border);
+      }
+      #content pre {
+        background: var(--code-bg);
+        padding: 14px 18px;
+        border-radius: 8px;
+        overflow-x: auto;
+        border: 1px solid var(--border);
+      }
+      #content pre code {
+        padding: 0; background: transparent; border: 0;
+      }
+
+      #content table {
+        border-collapse: collapse;
+        margin: 1.1em 0;
+        width: 100%;
+      }
+      #content th, #content td {
+        border: 1px solid var(--border);
+        padding: 7px 12px;
+      }
+      #content th { background: var(--code-bg); }
+
+      #content blockquote {
+        border-left: 3px solid var(--border-strong);
+        padding-left: 14px;
+        color: var(--text-muted);
+        margin: 1em 0;
+      }
+
+      .error {
+        color: #cf222e;
+        background: #ffebe9;
+        border: 1px solid #ffcecb;
+        padding: 12px 16px;
+        border-radius: 6px;
+      }
+      [data-theme="dark"] .error {
+        color: #ffa198;
+        background: #f8514926;
+        border-color: #f8514955;
+      }
+
+      .warning {
+        background: #fff8c5;
+        border: 1px solid #d4a72c66;
+        padding: 12px 16px;
+        border-radius: 6px;
+        margin-bottom: 14px;
+        color: #6e5a1c;
+      }
+      [data-theme="dark"] .warning {
+        background: #d4a72c1a;
+        border-color: #d4a72c66;
+        color: #f0d97a;
+      }
+
+      @media (max-width: 860px) {
+        .layout { grid-template-columns: 1fr; }
+        aside {
+          position: static;
+          border-right: 0;
+          border-bottom: 1px solid var(--border);
+          max-height: none;
+        }
+        main { padding: 22px; }
+        #content { padding: 24px; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="layout">
+      <aside>
+        <div class="brand">
+          <div class="brand-text">
+            <h1>Python + MBA</h1>
+            <div class="subtitle">12-week workspace</div>
+          </div>
+          <button
+            class="theme-btn"
+            id="theme-toggle"
+            type="button"
+            aria-label="Toggle theme"
+            title="Toggle theme"
+          >
+            <span id="theme-icon">🌙</span>
+          </button>
+        </div>
+
+        <div class="nav-group tree">
+          <div class="section-label">Start here</div>
+          <ul>
+            <li><a data-md="README.md">Overview (README)</a></li>
+            <li><a data-md="ROADMAP.md">Full Roadmap</a></li>
+            <li><a data-md="00-setup/README.md">00 — Setup</a></li>
+          </ul>
+
+          <details class="phase" open>
+            <summary><span class="chev">▶</span><span class="label">Phase 1 — Foundations</span></summary>
+            <div class="children">
+              <ul><li><a data-md="01-foundations/README.md">Overview</a></li></ul>
+
+              <details class="week">
+                <summary><span class="chev">▶</span><span class="label">Week 1 — Basics</span></summary>
+                <div class="children">
+                  <ul>
+                    <li><a data-md="01-foundations/week-1/README.md">Overview</a></li>
+                  </ul>
+                  <div class="lessons-label">Lessons</div>
+                  <ul>
+                    <li><a data-md="01-foundations/week-1/lessons/01-hello-python.md">01 — Hello Python</a></li>
+                    <li><a data-md="01-foundations/week-1/lessons/02-variables-and-types.md">02 — Variables & Types</a></li>
+                    <li><a data-md="01-foundations/week-1/lessons/03-conditionals.md">03 — Conditionals</a></li>
+                    <li><a data-md="01-foundations/week-1/lessons/04-strings.md">04 — Strings & f-strings</a></li>
+                  </ul>
+                  <ul><li><a data-md="01-foundations/week-1/project.md">Project</a></li></ul>
+                </div>
+              </details>
+
+              <details class="week">
+                <summary><span class="chev">▶</span><span class="label">Week 2 — Collections</span></summary>
+                <div class="children">
+                  <ul><li><a data-md="01-foundations/week-2/README.md">Overview</a></li></ul>
+                  <div class="lessons-label">Lessons</div>
+                  <ul>
+                    <li><a data-md="01-foundations/week-2/lessons/01-lists-and-loops.md">01 — Lists & Loops</a></li>
+                    <li><a data-md="01-foundations/week-2/lessons/02-dicts.md">02 — Dicts</a></li>
+                    <li><a data-md="01-foundations/week-2/lessons/03-comprehensions.md">03 — Comprehensions</a></li>
+                    <li><a data-md="01-foundations/week-2/lessons/04-functions.md">04 — Functions</a></li>
+                    <li><a data-md="01-foundations/week-2/lessons/05-tuples-and-sets.md">05 — Tuples & Sets</a></li>
+                  </ul>
+                  <ul><li><a data-md="01-foundations/week-2/project.md">Project</a></li></ul>
+                </div>
+              </details>
+
+              <details class="week">
+                <summary><span class="chev">▶</span><span class="label">Week 3 — Files & Errors</span></summary>
+                <div class="children">
+                  <ul><li><a data-md="01-foundations/week-3/README.md">Overview</a></li></ul>
+                  <div class="lessons-label">Lessons</div>
+                  <ul>
+                    <li><a data-md="01-foundations/week-3/lessons/01-files.md">01 — Files</a></li>
+                    <li><a data-md="01-foundations/week-3/lessons/02-csv.md">02 — CSV</a></li>
+                    <li><a data-md="01-foundations/week-3/lessons/03-errors.md">03 — Errors</a></li>
+                    <li><a data-md="01-foundations/week-3/lessons/04-modules.md">04 — Modules</a></li>
+                    <li><a data-md="01-foundations/week-3/lessons/05-pathlib-and-json.md">05 — pathlib & JSON</a></li>
+                    <li><a data-md="01-foundations/week-3/lessons/06-datetime.md">06 — Dates & Times</a></li>
+                  </ul>
+                  <ul><li><a data-md="01-foundations/week-3/project.md">Project</a></li></ul>
+                </div>
+              </details>
+            </div>
+          </details>
+
+          <details class="phase">
+            <summary><span class="chev">▶</span><span class="label">Phase 2 — pandas</span></summary>
+            <div class="children">
+              <ul><li><a data-md="02-data-with-pandas/README.md">Overview</a></li></ul>
+
+              <details class="week">
+                <summary><span class="chev">▶</span><span class="label">Week 4 — DataFrames</span></summary>
+                <div class="children">
+                  <ul><li><a data-md="02-data-with-pandas/week-4/README.md">Overview</a></li></ul>
+                  <div class="lessons-label">Lessons</div>
+                  <ul>
+                    <li><a data-md="02-data-with-pandas/week-4/lessons/01-dataframes.md">01 — DataFrames</a></li>
+                    <li><a data-md="02-data-with-pandas/week-4/lessons/02-read-write-excel.md">02 — Read/Write Excel</a></li>
+                    <li><a data-md="02-data-with-pandas/week-4/lessons/03-filter-sort.md">03 — Filter & Sort</a></li>
+                    <li><a data-md="02-data-with-pandas/week-4/lessons/04-missing-data.md">04 — Missing Data</a></li>
+                  </ul>
+                  <ul><li><a data-md="02-data-with-pandas/week-4/project.md">Project</a></li></ul>
+                </div>
+              </details>
+
+              <details class="week">
+                <summary><span class="chev">▶</span><span class="label">Week 5 — Group & Reshape</span></summary>
+                <div class="children">
+                  <ul><li><a data-md="02-data-with-pandas/week-5/README.md">Overview</a></li></ul>
+                  <div class="lessons-label">Lessons</div>
+                  <ul>
+                    <li><a data-md="02-data-with-pandas/week-5/lessons/01-groupby.md">01 — GroupBy</a></li>
+                    <li><a data-md="02-data-with-pandas/week-5/lessons/02-pivot.md">02 — Pivot</a></li>
+                    <li><a data-md="02-data-with-pandas/week-5/lessons/03-merge.md">03 — Merge</a></li>
+                    <li><a data-md="02-data-with-pandas/week-5/lessons/04-dates.md">04 — Dates</a></li>
+                    <li><a data-md="02-data-with-pandas/week-5/lessons/05-plotting.md">05 — Plotting</a></li>
+                  </ul>
+                  <ul><li><a data-md="02-data-with-pandas/week-5/project.md">Project</a></li></ul>
+                </div>
+              </details>
+            </div>
+          </details>
+
+          <details class="phase">
+            <summary><span class="chev">▶</span><span class="label">Phase 3 — MBA Analytics</span></summary>
+            <div class="children">
+              <ul><li><a data-md="03-mba-analytics/README.md">Overview</a></li></ul>
+
+              <details class="week">
+                <summary><span class="chev">▶</span><span class="label">Week 6 — Finance</span></summary>
+                <div class="children">
+                  <ul><li><a data-md="03-mba-analytics/finance/README.md">Overview</a></li></ul>
+                  <div class="lessons-label">Lessons</div>
+                  <ul>
+                    <li><a data-md="03-mba-analytics/finance/lessons/01-ratios.md">01 — Ratios</a></li>
+                    <li><a data-md="03-mba-analytics/finance/lessons/02-time-value.md">02 — Time Value</a></li>
+                  </ul>
+                  <ul><li><a data-md="03-mba-analytics/finance/project.md">Project</a></li></ul>
+                </div>
+              </details>
+
+              <details class="week">
+                <summary><span class="chev">▶</span><span class="label">Week 7 — Marketing</span></summary>
+                <div class="children">
+                  <ul><li><a data-md="03-mba-analytics/marketing/README.md">Overview</a></li></ul>
+                  <div class="lessons-label">Lessons</div>
+                  <ul>
+                    <li><a data-md="03-mba-analytics/marketing/lessons/01-rfm.md">01 — RFM</a></li>
+                    <li><a data-md="03-mba-analytics/marketing/lessons/02-cohorts.md">02 — Cohorts</a></li>
+                    <li><a data-md="03-mba-analytics/marketing/lessons/03-ab-test.md">03 — A/B Test</a></li>
+                  </ul>
+                  <ul><li><a data-md="03-mba-analytics/marketing/project.md">Project</a></li></ul>
+                </div>
+              </details>
+
+              <details class="week">
+                <summary><span class="chev">▶</span><span class="label">Week 8 — Operations</span></summary>
+                <div class="children">
+                  <ul><li><a data-md="03-mba-analytics/operations/README.md">Overview</a></li></ul>
+                  <div class="lessons-label">Lessons</div>
+                  <ul>
+                    <li><a data-md="03-mba-analytics/operations/lessons/01-moving-average.md">01 — Moving Average</a></li>
+                    <li><a data-md="03-mba-analytics/operations/lessons/02-ets.md">02 — ETS</a></li>
+                    <li><a data-md="03-mba-analytics/operations/lessons/03-inventory.md">03 — Inventory</a></li>
+                  </ul>
+                  <ul><li><a data-md="03-mba-analytics/operations/project.md">Project</a></li></ul>
+                </div>
+              </details>
+
+              <details class="week">
+                <summary><span class="chev">▶</span><span class="label">Week 9 — Strategy</span></summary>
+                <div class="children">
+                  <ul><li><a data-md="03-mba-analytics/strategy/README.md">Overview</a></li></ul>
+                  <div class="lessons-label">Lessons</div>
+                  <ul>
+                    <li><a data-md="03-mba-analytics/strategy/lessons/01-scenarios.md">01 — Scenarios</a></li>
+                    <li><a data-md="03-mba-analytics/strategy/lessons/02-sensitivity.md">02 — Sensitivity</a></li>
+                  </ul>
+                  <ul><li><a data-md="03-mba-analytics/strategy/project.md">Project</a></li></ul>
+                </div>
+              </details>
+            </div>
+          </details>
+
+          <details class="phase">
+            <summary><span class="chev">▶</span><span class="label">Phase 4 — AI</span></summary>
+            <div class="children">
+              <details class="week">
+                <summary><span class="chev">▶</span><span class="label">Week 10 — Groq</span></summary>
+                <div class="children">
+                  <ul><li><a data-md="04-ai-integration/README.md">Overview</a></li></ul>
+                  <div class="lessons-label">Lessons</div>
+                  <ul>
+                    <li><a data-md="04-ai-integration/lessons/01-first-call.md">01 — First Call</a></li>
+                    <li><a data-md="04-ai-integration/lessons/02-prompts.md">02 — Prompts</a></li>
+                    <li><a data-md="04-ai-integration/lessons/03-data-to-prompt.md">03 — Data to Prompt</a></li>
+                  </ul>
+                </div>
+              </details>
+            </div>
+          </details>
+
+          <details class="phase">
+            <summary><span class="chev">▶</span><span class="label">Phase 5 — Capstone</span></summary>
+            <div class="children">
+              <ul>
+                <li><a data-md="05-capstone-app/README.md">Overview</a></li>
+                <li><a data-md="05-capstone-app/backend/README.md">Backend</a></li>
+                <li><a data-md="05-capstone-app/frontend/README.md">Frontend</a></li>
+              </ul>
+            </div>
+          </details>
+
+          <div class="section-label">Reference</div>
+          <ul>
+            <li><a data-md="datasets/README.md">Datasets</a></li>
+            <li><a data-md="solutions/README.md">Solutions</a></li>
+            <li><a data-md="notebooks/README.md">Notebooks</a></li>
+          </ul>
+        </div>
+
+        <div class="sidebar-footer">
+          Packaged by <span class="pkg">Shantanu</span>.<br />
+          Open <code>index.html</code> in any browser — no server needed.
+        </div>
+      </aside>
+
+      <main>
+        <div class="breadcrumb" id="breadcrumb"></div>
+        <article id="content">Loading…</article>
+      </main>
+    </div>
+
+    <script>
+      // ---- Theme toggle ----
+      const themeToggle = document.getElementById("theme-toggle");
+      const themeIcon = document.getElementById("theme-icon");
+      const lightHljs = document.getElementById("hljs-theme-light");
+      const darkHljs = document.getElementById("hljs-theme-dark");
+
+      function applyTheme(theme) {
+        document.documentElement.setAttribute("data-theme", theme);
+        themeIcon.textContent = theme === "dark" ? "☀️" : "🌙";
+        lightHljs.disabled = theme === "dark";
+        darkHljs.disabled = theme !== "dark";
+      }
+
+      const savedTheme =
+        localStorage.getItem("docs-theme") ||
+        (window.matchMedia &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches
+          ? "dark"
+          : "light");
+      applyTheme(savedTheme);
+
+      themeToggle.addEventListener("click", () => {
+        const current = document.documentElement.getAttribute("data-theme");
+        const next = current === "dark" ? "light" : "dark";
+        localStorage.setItem("docs-theme", next);
+        applyTheme(next);
+      });
+
+      // ---- Markdown rendering ----
+      marked.setOptions({ gfm: true, breaks: false });
+
+      const contentEl = document.getElementById("content");
+      const breadcrumbEl = document.getElementById("breadcrumb");
+      const sidebarLinks = document.querySelectorAll("aside a[data-md]");
+
+      sidebarLinks.forEach((a) => {
+        a.addEventListener("click", (e) => {
+          e.preventDefault();
+          location.hash = a.getAttribute("data-md");
+        });
+      });
+
+      function setActive(path) {
+        // Exact match wins. Otherwise highlight the deepest README ancestor —
+        // so clicking a lesson highlights its parent week's entry.
+        let exact = null;
+        let bestPrefixEl = null;
+        let bestPrefixLen = 0;
+
+        sidebarLinks.forEach((a) => {
+          a.classList.remove("active");
+          const md = a.getAttribute("data-md") || "";
+          if (md === path) {
+            exact = a;
+            return;
+          }
+          if (md.endsWith("/README.md")) {
+            const dir = md.slice(0, -"README.md".length); // ends with "/"
+            if (
+              dir.length > 0 &&
+              path.startsWith(dir) &&
+              dir.length > bestPrefixLen
+            ) {
+              bestPrefixLen = dir.length;
+              bestPrefixEl = a;
+            }
+          }
+        });
+
+        const winner = exact || bestPrefixEl;
+        if (winner) {
+          winner.classList.add("active");
+          // Open every <details> ancestor so the active link is visible.
+          let node = winner.parentElement;
+          while (node) {
+            if (node.tagName === "DETAILS") node.open = true;
+            node = node.parentElement;
+          }
+          winner.scrollIntoView({ block: "nearest" });
+        }
+      }
+
+      function dirOf(path) {
+        const i = path.lastIndexOf("/");
+        return i === -1 ? "" : path.slice(0, i + 1);
+      }
+
+      function rewriteLinks(baseDir) {
+        contentEl.querySelectorAll("a[href]").forEach((a) => {
+          const href = a.getAttribute("href");
+          if (!href || href.startsWith("#")) return;
+          if (/^[a-z]+:\/\//i.test(href) || href.startsWith("mailto:")) return;
+
+          const url = new URL(href, "file:///" + baseDir);
+          let resolved = url.pathname.replace(/^\/+/, "");
+
+          if (resolved.toLowerCase().endsWith(".md")) {
+            a.setAttribute("href", "#" + resolved);
+          } else {
+            a.setAttribute("href", resolved);
+            a.setAttribute("target", "_blank");
+          }
+        });
+      }
+
+      function showStaleWarning() {
+        const w = document.createElement("div");
+        w.className = "warning";
+        w.innerHTML =
+          "⚠️ <strong>site_data.js</strong> not found. " +
+          "If markdown was edited, regenerate by running " +
+          "<code>python build_site.py</code> in this folder.";
+        contentEl.parentNode.insertBefore(w, contentEl);
+      }
+
+      function render(path, md) {
+        contentEl.innerHTML = marked.parse(md);
+        rewriteLinks(dirOf(path));
+        contentEl.querySelectorAll("pre code").forEach((b) => hljs.highlightElement(b));
+        window.scrollTo(0, 0);
+      }
+
+      async function loadMarkdown(path) {
+        if (!path) path = "README.md";
+        setActive(path);
+        breadcrumbEl.innerHTML = `<a href="#README.md">Home</a> / ${path}`;
+
+        if (
+          window.FILES &&
+          Object.prototype.hasOwnProperty.call(window.FILES, path)
+        ) {
+          render(path, window.FILES[path]);
+          return;
+        }
+
+        try {
+          const res = await fetch(path);
+          if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
+          render(path, await res.text());
+        } catch (err) {
+          contentEl.innerHTML = `
+            <h1>Couldn't load <code>${path}</code></h1>
+            <p class="error">${err.message}</p>
+            <p>To fix this, run once from this folder:</p>
+            <pre><code>python build_site.py</code></pre>
+            <p>That bundles all markdown so the site works even when opened directly (file://).</p>
+          `;
+        }
+      }
+
+      function pathFromHash() {
+        return decodeURIComponent(location.hash.replace(/^#\/?/, ""));
+      }
+
+      window.addEventListener("hashchange", () => loadMarkdown(pathFromHash()));
+
+      window.addEventListener("DOMContentLoaded", () => {
+        if (window.FILES_MISSING) showStaleWarning();
+        loadMarkdown(pathFromHash());
+      });
+    </script>
+  </body>
+</html>

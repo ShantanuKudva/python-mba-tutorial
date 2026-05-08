@@ -1,0 +1,62 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+env/
+*.egg-info/
+.pytest_cache/
+
+# Notebooks
+.ipynb_checkpoints/
+
+# Env / secrets
+.env
+.env.local
+*.key
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.swp
+
+# Node / frontend
+node_modules/
+.next/
+out/
+dist/
+build/
+npm-debug.log*
+
+# Generated / output
+/tmp_uploads/
+/generated_reports/
+*.log
+
+# Generated sample datasets (run `python datasets/generate_samples.py` to recreate)
+datasets/finance/*.xlsx
+datasets/marketing/*.xlsx
+datasets/operations/*.xlsx
+datasets/strategy/*.xlsx
+
+# Capstone backend runtime artefacts
+05-capstone-app/backend/uploads/
+05-capstone-app/backend/reports/
+
+# Generated student outputs
+**/cleaned_pl.xlsx
+**/dashboard.xlsx
+**/dashboard.png
+**/segments.xlsx
+**/segments.png
+**/forecast.xlsx
+**/strategy_report.xlsx
+**/tornado.png
+**/health_report.xlsx
+**/monthly.png
+**/charts/
