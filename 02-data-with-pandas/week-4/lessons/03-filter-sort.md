@@ -47,4 +47,20 @@ df = df.rename(columns={"old_name": "new_name"})
 
 ---
 
+## 📚 Resources
+
+**Official docs**
+- [Indexing & selecting data](https://pandas.pydata.org/docs/user_guide/indexing.html)
+- [Boolean indexing](https://pandas.pydata.org/docs/user_guide/indexing.html#boolean-indexing)
+- [`DataFrame.sort_values`](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.sort_values.html)
+
+**Deep dives**
+- [Real Python — pandas filtering](https://realpython.com/pandas-python-explore-dataset/)
+
+**Video tutorials**
+- [YouTube — pandas filter & sort](https://www.youtube.com/results?search_query=pandas+filter+sort+dataframe+tutorial)
+
+
+---
+
 Next: [`04-missing-data.md`](04-missing-data.md).

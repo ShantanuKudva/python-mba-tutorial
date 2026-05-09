@@ -3,6 +3,8 @@ Exercise 3 — Boolean filtering.
 
 Read sample_pl.xlsx. Show only rows where amount > 50000.
 Print the count and the sum of those amounts.
+
+📚 References: see the 📚 Resources block at the bottom of the related lesson(s) in `lessons/` for official docs, deep dives, and video tutorials. Global resource index lives in ROADMAP.md.
 """
 
 from pathlib import Path

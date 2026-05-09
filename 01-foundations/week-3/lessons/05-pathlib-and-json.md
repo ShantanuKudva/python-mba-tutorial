@@ -166,4 +166,21 @@ summary = {
 
 ---
 
+## 📚 Resources
+
+**Official docs**
+- [`pathlib` reference](https://docs.python.org/3/library/pathlib.html)
+- [`json` reference](https://docs.python.org/3/library/json.html)
+
+**Deep dives**
+- [Real Python — `pathlib`](https://realpython.com/python-pathlib/)
+- [Real Python — JSON](https://realpython.com/python-json/)
+
+**Video tutorials**
+- [YouTube — pathlib tutorial](https://www.youtube.com/results?search_query=python+pathlib+tutorial)
+- [YouTube — Corey Schafer: JSON](https://www.youtube.com/results?search_query=corey+schafer+python+json)
+
+
+---
+
 Next: [`06-datetime.md`](06-datetime.md).

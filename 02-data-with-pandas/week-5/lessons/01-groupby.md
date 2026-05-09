@@ -50,4 +50,19 @@ summary = summary.reset_index()
 
 ---
 
+## 📚 Resources
+
+**Official docs**
+- [Group by: split-apply-combine](https://pandas.pydata.org/docs/user_guide/groupby.html)
+- [`DataFrame.groupby`](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.groupby.html)
+
+**Deep dives**
+- [Real Python — pandas GroupBy](https://realpython.com/pandas-groupby/)
+
+**Video tutorials**
+- [YouTube — pandas groupby](https://www.youtube.com/results?search_query=pandas+groupby+tutorial)
+
+
+---
+
 Next: [`02-pivot.md`](02-pivot.md).

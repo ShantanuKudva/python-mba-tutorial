@@ -71,4 +71,19 @@ This is exactly how production scripts handle dirty data.
 
 ---
 
+## 📚 Resources
+
+**Official docs**
+- [Tutorial — errors and exceptions](https://docs.python.org/3/tutorial/errors.html)
+- [Built-in exceptions](https://docs.python.org/3/library/exceptions.html)
+
+**Deep dives**
+- [Real Python — Exceptions](https://realpython.com/python-exceptions/)
+
+**Video tutorials**
+- [YouTube — Corey Schafer: exceptions](https://www.youtube.com/results?search_query=corey+schafer+python+exceptions)
+
+
+---
+
 Next: [`04-modules.md`](04-modules.md).

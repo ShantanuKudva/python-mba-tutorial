@@ -124,4 +124,19 @@ Change the numbers. Re-run. See the status flip.
 
 ---
 
+## 📚 Resources
+
+**Official docs**
+- [Tutorial — `if` statements](https://docs.python.org/3/tutorial/controlflow.html#if-statements)
+- [Boolean operations](https://docs.python.org/3/library/stdtypes.html#boolean-operations-and-or-not)
+
+**Deep dives**
+- [Real Python — Conditional statements](https://realpython.com/python-conditional-statements/)
+
+**Video tutorials**
+- [YouTube — Python if/elif/else explained](https://www.youtube.com/results?search_query=python+if+elif+else+tutorial)
+
+
+---
+
 Next: [`04-strings.md`](04-strings.md).

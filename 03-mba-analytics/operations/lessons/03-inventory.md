@@ -55,3 +55,18 @@ print(f"Reorder when stock <= {rop:.0f}, order {order_qty:.0f} at a time.")
 ---
 
 Done with operations lessons. Move to [`exercises/`](../exercises/) and [`project.md`](../project.md).
+
+---
+
+## 📚 Resources
+
+**Official docs**
+- [Investopedia — EOQ](https://www.investopedia.com/terms/e/economicorderquantity.asp)
+- [Investopedia — safety stock](https://www.investopedia.com/terms/s/safetystock.asp)
+
+**Deep dives**
+- [CFI — inventory management](https://corporatefinanceinstitute.com/resources/management/inventory-management/)
+
+**Video tutorials**
+- [YouTube — EOQ & safety stock explained](https://www.youtube.com/results?search_query=EOQ+economic+order+quantity+safety+stock+explained)
+

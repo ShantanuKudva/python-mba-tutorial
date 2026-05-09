@@ -3,6 +3,8 @@ Exercise 2 — Summarize prompt.
 
 Send the metrics below. Ask for a 4-bullet executive summary, ≤15 words per bullet.
 Print the response.
+
+📚 References: see the 📚 Resources block at the bottom of the related lesson(s) in `lessons/` for official docs, deep dives, and video tutorials. Global resource index lives in ROADMAP.md.
 """
 
 import os

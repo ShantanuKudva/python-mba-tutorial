@@ -45,4 +45,19 @@ The result: rows = cohort month, cols = period index (0, 1, 2, …), values = % 
 
 ---
 
+## 📚 Resources
+
+**Official docs**
+- [Investopedia — cohort analysis](https://www.investopedia.com/terms/c/cohortanalysis.asp)
+- [`pandas.crosstab`](https://pandas.pydata.org/docs/reference/api/pandas.crosstab.html)
+
+**Deep dives**
+- [CFI — cohort analysis explainer](https://corporatefinanceinstitute.com/resources/data-science/cohort-analysis/)
+
+**Video tutorials**
+- [YouTube — cohort analysis in pandas](https://www.youtube.com/results?search_query=cohort+analysis+pandas+tutorial)
+
+
+---
+
 Next: [`03-ab-test.md`](03-ab-test.md).

@@ -93,4 +93,19 @@ print(f"Net margin:       {pct(net_margin(pl))}")
 
 ---
 
+## 📚 Resources
+
+**Official docs**
+- [Investopedia — financial ratios](https://www.investopedia.com/terms/r/ratioanalysis.asp)
+- [CFI — financial ratios reference](https://corporatefinanceinstitute.com/resources/accounting/financial-ratios/)
+
+**Deep dives**
+- [SEC — How to read financial statements](https://www.investor.gov/introduction-investing/general-resources/news-alerts/alerts-bulletins/investor-bulletins/how-read)
+
+**Video tutorials**
+- [YouTube — financial ratios explained](https://www.youtube.com/results?search_query=financial+ratios+analysis+explained)
+
+
+---
+
 Next: [`02-time-value.md`](02-time-value.md).

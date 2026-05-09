@@ -125,4 +125,20 @@ Run it. You should see `Revenue: $59,988.00`.
 
 ---
 
+## 📚 Resources
+
+**Official docs**
+- [Built-in types (`int`, `float`, `str`, `bool`)](https://docs.python.org/3/library/stdtypes.html)
+- [`type()` and `isinstance()`](https://docs.python.org/3/library/functions.html#type)
+
+**Deep dives**
+- [Real Python — Basic data types](https://realpython.com/python-data-types/)
+- [Real Python — Variables in Python](https://realpython.com/python-variables/)
+
+**Video tutorials**
+- [YouTube — Variables & data types](https://www.youtube.com/results?search_query=python+variables+data+types+tutorial)
+
+
+---
+
 Next: [`03-conditionals.md`](03-conditionals.md).

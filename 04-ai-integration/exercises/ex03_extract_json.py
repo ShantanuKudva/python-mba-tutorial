@@ -3,6 +3,8 @@ Exercise 3 — Extract structured JSON.
 
 Ask Groq to extract company, revenue, ceo from the text.
 Parse the response with json.loads. Print the dict.
+
+📚 References: see the 📚 Resources block at the bottom of the related lesson(s) in `lessons/` for official docs, deep dives, and video tutorials. Global resource index lives in ROADMAP.md.
 """
 
 import json

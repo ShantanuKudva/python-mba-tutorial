@@ -131,4 +131,22 @@ Goals:
 
 ---
 
+## 📚 Resources
+
+**Official docs**
+- [`str` methods reference](https://docs.python.org/3/library/stdtypes.html#string-methods)
+- [Format spec mini-language](https://docs.python.org/3/library/string.html#format-specification-mini-language)
+- [PEP 498 — formatted string literals](https://peps.python.org/pep-0498/)
+
+**Deep dives**
+- [Real Python — f-strings](https://realpython.com/python-f-strings/)
+- [Real Python — string methods](https://realpython.com/python-strings/)
+
+**Video tutorials**
+- [YouTube — Corey Schafer: strings](https://www.youtube.com/results?search_query=corey+schafer+python+strings)
+- [YouTube — f-strings deep dive](https://www.youtube.com/results?search_query=python+f-strings+tutorial)
+
+
+---
+
 Next: that's all of week 1's lessons. Head to the [exercises](../exercises/) and [project](../project.md).

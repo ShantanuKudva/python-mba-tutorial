@@ -6,6 +6,8 @@ Compute weekly_avg, weekly_std, safety_stock at z=1.65, lead_time=4 wk,
 and the reorder point.
 
 Print all four values.
+
+📚 References: see the 📚 Resources block at the bottom of the related lesson(s) in `lessons/` for official docs, deep dives, and video tutorials. Global resource index lives in ROADMAP.md.
 """
 
 from pathlib import Path

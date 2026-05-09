@@ -5,6 +5,8 @@ Read the orders sheet.
 Parse `order_date` to datetime.
 Compute monthly revenue using groupby on month period (or resample).
 Print the resulting series.
+
+📚 References: see the 📚 Resources block at the bottom of the related lesson(s) in `lessons/` for official docs, deep dives, and video tutorials. Global resource index lives in ROADMAP.md.
 """
 
 from pathlib import Path

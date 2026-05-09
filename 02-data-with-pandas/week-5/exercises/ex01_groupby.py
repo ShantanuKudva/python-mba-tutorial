@@ -4,6 +4,8 @@ Exercise 1 — groupby.
 Read datasets/marketing/sample_orders.xlsx.
 Group by `region`. Compute total revenue, average order value, and order count.
 Print the result.
+
+📚 References: see the 📚 Resources block at the bottom of the related lesson(s) in `lessons/` for official docs, deep dives, and video tutorials. Global resource index lives in ROADMAP.md.
 """
 
 from pathlib import Path

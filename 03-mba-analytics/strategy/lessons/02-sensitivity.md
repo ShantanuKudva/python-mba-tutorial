@@ -48,3 +48,18 @@ def tornado_chart(sens, base_value, out_path):
 ---
 
 Done with strategy lessons. Move to [`exercises/`](../exercises/) and [`project.md`](../project.md).
+
+---
+
+## 📚 Resources
+
+**Official docs**
+- [Investopedia — sensitivity analysis](https://www.investopedia.com/terms/s/sensitivityanalysis.asp)
+- [matplotlib — barh (tornado)](https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.barh.html)
+
+**Deep dives**
+- [CFI — sensitivity analysis & tornado charts](https://corporatefinanceinstitute.com/resources/financial-modeling/sensitivity-analysis/)
+
+**Video tutorials**
+- [YouTube — tornado chart tutorial](https://www.youtube.com/results?search_query=tornado+chart+sensitivity+analysis+tutorial)
+

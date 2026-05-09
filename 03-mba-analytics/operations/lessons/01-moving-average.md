@@ -23,4 +23,19 @@ print(forecast)
 
 ---
 
+## 📚 Resources
+
+**Official docs**
+- [`DataFrame.rolling`](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.rolling.html)
+- [Investopedia — moving average](https://www.investopedia.com/terms/m/movingaverage.asp)
+
+**Deep dives**
+- [Forecasting: Principles and Practice — moving averages](https://otexts.com/fpp3/classical-decomposition.html)
+
+**Video tutorials**
+- [YouTube — moving average forecasting](https://www.youtube.com/results?search_query=moving+average+forecasting+python+pandas)
+
+
+---
+
 Next: [`02-ets.md`](02-ets.md).

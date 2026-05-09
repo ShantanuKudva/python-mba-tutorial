@@ -82,6 +82,38 @@ print(f"Total revenue: ${revenue:,}")
 
 What if you wanted to skip products that sold less than 50 units? Add an `if` inside the loop.
 
+### More to try
+
+**Slicing + `enumerate`** — given the prices below, print the *top 3* with their rank:
+
+```python
+prices = [9.99, 14.50, 7.00, 22.00, 3.49, 18.75]
+sorted_prices = sorted(prices, reverse=True)
+
+# 🛠️ Use enumerate on sorted_prices[:3] to print:
+#   "#1: $22.00", "#2: $18.75", "#3: $14.50"
+```
+
+**`max` / `min` with parallel lists** — find the priciest product by name:
+
+```python
+products = ["Widget A", "Widget B", "Widget C", "Widget D"]
+prices   = [9.99, 14.50, 7.00, 22.00]
+
+# 🛠️ Find the index of max(prices), then look up products[that_index].
+# Hint: prices.index(max(prices))
+```
+
+**Mutation** — start with an empty cart, append 3 items, replace item at index 1, then remove one:
+
+```python
+cart = []
+# 🛠️ append "Notebook", "Pen", "Eraser"
+# 🛠️ replace cart[1] with "Blue Pen"
+# 🛠️ remove "Eraser"
+# print(cart)  # ["Notebook", "Blue Pen"]
+```
+
 ---
 
 ## Common confusions
@@ -89,6 +121,27 @@ What if you wanted to skip products that sold less than 50 units? Add an `if` in
 **`IndexError: list index out of range`** — you asked for `products[5]` on a list with 3 items.
 
 **Modifying a list while looping over it** — don't. Build a new list instead (we'll see how with comprehensions in lesson 3).
+
+---
+
+## 📚 Resources
+
+**Official docs**
+
+- [Tutorial — lists](https://docs.python.org/3/tutorial/datastructures.html#more-on-lists)
+- [Tutorial — `for` statement](https://docs.python.org/3/tutorial/controlflow.html#for-statements)
+- [`range()`](https://docs.python.org/3/library/stdtypes.html#range)
+- [`enumerate()`](https://docs.python.org/3/library/functions.html#enumerate)
+
+**Deep dives**
+
+- [Real Python — Lists & tuples](https://realpython.com/python-lists-tuples/)
+- [Real Python — `for` loops](https://realpython.com/python-for-loop/)
+
+**Video tutorials**
+
+- [YouTube — Corey Schafer: lists, tuples, sets](https://www.youtube.com/results?search_query=corey+schafer+python+lists+tuples+sets)
+- [YouTube — for loop tutorial](https://www.youtube.com/results?search_query=python+for+loop+tutorial)
 
 ---
 

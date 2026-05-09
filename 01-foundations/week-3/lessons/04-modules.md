@@ -87,4 +87,20 @@ Means: "only run this if the file is executed directly, not when it's imported b
 
 ---
 
+## 📚 Resources
+
+**Official docs**
+- [Tutorial — modules](https://docs.python.org/3/tutorial/modules.html)
+- [`__name__ == '__main__'`](https://docs.python.org/3/library/__main__.html)
+
+**Deep dives**
+- [Real Python — modules and packages](https://realpython.com/python-modules-packages/)
+- [Real Python — `if __name__ == '__main__'`](https://realpython.com/if-name-main-python/)
+
+**Video tutorials**
+- [YouTube — Corey Schafer: modules & imports](https://www.youtube.com/results?search_query=corey+schafer+python+modules+imports)
+
+
+---
+
 Next: [`05-pathlib-and-json.md`](05-pathlib-and-json.md).

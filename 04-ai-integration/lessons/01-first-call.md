@@ -60,4 +60,20 @@ Common errors: invalid key, rate limited (429), model busy.
 
 ---
 
+## 📚 Resources
+
+**Official docs**
+- [Groq — quickstart](https://console.groq.com/docs/quickstart)
+- [Groq — chat completions](https://console.groq.com/docs/api-reference#chat)
+- [OpenAI Python SDK (Groq is API-compatible)](https://github.com/openai/openai-python)
+
+**Deep dives**
+- [Groq — model list](https://console.groq.com/docs/models)
+
+**Video tutorials**
+- [YouTube — Groq API tutorial](https://www.youtube.com/results?search_query=groq+api+python+tutorial)
+
+
+---
+
 Next: [`02-prompts.md`](02-prompts.md).

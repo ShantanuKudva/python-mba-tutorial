@@ -58,4 +58,21 @@ df["price"] * 1.10           # vectorized — operates on every row at once
 
 ---
 
+## 📚 Resources
+
+**Official docs**
+- [pandas — Intro to data structures](https://pandas.pydata.org/docs/user_guide/dsintro.html)
+- [`pandas.DataFrame` reference](https://pandas.pydata.org/docs/reference/frame.html)
+- [10 minutes to pandas](https://pandas.pydata.org/docs/user_guide/10min.html)
+
+**Deep dives**
+- [Real Python — pandas DataFrames](https://realpython.com/pandas-dataframe/)
+
+**Video tutorials**
+- [YouTube — Corey Schafer: pandas series and DataFrames](https://www.youtube.com/results?search_query=corey+schafer+pandas+dataframe)
+- [YouTube — Keith Galli: complete pandas tutorial](https://www.youtube.com/results?search_query=keith+galli+pandas+tutorial)
+
+
+---
+
 Next: [`02-read-write-excel.md`](02-read-write-excel.md).

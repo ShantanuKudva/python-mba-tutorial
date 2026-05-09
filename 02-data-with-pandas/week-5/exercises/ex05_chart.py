@@ -4,6 +4,8 @@ Exercise 5 — Bar chart to PNG.
 Same dataset. Make a bar chart of monthly revenue.
 Save as `monthly.png` next to this script.
 Use plt.tight_layout() and dpi=150.
+
+📚 References: see the 📚 Resources block at the bottom of the related lesson(s) in `lessons/` for official docs, deep dives, and video tutorials. Global resource index lives in ROADMAP.md.
 """
 
 from pathlib import Path

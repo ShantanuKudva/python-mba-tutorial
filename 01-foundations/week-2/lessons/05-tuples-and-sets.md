@@ -131,4 +131,21 @@ this_q = ["acme", "stark", "umbrella", "umbrella"]
 
 ---
 
+## 📚 Resources
+
+**Official docs**
+- [Tuples and sequences](https://docs.python.org/3/tutorial/datastructures.html#tuples-and-sequences)
+- [Sets](https://docs.python.org/3/tutorial/datastructures.html#sets)
+- [`set` reference](https://docs.python.org/3/library/stdtypes.html#set-types-set-frozenset)
+
+**Deep dives**
+- [Real Python — Sets](https://realpython.com/python-sets/)
+
+**Video tutorials**
+- [YouTube — tuples vs lists](https://www.youtube.com/results?search_query=python+tuples+vs+lists+tutorial)
+- [YouTube — sets explained](https://www.youtube.com/results?search_query=python+sets+tutorial)
+
+
+---
+
 Next: [exercises](../exercises/) and [project](../project.md).

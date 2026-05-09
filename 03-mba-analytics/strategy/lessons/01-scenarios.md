@@ -46,4 +46,18 @@ df.to_excel("scenarios.xlsx", index=False)
 
 ---
 
+## 📚 Resources
+
+**Official docs**
+- [Investopedia — scenario analysis](https://www.investopedia.com/terms/s/scenario_analysis.asp)
+
+**Deep dives**
+- [CFI — scenario analysis](https://corporatefinanceinstitute.com/resources/financial-modeling/scenario-analysis/)
+
+**Video tutorials**
+- [YouTube — scenario analysis modeling](https://www.youtube.com/results?search_query=scenario+analysis+financial+modeling)
+
+
+---
+
 Next: [`02-sensitivity.md`](02-sensitivity.md).

@@ -3,6 +3,7 @@ Exercise 4 — Bonus eligibility.
 
 Concepts: and / or / not, booleans.
 Lesson: lessons/03-conditionals.md
+📚 References: open the lesson above and see its 📚 Resources section at the bottom (official docs, deep dives, video tutorials). Global index in ROADMAP.md.
 
 Rules:
 - Eligible for full bonus if: revenue >= target AND no compliance violations.

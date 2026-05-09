@@ -72,4 +72,19 @@ Expect Champions to have the highest average spend. If not — your scoring is i
 
 ---
 
+## 📚 Resources
+
+**Official docs**
+- [Wikipedia — RFM analysis](https://en.wikipedia.org/wiki/RFM_(market_research))
+- [`pandas.qcut`](https://pandas.pydata.org/docs/reference/api/pandas.qcut.html)
+
+**Deep dives**
+- [Towards Data Science — RFM with pandas (search)](https://www.youtube.com/results?search_query=RFM+segmentation+pandas+tutorial)
+
+**Video tutorials**
+- [YouTube — RFM segmentation](https://www.youtube.com/results?search_query=RFM+analysis+customer+segmentation+python)
+
+
+---
+
 Next: [`02-cohorts.md`](02-cohorts.md).

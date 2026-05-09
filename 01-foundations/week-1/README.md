@@ -29,8 +29,11 @@ By Friday this week, you will have built a CLI break-even calculator. That same 
 | [`lessons/01-hello-python.md`](lessons/01-hello-python.md) | Run your first script. |
 | [`lessons/02-variables-and-types.md`](lessons/02-variables-and-types.md) | The four basic types you'll use 99% of the time. |
 | [`lessons/03-conditionals.md`](lessons/03-conditionals.md) | If/elif/else — the engine of every business rule. |
-| [`exercises/`](exercises/) | 5 problems. Try them all. |
+| [`lessons/04-strings.md`](lessons/04-strings.md) | String methods, slicing, f-strings + format spec. |
+| [`exercises/`](exercises/) | 8 problems. Try them all. |
 | [`project.md`](project.md) | Build the break-even CLI. |
+
+Every lesson ends with a **📚 Resources** block — official docs, a deep-dive read, and curated YouTube searches.
 
 ---
 
@@ -41,9 +44,10 @@ By Friday this week, you will have built a CLI break-even calculator. That same 
 | 1 | Read lesson 1. Run `hello.py`. Commit. |
 | 2 | Read lesson 2. Do exercises 1 and 2. |
 | 3 | Read lesson 3. Do exercises 3 and 4. |
-| 4 | Do exercise 5. Read project.md, sketch the inputs/outputs on paper. |
-| 5 | Build the project (first pass). |
-| 6 | Polish the project. Commit. Move to week 2. |
+| 4 | Read lesson 4 (strings). Do exercises 5, 6, 7. |
+| 5 | Exercise 8 + skim project.md. Sketch inputs/outputs on paper. |
+| 6 | Build the project (first pass). |
+| 7 | Polish the project. Commit. Move to week 2. |
 
 ---
 

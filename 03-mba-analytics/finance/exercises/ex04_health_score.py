@@ -14,6 +14,8 @@ Suggested heuristic (tweak as you like, but document your choice):
 
 Print the final score and a one-line verdict
 (Strong / Stable / Watch / At Risk).
+
+📚 References: see the 📚 Resources block at the bottom of the related lesson(s) in `lessons/` for official docs, deep dives, and video tutorials. Global resource index lives in ROADMAP.md.
 """
 
 # 🛠️ Implement scoring + verdict.

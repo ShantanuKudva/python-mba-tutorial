@@ -42,3 +42,18 @@ That's enough for the project.
 ---
 
 Done with week 5 lessons. Move to [`exercises/`](../exercises/) and [`project.md`](../project.md).
+
+---
+
+## 📚 Resources
+
+**Official docs**
+- [pandas plotting](https://pandas.pydata.org/docs/user_guide/visualization.html)
+- [matplotlib pyplot tutorial](https://matplotlib.org/stable/tutorials/pyplot.html)
+
+**Deep dives**
+- [Real Python — matplotlib](https://realpython.com/python-matplotlib-guide/)
+
+**Video tutorials**
+- [YouTube — Corey Schafer: matplotlib](https://www.youtube.com/results?search_query=corey+schafer+matplotlib+tutorial)
+

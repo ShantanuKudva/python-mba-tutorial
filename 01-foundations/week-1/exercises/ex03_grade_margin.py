@@ -3,6 +3,7 @@ Exercise 3 — Grade a margin.
 
 Concepts: if / elif / else.
 Lesson: lessons/03-conditionals.md
+📚 References: open the lesson above and see its 📚 Resources section at the bottom (official docs, deep dives, video tutorials). Global index in ROADMAP.md.
 
 Given a profit margin (in %), print one of:
     >= 25      "Excellent"

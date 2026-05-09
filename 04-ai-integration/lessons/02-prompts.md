@@ -49,4 +49,19 @@ Feedback:
 
 ---
 
+## 📚 Resources
+
+**Official docs**
+- [Anthropic — prompt engineering overview](https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/overview)
+- [OpenAI — prompt engineering guide](https://platform.openai.com/docs/guides/prompt-engineering)
+
+**Deep dives**
+- [learnprompting.org](https://learnprompting.org/)
+
+**Video tutorials**
+- [YouTube — prompt engineering crash course](https://www.youtube.com/results?search_query=prompt+engineering+crash+course)
+
+
+---
+
 Next: [`03-data-to-prompt.md`](03-data-to-prompt.md).

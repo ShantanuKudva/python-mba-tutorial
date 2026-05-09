@@ -46,4 +46,19 @@ band = pd.DataFrame({
 
 ---
 
+## 📚 Resources
+
+**Official docs**
+- [statsmodels — exponential smoothing](https://www.statsmodels.org/stable/tsa.html#exponential-smoothing)
+- [`ExponentialSmoothing`](https://www.statsmodels.org/stable/generated/statsmodels.tsa.holtwinters.ExponentialSmoothing.html)
+
+**Deep dives**
+- [FPP3 — exponential smoothing chapter](https://otexts.com/fpp3/expsmooth.html)
+
+**Video tutorials**
+- [YouTube — Holt-Winters in Python](https://www.youtube.com/results?search_query=holt+winters+exponential+smoothing+python+tutorial)
+
+
+---
+
 Next: [`03-inventory.md`](03-inventory.md).

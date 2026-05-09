@@ -6,6 +6,8 @@ Concepts: zip, sum, loop.
 Two lists of equal length. Compute total revenue.
 
 Expected: $32,475.00
+
+📚 References: see the 📚 Resources block at the bottom of the related lesson(s) in `lessons/` for official docs, deep dives, and video tutorials. Global resource index lives in ROADMAP.md.
 """
 
 units = [120, 80, 200, 45]

@@ -85,4 +85,19 @@ for key, value in product.items():
 
 ---
 
+## 📚 Resources
+
+**Official docs**
+- [Tutorial — dictionaries](https://docs.python.org/3/tutorial/datastructures.html#dictionaries)
+- [`dict` reference](https://docs.python.org/3/library/stdtypes.html#mapping-types-dict)
+
+**Deep dives**
+- [Real Python — Dictionaries](https://realpython.com/python-dicts/)
+
+**Video tutorials**
+- [YouTube — Corey Schafer: dictionaries](https://www.youtube.com/results?search_query=corey+schafer+python+dictionaries)
+
+
+---
+
 Next: [`03-comprehensions.md`](03-comprehensions.md).

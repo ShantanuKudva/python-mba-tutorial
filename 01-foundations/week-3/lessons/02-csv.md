@@ -51,4 +51,19 @@ with open("summary.csv", "w", newline="") as f:
 
 ---
 
+## 📚 Resources
+
+**Official docs**
+- [`csv` module](https://docs.python.org/3/library/csv.html)
+- [`csv.DictReader`](https://docs.python.org/3/library/csv.html#csv.DictReader)
+
+**Deep dives**
+- [Real Python — Reading & writing CSV](https://realpython.com/python-csv/)
+
+**Video tutorials**
+- [YouTube — Corey Schafer: CSV module](https://www.youtube.com/results?search_query=corey+schafer+python+csv+module)
+
+
+---
+
 Next: [`03-errors.md`](03-errors.md).

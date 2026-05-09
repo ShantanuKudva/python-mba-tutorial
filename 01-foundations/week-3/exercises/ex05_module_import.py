@@ -8,6 +8,8 @@ There's a `helpers.py` next to this file with a function `format_currency`.
 If the import fails, you're probably running the file from the wrong directory.
 Run it as:
     python 01-foundations/week-3/exercises/ex05_module_import.py
+
+📚 References: see the 📚 Resources block at the bottom of the related lesson(s) in `lessons/` for official docs, deep dives, and video tutorials. Global resource index lives in ROADMAP.md.
 """
 
 import sys

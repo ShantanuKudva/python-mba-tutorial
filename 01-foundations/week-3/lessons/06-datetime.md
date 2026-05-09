@@ -166,3 +166,18 @@ from datetime import date, timedelta
 ---
 
 Done with week 3 lessons. Move to [`exercises/`](../exercises/) and the [project](../project.md).
+
+---
+
+## 📚 Resources
+
+**Official docs**
+- [`datetime` module](https://docs.python.org/3/library/datetime.html)
+- [`strftime` / `strptime` codes](https://docs.python.org/3/library/datetime.html#strftime-and-strptime-format-codes)
+
+**Deep dives**
+- [Real Python — datetime](https://realpython.com/python-datetime/)
+
+**Video tutorials**
+- [YouTube — Corey Schafer: datetime](https://www.youtube.com/results?search_query=corey+schafer+python+datetime)
+

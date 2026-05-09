@@ -10,6 +10,8 @@ Send the rendered text to Groq. Ask for a 5-bullet exec summary
 focusing on trends, concentration, and risks.
 
 Print the model's response.
+
+📚 References: see the 📚 Resources block at the bottom of the related lesson(s) in `lessons/` for official docs, deep dives, and video tutorials. Global resource index lives in ROADMAP.md.
 """
 
 import os

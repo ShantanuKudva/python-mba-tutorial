@@ -5,6 +5,8 @@ Concepts: list of dicts, loop + if.
 
 Print every product with stock < 30. Format:
     LOW STOCK: <name> (sku <sku>) — only <n> left
+
+📚 References: see the 📚 Resources block at the bottom of the related lesson(s) in `lessons/` for official docs, deep dives, and video tutorials. Global resource index lives in ROADMAP.md.
 """
 
 inventory = [

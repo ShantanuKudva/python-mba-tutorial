@@ -57,4 +57,19 @@ low_stock_skus = [row["sku"] for row in inventory if row["stock"] < 50]
 
 ---
 
+## 📚 Resources
+
+**Official docs**
+- [Tutorial — list comprehensions](https://docs.python.org/3/tutorial/datastructures.html#list-comprehensions)
+- [Tutorial — dict & set comprehensions](https://docs.python.org/3/tutorial/datastructures.html#dictionaries)
+
+**Deep dives**
+- [Real Python — list comprehensions](https://realpython.com/list-comprehension-python/)
+
+**Video tutorials**
+- [YouTube — list comprehensions](https://www.youtube.com/results?search_query=python+list+comprehension+tutorial)
+
+
+---
+
 Next: [`04-functions.md`](04-functions.md).

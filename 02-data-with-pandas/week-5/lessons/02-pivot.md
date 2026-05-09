@@ -40,4 +40,19 @@ df.pivot_table(
 
 ---
 
+## 📚 Resources
+
+**Official docs**
+- [Reshaping & pivot tables](https://pandas.pydata.org/docs/user_guide/reshaping.html)
+- [`pandas.pivot_table`](https://pandas.pydata.org/docs/reference/api/pandas.pivot_table.html)
+
+**Deep dives**
+- [Real Python — pivot tables](https://realpython.com/python-pivot-tables/)
+
+**Video tutorials**
+- [YouTube — pivot_table tutorial](https://www.youtube.com/results?search_query=pandas+pivot_table+tutorial)
+
+
+---
+
 Next: [`03-merge.md`](03-merge.md).

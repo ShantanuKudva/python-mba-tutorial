@@ -3,6 +3,8 @@ Exercise 4 — A/B test on synthetic data.
 
 Two groups of revenue-per-user. Compute means, lift %, p-value, and significance.
 Use the wrapper from lesson 3.
+
+📚 References: see the 📚 Resources block at the bottom of the related lesson(s) in `lessons/` for official docs, deep dives, and video tutorials. Global resource index lives in ROADMAP.md.
 """
 
 import numpy as np

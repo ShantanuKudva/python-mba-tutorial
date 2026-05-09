@@ -52,3 +52,19 @@ df["category"] = df["category"].str.strip()
 ---
 
 Done with week 4 lessons. Move to [`exercises/`](../exercises/) and [`project.md`](../project.md).
+
+---
+
+## 📚 Resources
+
+**Official docs**
+- [Working with missing data](https://pandas.pydata.org/docs/user_guide/missing_data.html)
+- [`DataFrame.fillna`](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.fillna.html)
+- [`DataFrame.dropna`](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.dropna.html)
+
+**Deep dives**
+- [Real Python — handling missing data](https://realpython.com/pandas-missing-data/)
+
+**Video tutorials**
+- [YouTube — pandas missing data](https://www.youtube.com/results?search_query=pandas+missing+data+fillna+dropna+tutorial)
+

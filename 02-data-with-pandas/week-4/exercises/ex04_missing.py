@@ -6,6 +6,8 @@ Print:
   - count of NaN per column
   - the DataFrame after filling text NaN with "Unknown"
     and numeric NaN with 0
+
+📚 References: see the 📚 Resources block at the bottom of the related lesson(s) in `lessons/` for official docs, deep dives, and video tutorials. Global resource index lives in ROADMAP.md.
 """
 
 from pathlib import Path

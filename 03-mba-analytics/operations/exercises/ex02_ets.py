@@ -3,6 +3,8 @@ Exercise 2 — ETS forecast.
 
 Same SKU. Fit Holt-Winters with additive trend and seasonality (12).
 Print the 12-period forecast and the residual std (for the confidence band).
+
+📚 References: see the 📚 Resources block at the bottom of the related lesson(s) in `lessons/` for official docs, deep dives, and video tutorials. Global resource index lives in ROADMAP.md.
 """
 
 from pathlib import Path

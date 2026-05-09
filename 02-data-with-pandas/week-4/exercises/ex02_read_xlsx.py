@@ -2,6 +2,8 @@
 Exercise 2 — Read an xlsx.
 
 Read datasets/finance/sample_pl.xlsx and print its head + shape.
+
+📚 References: see the 📚 Resources block at the bottom of the related lesson(s) in `lessons/` for official docs, deep dives, and video tutorials. Global resource index lives in ROADMAP.md.
 """
 
 from pathlib import Path

@@ -66,6 +66,13 @@ week-N/
 └── project.md      ← the mini-project that ties the week together.
 ```
 
+Every lesson ends with a **📚 Resources** section linking to:
+- The relevant **official docs** (Python, pandas, scipy, statsmodels, etc.)
+- A **deep-dive** read (Real Python, Investopedia, CFI, FPP3)
+- **Video tutorials** (curated YouTube searches: Corey Schafer, Keith Galli, freeCodeCamp, etc.)
+
+Use them when the lesson skims a topic you'd like to understand more deeply.
+
 ---
 
 ## Daily flow (suggested, ~1 hour/day)
@@ -136,8 +143,38 @@ Frontend (Next.js) is **already built**. You wire up the backend (FastAPI). Ever
 - `📍` = checkpoint — stop here and run something before moving on.
 - `🧠` = concept callout — *why* this matters, not just *how*.
 - `🛠️` = your turn — code to write yourself.
+- `📚` = resources — docs / deep-dives / videos at the end of each lesson.
 - `✅` = solution exists in `solutions/` for this exercise.
-- File mentions like [`week-1/lessons/01-variables.md`](01-foundations/week-1/lessons/01-variables.md) are clickable in VSCode and GitHub.
+- File mentions like [`week-1/lessons/01-hello-python.md`](01-foundations/week-1/lessons/01-hello-python.md) are clickable in VSCode and GitHub.
+
+---
+
+## Global reference shelf
+
+Bookmark these — you'll come back to them constantly.
+
+**Python core**
+- [Official Python tutorial](https://docs.python.org/3/tutorial/index.html)
+- [Python standard library reference](https://docs.python.org/3/library/index.html)
+- [Real Python](https://realpython.com/) — best long-form tutorials
+- [Corey Schafer — Python tutorials (YouTube)](https://www.youtube.com/@coreyms)
+
+**Data**
+- [pandas user guide](https://pandas.pydata.org/docs/user_guide/index.html)
+- [10 minutes to pandas](https://pandas.pydata.org/docs/user_guide/10min.html)
+- [matplotlib pyplot tutorial](https://matplotlib.org/stable/tutorials/pyplot.html)
+- [Keith Galli — pandas tutorials (YouTube search)](https://www.youtube.com/results?search_query=keith+galli+pandas)
+
+**MBA analytics**
+- [Investopedia](https://www.investopedia.com/) — quick definitions, formulas
+- [Corporate Finance Institute](https://corporatefinanceinstitute.com/resources/) — finance deep-dives
+- [Forecasting: Principles and Practice (free book)](https://otexts.com/fpp3/)
+
+**AI / LLMs**
+- [Groq quickstart](https://console.groq.com/docs/quickstart)
+- [Anthropic prompt engineering guide](https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/overview)
+- [OpenAI prompt engineering guide](https://platform.openai.com/docs/guides/prompt-engineering)
+- [learnprompting.org](https://learnprompting.org/)
 
 ---
 

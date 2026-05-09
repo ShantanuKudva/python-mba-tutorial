@@ -12,6 +12,8 @@ Rules:
     Bill:  $XXX.XX
     Tip:   $YY.YY  (Z%)
     Total: $TTT.TT
+
+📚 References: see the 📚 Resources block at the bottom of the related lesson(s) in `lessons/` for official docs, deep dives, and video tutorials. Global resource index lives in ROADMAP.md.
 """
 
 bill = 240.00

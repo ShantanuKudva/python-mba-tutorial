@@ -1,6 +1,8 @@
 """
 Exercise 1 — Compute raw R, F, M per customer.
 Print head() of the resulting DataFrame.
+
+📚 References: see the 📚 Resources block at the bottom of the related lesson(s) in `lessons/` for official docs, deep dives, and video tutorials. Global resource index lives in ROADMAP.md.
 """
 
 from pathlib import Path

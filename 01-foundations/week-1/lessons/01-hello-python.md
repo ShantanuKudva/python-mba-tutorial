@@ -82,4 +82,20 @@ git commit -m "week 1 lesson 1 — first script"
 
 ---
 
+## 📚 Resources
+
+**Official docs**
+- [Python tutorial — using the interpreter](https://docs.python.org/3/tutorial/interpreter.html)
+- [`print()` reference](https://docs.python.org/3/library/functions.html#print)
+
+**Deep dives**
+- [Real Python — Your first Python program](https://realpython.com/python-first-steps/)
+
+**Video tutorials**
+- [YouTube — Corey Schafer: Python beginner setup](https://www.youtube.com/results?search_query=corey+schafer+python+beginner+getting+started)
+- [YouTube — Python tutorial for beginners](https://www.youtube.com/results?search_query=python+tutorial+for+beginners+hello+world)
+
+
+---
+
 Next: [`02-variables-and-types.md`](02-variables-and-types.md).

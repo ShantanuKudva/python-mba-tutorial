@@ -43,4 +43,19 @@ orders.merge(customers, on="customer_id", suffixes=("_order", "_cust"))
 
 ---
 
+## 📚 Resources
+
+**Official docs**
+- [Merge, join, concatenate](https://pandas.pydata.org/docs/user_guide/merging.html)
+- [`pandas.merge`](https://pandas.pydata.org/docs/reference/api/pandas.merge.html)
+
+**Deep dives**
+- [Real Python — combining DataFrames](https://realpython.com/pandas-merge-join-and-concat/)
+
+**Video tutorials**
+- [YouTube — pandas merge & join](https://www.youtube.com/results?search_query=pandas+merge+join+concat+tutorial)
+
+
+---
+
 Next: [`04-dates.md`](04-dates.md).

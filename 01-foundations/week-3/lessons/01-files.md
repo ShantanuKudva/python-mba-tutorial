@@ -50,4 +50,20 @@ print(file_path.exists())   # True / False
 
 ---
 
+## 📚 Resources
+
+**Official docs**
+- [Tutorial — reading & writing files](https://docs.python.org/3/tutorial/inputoutput.html#reading-and-writing-files)
+- [`open()` reference](https://docs.python.org/3/library/functions.html#open)
+
+**Deep dives**
+- [Real Python — working with files](https://realpython.com/working-with-files-in-python/)
+- [Real Python — read & write files](https://realpython.com/read-write-files-python/)
+
+**Video tutorials**
+- [YouTube — Corey Schafer: file objects](https://www.youtube.com/results?search_query=corey+schafer+python+file+objects)
+
+
+---
+
 Next: [`02-csv.md`](02-csv.md).

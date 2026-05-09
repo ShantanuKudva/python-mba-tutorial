@@ -40,4 +40,19 @@ df[df["date"] >= "2026-01-01"]          # column form
 
 ---
 
+## 📚 Resources
+
+**Official docs**
+- [Time series / date functionality](https://pandas.pydata.org/docs/user_guide/timeseries.html)
+- [`pandas.to_datetime`](https://pandas.pydata.org/docs/reference/api/pandas.to_datetime.html)
+
+**Deep dives**
+- [Real Python — pandas time series](https://realpython.com/pandas-time-series/)
+
+**Video tutorials**
+- [YouTube — pandas datetime](https://www.youtube.com/results?search_query=pandas+datetime+time+series+tutorial)
+
+
+---
+
 Next: [`05-plotting.md`](05-plotting.md).

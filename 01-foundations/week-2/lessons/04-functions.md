@@ -98,4 +98,20 @@ print(low)
 
 ---
 
+## 📚 Resources
+
+**Official docs**
+- [Tutorial — defining functions](https://docs.python.org/3/tutorial/controlflow.html#defining-functions)
+- [Default args, *args, **kwargs](https://docs.python.org/3/tutorial/controlflow.html#more-on-defining-functions)
+
+**Deep dives**
+- [Real Python — Defining functions](https://realpython.com/defining-your-own-python-function/)
+- [Real Python — *args and **kwargs](https://realpython.com/python-kwargs-and-args/)
+
+**Video tutorials**
+- [YouTube — Corey Schafer: functions](https://www.youtube.com/results?search_query=corey+schafer+python+functions)
+
+
+---
+
 Next: [`05-tuples-and-sets.md`](05-tuples-and-sets.md).

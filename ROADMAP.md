@@ -50,25 +50,32 @@ Each weekly folder contains:
 - Install [Python 3.12](https://www.python.org/downloads/), [VSCode](https://code.visualstudio.com/docs/python/python-tutorial), [git](https://git-scm.com/doc). [Virtual envs (`venv`)](https://docs.python.org/3/library/venv.html).
 - [Variables & types](https://docs.python.org/3/tutorial/introduction.html), [strings](https://docs.python.org/3/library/stdtypes.html#text-sequence-type-str), [numbers](https://docs.python.org/3/library/stdtypes.html#numeric-types-int-float-complex), [booleans](https://docs.python.org/3/library/stdtypes.html#truth-value-testing).
 - [`if/elif/else`](https://docs.python.org/3/tutorial/controlflow.html#if-statements), [comparison ops](https://docs.python.org/3/library/stdtypes.html#comparisons), [logical ops (`and`/`or`/`not`)](https://docs.python.org/3/library/stdtypes.html#boolean-operations-and-or-not).
+- [String methods](https://docs.python.org/3/library/stdtypes.html#string-methods), [slicing](https://docs.python.org/3/tutorial/introduction.html#strings), [f-strings & format spec](https://docs.python.org/3/library/string.html#format-specification-mini-language).
 - **MBA tie-in:** Convert a manual Excel calc (e.g., simple interest) into Python. Reference: [Investopedia — Simple Interest](https://www.investopedia.com/terms/s/simple_interest.asp).
 - Mini-project: CLI calculator for [break-even point](https://corporatefinanceinstitute.com/resources/accounting/break-even-analysis/).
+- 4 lessons, 8 exercises.
 
 **Week 2 — Collections + control flow**
 
 - [Lists](https://docs.python.org/3/tutorial/datastructures.html#more-on-lists), [dicts](https://docs.python.org/3/tutorial/datastructures.html#dictionaries), [tuples](https://docs.python.org/3/tutorial/datastructures.html#tuples-and-sequences), [sets](https://docs.python.org/3/tutorial/datastructures.html#sets).
 - [`for`](https://docs.python.org/3/tutorial/controlflow.html#for-statements), [`while`](https://docs.python.org/3/reference/compound_stmts.html#while), [list comprehensions](https://docs.python.org/3/tutorial/datastructures.html#list-comprehensions).
 - [Functions](https://docs.python.org/3/tutorial/controlflow.html#defining-functions), parameters, [return](https://docs.python.org/3/reference/simple_stmts.html#the-return-statement), [scope (LEGB)](https://realpython.com/python-scope-legb-rule/).
+- [Set operations](https://docs.python.org/3/library/stdtypes.html#set-types-set-frozenset) (`&`, `|`, `-`) for dedup, churn, intersection.
 - **MBA tie-in:** Iterate over list of products → compute [gross margin](https://corporatefinanceinstitute.com/resources/accounting/gross-margin/) per row.
 - Mini-project: Inventory [reorder-flag](https://corporatefinanceinstitute.com/resources/management/reorder-point/) script (pure Python, no pandas yet).
+- 5 lessons, 8 exercises.
 
 **Week 3 — Files, errors, modules**
 
 - [File I/O](https://docs.python.org/3/tutorial/inputoutput.html#reading-and-writing-files), [CSV via stdlib](https://docs.python.org/3/library/csv.html).
 - [`try/except`](https://docs.python.org/3/tutorial/errors.html#handling-exceptions), [built-in exceptions](https://docs.python.org/3/library/exceptions.html).
 - [Imports / modules](https://docs.python.org/3/tutorial/modules.html), [`pip install`](https://pip.pypa.io/en/stable/cli/pip_install/), [`requirements.txt`](https://pip.pypa.io/en/stable/reference/requirements-file-format/).
+- [`pathlib`](https://docs.python.org/3/library/pathlib.html) for cross-platform paths, [`json`](https://docs.python.org/3/library/json.html) for config + API payloads.
+- [`datetime`](https://docs.python.org/3/library/datetime.html), [strptime/strftime codes](https://docs.python.org/3/library/datetime.html#strftime-and-strptime-format-codes), [`timedelta`](https://docs.python.org/3/library/datetime.html#timedelta-objects) date math.
 - Reading documentation — [How to read Python docs](https://realpython.com/python-documentation-online/).
 - **MBA tie-in:** Parse CSV of monthly sales → output totals.
 - Mini-project: Expense-categorizer reads CSV, outputs summary.
+- 6 lessons, 8 exercises.
 
 ### Phase 2 — Data with pandas (Weeks 4–5)
 

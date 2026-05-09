@@ -55,4 +55,20 @@ Same patterns, faster format.
 
 ---
 
+## 📚 Resources
+
+**Official docs**
+- [`pandas.read_excel`](https://pandas.pydata.org/docs/reference/api/pandas.read_excel.html)
+- [`DataFrame.to_excel`](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.to_excel.html)
+- [openpyxl docs](https://openpyxl.readthedocs.io/en/stable/)
+
+**Deep dives**
+- [Real Python — Working with Excel](https://realpython.com/openpyxl-excel-spreadsheets-python/)
+
+**Video tutorials**
+- [YouTube — pandas Excel I/O](https://www.youtube.com/results?search_query=python+pandas+read+excel+write+excel+tutorial)
+
+
+---
+
 Next: [`03-filter-sort.md`](03-filter-sort.md).

@@ -53,3 +53,18 @@ print(response.choices[0].message.content)
 ---
 
 Done. Move to [`exercises/`](../exercises/) and [`project.md`](../project.md).
+
+---
+
+## 📚 Resources
+
+**Official docs**
+- [`json.dumps` reference](https://docs.python.org/3/library/json.html#json.dumps)
+- [Anthropic — long-context tips](https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/long-context-tips)
+
+**Deep dives**
+- [OpenAI cookbook — structured outputs](https://cookbook.openai.com/)
+
+**Video tutorials**
+- [YouTube — feeding data to LLMs](https://www.youtube.com/results?search_query=feeding+data+csv+json+to+LLM+python+tutorial)
+

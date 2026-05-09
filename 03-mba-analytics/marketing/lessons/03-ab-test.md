@@ -45,3 +45,19 @@ For a binary conversion metric (clicked vs not), prefer a chi-square or proporti
 ---
 
 Done with marketing lessons. Move to [`exercises/`](../exercises/) and [`project.md`](../project.md).
+
+---
+
+## 📚 Resources
+
+**Official docs**
+- [`scipy.stats.ttest_ind`](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.ttest_ind.html)
+- [`scipy.stats.chi2_contingency`](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.chi2_contingency.html)
+
+**Deep dives**
+- [HBR — the surprising power of online experiments](https://hbr.org/2017/09/the-surprising-power-of-online-experiments)
+- [Investopedia — A/B testing](https://www.investopedia.com/terms/a/ab-split.asp)
+
+**Video tutorials**
+- [YouTube — A/B testing in Python](https://www.youtube.com/results?search_query=a%2Fb+testing+python+scipy+tutorial)
+

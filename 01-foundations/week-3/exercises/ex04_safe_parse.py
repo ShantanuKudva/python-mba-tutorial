@@ -7,6 +7,8 @@ Use try/except (ValueError, KeyError).
 Expected output:
     Total: $1,083.55
     Skipped: 1 bad row
+
+📚 References: see the 📚 Resources block at the bottom of the related lesson(s) in `lessons/` for official docs, deep dives, and video tutorials. Global resource index lives in ROADMAP.md.
 """
 
 import csv

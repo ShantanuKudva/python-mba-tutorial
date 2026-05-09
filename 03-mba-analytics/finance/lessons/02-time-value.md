@@ -58,3 +58,19 @@ print(f"Enterprise value: ${enterprise_value:,.0f}")
 ---
 
 Done with finance lessons. On to [`exercises/`](../exercises/) and [`project.md`](../project.md).
+
+---
+
+## 📚 Resources
+
+**Official docs**
+- [`numpy_financial` docs](https://numpy.org/numpy-financial/latest/)
+- [Investopedia — time value of money](https://www.investopedia.com/terms/t/timevalueofmoney.asp)
+- [Investopedia — NPV](https://www.investopedia.com/terms/n/npv.asp)
+
+**Deep dives**
+- [CFI — NPV vs IRR](https://corporatefinanceinstitute.com/resources/financial-modeling/npv-vs-irr/)
+
+**Video tutorials**
+- [YouTube — NPV & IRR explained](https://www.youtube.com/results?search_query=npv+irr+time+value+of+money+explained)
+
