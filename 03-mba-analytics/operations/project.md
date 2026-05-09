@@ -1,41 +1,43 @@
-# Week 8 Project — 12-Month Demand Forecast
+# Week 8 Project — 12-Month Demand Forecast and Inventory Plan
 
 ## What you're building
 
-A script that produces, for each SKU in `sample_demand.xlsx`:
+A script that forecasts demand 12 months ahead and computes an inventory plan (EOQ, safety stock, reorder point) for each SKU.
 
-- 12-month ETS forecast
-- 95% confidence band (lower/upper)
-- Recommended EOQ, safety stock, and reorder point
-- A chart per SKU
-
-Output:
-
-- **`forecast.xlsx`** with:
-  - Sheet "Forecast" — sku | month | forecast | lower | upper.
-  - Sheet "Inventory" — sku | annual_demand | eoq | weekly_avg | weekly_std | safety_stock | reorder_point.
-  - Sheet "History" — original input.
-- **`charts/`** folder with one PNG per SKU showing history + forecast + band.
-
-## Required structure
+## Required functions
 
 ```python
-def load(path) -> pd.DataFrame: ...
-def forecast_one(series, periods=12) -> pd.DataFrame: ...
-def inventory_metrics(series, lead_time_weeks=4, order_cost=75, holding_cost=3) -> dict: ...
-def make_chart(history, forecast_df, sku, out_path: Path) -> None: ...
-def main(): ...
+def forecast_one(series, periods=12) -> pd.Series:
+    """Fit ETS (additive trend) and return 12-month forecast."""
+
+def eoq(annual_demand, order_cost, holding_cost) -> float:
+    """Economic Order Quantity formula."""
+
+def inventory_metrics(series, lead_time_weeks, z) -> dict:
+    """Return weekly_avg, weekly_std, safety_stock, reorder_point, eoq."""
 ```
 
-## File to create
+## Expected output
 
-`03-mba-analytics/operations/forecast.py`
+```
+=== SKU-A FORECAST ===
+2027-01    1345.0
+2027-02    1360.3
+...
+
+=== SKU-A INVENTORY PLAN ===
+Annual demand  : 14,196
+EOQ            :   845.8 units
+Safety stock   :   108.4 units
+Reorder point  :   637.2 units
+```
 
 ## Done when
 
-- Forecast values are positive and roughly continue the historical trend.
-- The confidence band widens (or stays steady) into the future, never narrows.
-- Each chart shows the history and forecast clearly with shaded band.
-- You committed.
+- Forecast values are positive and continue the upward trend.
+- EOQ, safety stock, and reorder point are computed correctly.
+- The report prints for both SKU-A and SKU-B.
 
-🛠️ Stretch: compare ETS vs naive moving-average forecast on a held-out 6 months. Report MAE/MAPE per SKU.
+**Stretch:** draw a line chart showing historical demand and the 12-month forecast for both SKUs on the same axes.
+
+[▶ Open project playground](#play/03-mba-analytics/operations/project.py)

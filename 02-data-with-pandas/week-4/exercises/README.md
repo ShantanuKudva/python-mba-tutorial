@@ -1,13 +1,30 @@
-# Week 4 — Exercises
+# Exercises — Week 4 · DataFrames
 
-| # | File | Teaches |
-|---|---|---|
-| 1 | [`ex01_first_df.py`](ex01_first_df.py) | Build a DataFrame from a dict |
-| 2 | [`ex02_read_xlsx.py`](ex02_read_xlsx.py) | `pd.read_excel` |
-| 3 | [`ex03_filter.py`](ex03_filter.py) | Boolean filtering |
-| 4 | [`ex04_missing.py`](ex04_missing.py) | NaN handling |
-| 5 | [`ex05_save_xlsx.py`](ex05_save_xlsx.py) | Round-trip Excel write |
-| 6 | [`ex06_top_products.py`](ex06_top_products.py) | `sort_values`, `head` |
-| 7 | [`ex07_columns_math.py`](ex07_columns_math.py) | Derived columns, `idxmax` |
+> Practice problems for the lessons in this module. Each exercise opens directly in the browser playground — fill in the steps and click ▶ Run.
 
-These exercises read from [`datasets/finance/sample_pl.xlsx`](../../../datasets/finance/sample_pl.xlsx). If you don't have it yet, see [`datasets/README.md`](../../../datasets/README.md) for how to generate the samples.
+## 📚 Read first
+
+Skim these before attempting the harder exercises:
+- [Lesson 01 — DataFrames](../lessons/01-dataframes.md)
+- [Lesson 02 — Read/Write Excel](../lessons/02-read-write-excel.md)
+- [Lesson 03 — Filter & Sort](../lessons/03-filter-sort.md)
+- [Lesson 04 — Missing Data](../lessons/04-missing-data.md)
+- [pandas official docs — DataFrame](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html)
+- [Real Python — pandas Tutorial](https://realpython.com/pandas-dataframe/)
+
+## 🟢 Easy
+
+- [ex01 — Build a DataFrame from a dict](#play/02-data-with-pandas/week-4/exercises/ex01_first_df.py) — `pd.DataFrame`, `.shape`, `.dtypes`, `.describe`.
+- [ex02 — Inspect a P&L DataFrame](#play/02-data-with-pandas/week-4/exercises/ex02_read_xlsx.py) — `.head()`, `.shape`, `.dtypes`.
+- [ex06 — Top-N products](#play/02-data-with-pandas/week-4/exercises/ex06_top_products.py) — `sort_values`, `head`.
+
+## 🟡 Medium
+
+- [ex03 — Boolean filtering](#play/02-data-with-pandas/week-4/exercises/ex03_filter.py) — boolean indexing, `sort_values`.
+- [ex04 — NaN handling](#play/02-data-with-pandas/week-4/exercises/ex04_missing.py) — `isna`, `fillna`, `select_dtypes`.
+- [ex05 — Round-trip to Excel (in-memory)](#play/02-data-with-pandas/week-4/exercises/ex05_save_xlsx.py) — derived columns, `io.BytesIO`, `to_excel`.
+
+## 🔴 Hard
+
+- [ex07 — Profit and margin columns](#play/02-data-with-pandas/week-4/exercises/ex07_columns_math.py) — column arithmetic, `idxmax`, `loc`.
+- [ex08 — Multi-column sort and rank](#play/02-data-with-pandas/week-4/exercises/ex08_multi_column_sort.py) — `sort_values` with multiple keys, `.rank()` within groups.

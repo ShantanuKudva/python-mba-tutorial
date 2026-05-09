@@ -2,52 +2,45 @@
 
 ## What you're building
 
-A script that takes the messy P&L workbook and produces a clean, standardized version ready for analysis.
+A script that takes a raw P&L DataFrame (with intentional issues) and produces a clean, standardised version ready for analysis.
 
-## Input
+## The raw data has
 
-`datasets/finance/sample_pl.xlsx` (generate it via `datasets/generate_samples.py`). It intentionally has:
+- Inconsistent column casing and trailing whitespace.
+- `None` values in text cells.
+- `NaN` values in numeric cells.
+- No `kind` column (revenue vs expense).
 
-- Inconsistent column casing.
-- Trailing whitespace in text cells.
-- "N/A" strings instead of real blanks.
-- A few rows with missing amounts.
-- A few rows with negative amounts that should be expenses.
+## Expected output
 
-## Output
+```
+=== CLEANED P&L ===
+(10-row DataFrame with columns: line_item, amount, category, kind)
 
-`cleaned_pl.xlsx` next to your script, with:
-
-- All column names lowercased and stripped.
-- All text cells stripped of whitespace.
-- Numeric `amount` column with no NaN (drop or fill — your call, document it).
-- A new `kind` column: `"revenue"` if amount > 0, `"expense"` if < 0.
-- Sorted by date ascending.
-- A second sheet `Summary` with:
-  - Total revenue
-  - Total expense
-  - Net
-  - Number of transactions
+=== SUMMARY ===
+Total revenue  : $5,400,000
+Total expenses : $4,440,000
+Net            :   $960,000
+Transactions   : 10
+```
 
 ## Required structure
 
 ```python
-def load_raw(path) -> pd.DataFrame: ...
-def clean(df) -> pd.DataFrame: ...
-def summary(df) -> pd.DataFrame: ...
-def save(df, summary_df, out_path) -> None: ...
+def clean(df) -> pd.DataFrame:
+    """Lowercase + strip column names; fill NaN; add `kind` column."""
+
+def summary(df) -> dict:
+    """Return total_revenue, total_expenses, net, transactions."""
 ```
-
-Plus a `main()` and the `if __name__ == "__main__":` guard.
-
-## File to create
-
-`02-data-with-pandas/week-4/clean_pl.py`
 
 ## Done when
 
-- `cleaned_pl.xlsx` exists and opens in Excel without warnings.
-- The Summary sheet shows the right totals.
-- You committed.
+- The cleaned DataFrame has all-lowercase stripped column names.
+- `NaN` values are gone (text → "Unknown", numeric → 0).
+- The `kind` column correctly labels "revenue", "expense", or "zero".
+- The summary numbers match the expected output.
 
-🛠️ Stretch: add a `--input` and `--output` flag with `argparse`.
+**Stretch:** write the cleaned DataFrame to an in-memory Excel buffer and confirm the byte count (see Step 5 in the playground).
+
+[▶ Open project playground](#play/02-data-with-pandas/week-4/project.py)

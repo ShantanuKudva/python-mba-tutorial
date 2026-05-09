@@ -1,38 +1,43 @@
-# Week 7 Project — Customer Segmentation Excel
+# Week 7 Project — Customer Segmentation Report
 
 ## What you're building
 
-A script that reads the orders + customers data, computes RFM segments, and outputs a polished Excel workbook a marketing team could actually use.
-
-## Output
-
-`segments.xlsx` with:
-
-- **Sheet "Customers"** — one row per customer: customer_id, name, region, R, F, M, RFM, segment, total_spend.
-- **Sheet "Segments"** — segment | customer_count | total_revenue | avg_recency | avg_frequency | avg_spend.
-- **Sheet "Cohorts"** — cohort retention table (monthly).
-- **Sheet "Charts"** *(stretch)* — embedded chart: bar of revenue by segment.
+A script that computes RFM segments and prints a polished summary table a marketing team could actually use.
 
 ## Required functions
 
 ```python
-def load(path) -> pd.DataFrame: ...               # joined orders + customers
 def rfm(orders, ref_date) -> pd.DataFrame: ...
 def score(rfm_df) -> pd.DataFrame: ...
 def label(row) -> str: ...
-def cohort_retention(orders) -> pd.DataFrame: ...
-def write_report(per_customer, per_segment, cohort, out_path) -> None: ...
 ```
 
-## File to create
+## Expected output
 
-`03-mba-analytics/marketing/segmentation.py`
+```
+=== PER-CUSTOMER RFM ===
+ customer_id  recency  frequency  monetary   segment
+         101        6          3      3800  Champion
+         102       47          2      1750    Loyal
+         103       30          2      1200  Potential
+         104       31          2       700  At Risk
+         105       21          1       200  At Risk
+
+=== SEGMENT SUMMARY ===
+           customers  avg_spend  avg_recency
+segment
+Champion           1     3800.0          6.0
+Loyal              1     1750.0         47.0
+Potential          1     1200.0         30.0
+At Risk            2      450.0         26.0
+```
 
 ## Done when
 
-- Champions have the highest avg_spend.
-- Lost have the highest avg_recency.
-- Cohort table has values that decrease (or stay flat) across periods.
-- You committed.
+- Champions have the highest average spend.
+- At-Risk customers have high recency (they haven't ordered recently).
+- The segment summary is sorted by avg_spend descending.
 
-🛠️ Stretch: produce `segments.png` — donut chart of customer count by segment.
+**Stretch:** add a cohort retention table using the approach from ex03.
+
+[▶ Open project playground](#play/03-mba-analytics/marketing/project.py)

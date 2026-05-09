@@ -69,6 +69,8 @@ lowest = min(prices)
 
 ## 🛠️ Try it
 
+Run this to see `zip` in action with parallel lists. Try skipping products that sold fewer than 50 units by adding an `if` inside the loop.
+
 ```python
 units_per_product = [120, 80, 200, 45]
 price_per_product = [10, 25, 5, 50]
@@ -78,40 +80,6 @@ for units, price in zip(units_per_product, price_per_product):
     revenue += units * price
 
 print(f"Total revenue: ${revenue:,}")
-```
-
-What if you wanted to skip products that sold less than 50 units? Add an `if` inside the loop.
-
-### More to try
-
-**Slicing + `enumerate`** — given the prices below, print the *top 3* with their rank:
-
-```python
-prices = [9.99, 14.50, 7.00, 22.00, 3.49, 18.75]
-sorted_prices = sorted(prices, reverse=True)
-
-# 🛠️ Use enumerate on sorted_prices[:3] to print:
-#   "#1: $22.00", "#2: $18.75", "#3: $14.50"
-```
-
-**`max` / `min` with parallel lists** — find the priciest product by name:
-
-```python
-products = ["Widget A", "Widget B", "Widget C", "Widget D"]
-prices   = [9.99, 14.50, 7.00, 22.00]
-
-# 🛠️ Find the index of max(prices), then look up products[that_index].
-# Hint: prices.index(max(prices))
-```
-
-**Mutation** — start with an empty cart, append 3 items, replace item at index 1, then remove one:
-
-```python
-cart = []
-# 🛠️ append "Notebook", "Pen", "Eraser"
-# 🛠️ replace cart[1] with "Blue Pen"
-# 🛠️ remove "Eraser"
-# print(cart)  # ["Notebook", "Blue Pen"]
 ```
 
 ---
@@ -146,3 +114,30 @@ cart = []
 ---
 
 Next: [`02-dicts.md`](02-dicts.md).
+
+---
+
+## 🏋️ Practice
+
+### Easy
+
+Start with an empty cart list. Append `"Notebook"`, `"Pen"`, `"Eraser"`, `"Mouse"`, and `"Keyboard"`. Then replace the second item with `"Blue Pen"`, remove `"Eraser"`, and insert `"Stapler"` at index 2. Print the final cart and slices of the first two and last two items.
+
+[▶ Open exercise](#play/01-foundations/week-2/exercises/ex09_cart_mutation.py)
+
+### Medium
+
+Given a list of six monthly revenue figures, print the latest month and the prior month using negative indexing. Then use `try/except IndexError` to safely look up user-requested month numbers — print a friendly message instead of crashing when a month number is out of range.
+
+[▶ Open exercise](#play/01-foundations/week-2/exercises/ex10_safe_lookup.py)
+
+### Hard
+
+Given parallel lists of product names, units sold, and prices, compute total revenue by looping with `zip`. Filter out products with fewer than 50 units sold. Sort the remaining products by revenue descending and print a ranked table using `enumerate`, starting at rank 1. Your output should look like:
+
+```
+#1  Widget D    $1,100.00
+#2  Widget B    $1,160.00
+```
+
+[▶ Open exercise](#play/01-foundations/week-2/exercises/ex01_total_revenue.py)

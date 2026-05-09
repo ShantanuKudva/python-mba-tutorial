@@ -3,6 +3,7 @@ Exercise 8 — Year-over-year growth rate.
 
 Concepts: arithmetic, conditionals, percent formatting.
 Lessons: lessons/03-conditionals.md, lessons/04-strings.md
+Difficulty: Hard
 📚 References: open the lesson above and see its 📚 Resources section at the bottom (official docs, deep dives, video tutorials). Global index in ROADMAP.md.
 
 Goal: given last year's revenue and this year's revenue,

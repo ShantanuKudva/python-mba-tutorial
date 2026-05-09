@@ -1,23 +1,28 @@
 """
-Exercise 3 — Grade a margin.
+Exercise 3 — Grade a profit margin.
 
-Concepts: if / elif / else.
-Lesson: lessons/03-conditionals.md
-📚 References: open the lesson above and see its 📚 Resources section at the bottom (official docs, deep dives, video tutorials). Global index in ROADMAP.md.
+Concepts: if / elif / else, comparison operators.
+Lesson: 01-foundations/week-1/lessons/03-conditionals.md
+Difficulty: Medium
+📚 References: see the 📚 Resources block at the bottom of the related lesson for
+official docs, deep dives, and video tutorials.
 
-Given a profit margin (in %), print one of:
+Given a profit margin (in %), classify it as one of:
     >= 25      "Excellent"
     15 to <25  "Healthy"
     5  to <15  "Thin"
     0  to <5   "At risk"
     <0         "Loss-making"
 
-Test by changing `margin` to: 30, 18, 9, 2, -5. Re-run each time.
+Expected output for margin = 18.0:
+    Margin 18.0% → Healthy
 """
 
 margin = 18.0
 
-# 🛠️ Build the if / elif / else ladder.
-# grade = ...
+# 🛠️ Step 1: write an if / elif / else ladder that sets `grade`
+#    based on the thresholds in the docstring.
 
-# 🛠️ Print: f"Margin {margin}% → {grade}"
+# 🛠️ Step 2: print the result.
+#    print(f"Margin {margin}% → {grade}")
+#    Then change `margin` to 30, 9, 2, -5 and click ▶ Run each time.

@@ -1,20 +1,45 @@
 """
-Exercise 3 — Merge.
+Exercise 3 — Merge two DataFrames.
 
-The marketing workbook has two sheets: `orders` and `customers`.
-Read both and merge on customer_id (left join from orders).
-Print the first 5 merged rows.
+Concepts: merge, left join, how="left".
+Lesson: 02-data-with-pandas/week-5/lessons/03-merge.md
+Difficulty: Medium
+📚 References: see the 📚 Resources block at the bottom of the related lesson for
+official docs, deep dives, and video tutorials.
 
-📚 References: see the 📚 Resources block at the bottom of the related lesson(s) in `lessons/` for official docs, deep dives, and video tutorials. Global resource index lives in ROADMAP.md.
+Goal: merge the orders table with the customers table on customer_id (left join).
+Print the merged DataFrame and the count of orders per customer name.
+
+Expected output (approximate):
+    merged head:
+       order_id  customer_id  amount          name    segment
+    0         1          101    4200          Acme  Enterprise
+    ...
 """
 
-from pathlib import Path
 import pandas as pd
 
-ROOT = Path(__file__).resolve().parents[4]
-xlsx = ROOT / "datasets" / "marketing" / "sample_orders.xlsx"
+# Setup — two tables to merge.
+orders = pd.DataFrame({
+    "order_id":    [1, 2, 3, 4, 5, 6],
+    "customer_id": [101, 102, 103, 101, 104, 102],
+    "amount":      [4200, 8100, 2300, 5100, 3400, 9200],
+})
 
-# 🛠️ orders = pd.read_excel(xlsx, sheet_name="orders")
-# 🛠️ customers = pd.read_excel(xlsx, sheet_name="customers")
-# 🛠️ merged = orders.merge(customers, on="customer_id", how="left")
-# 🛠️ Print merged.head().
+customers = pd.DataFrame({
+    "customer_id": [101, 102, 103, 104, 105],
+    "name":        ["Acme", "Globex", "Initech", "Umbrella", "Stark"],
+    "segment":     ["Enterprise", "Enterprise", "SMB", "Enterprise", "SMB"],
+})
+
+# 🛠️ Step 1: merge on customer_id with a left join.
+#    merged = orders.merge(customers, on="customer_id", how="left")
+
+# 🛠️ Step 2: print the merged DataFrame head.
+#    print("Merged head:")
+#    print(merged.head())
+
+# 🛠️ Step 3: print order count per customer name.
+#    orders_per_customer = merged.groupby("name")["order_id"].count().sort_values(ascending=False)
+#    print("\nOrders per customer:")
+#    print(orders_per_customer)

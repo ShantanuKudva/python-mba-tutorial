@@ -101,3 +101,25 @@ for key, value in product.items():
 ---
 
 Next: [`03-comprehensions.md`](03-comprehensions.md).
+
+---
+
+## 🏋️ Practice
+
+### Easy
+
+Create a dict representing a single product (name, price, stock, supplier). Print each key and value on a separate line using `.items()`. Use `.get()` with a default to safely look up a key that does not exist.
+
+[▶ Open exercise](#play/01-foundations/week-2/exercises/ex03_customer_dict.py)
+
+### Medium
+
+Given a list of inventory dicts, loop through and print a warning for any item whose stock is below 50. Then add a `"reorder"` key set to `True` for each flagged item. Print only the flagged items at the end.
+
+[▶ Open exercise](#play/01-foundations/week-2/exercises/ex04_inventory_search.py)
+
+### Hard
+
+Build a word-frequency counter from a multi-word string using a dict and `.get()`. Then sort the dict by frequency descending (hint: `sorted(d.items(), key=lambda x: x[1], reverse=True)`). Print the top 5 words and their counts in a right-aligned table.
+
+[▶ Open exercise](#play/01-foundations/week-2/exercises/ex08_word_count.py)

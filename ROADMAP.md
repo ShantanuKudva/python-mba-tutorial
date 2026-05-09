@@ -2,6 +2,8 @@
 
 A comprehensive, hands-on learning workspace combining **Python programming**, **MBA analytics**, and a **capstone web app**. Built for a learner with zero coding background, ramping up to shipping a real Excel-analysis tool.
 
+> **How to start:** Double-click `index.html`. It opens in your browser. Everything through Week 9 runs in-browser — no Python install needed. Install Python locally only when you reach Week 10 (Groq API) or Week 11 (FastAPI capstone).
+
 - **Pace:** 12 weeks · ~6–8 hrs/week
 - **Stack:** Python · pandas · Streamlit (early) → FastAPI + Next.js (capstone)
 - **AI:** Groq free tier (Llama 3.x / Mixtral)
@@ -45,9 +47,10 @@ Each weekly folder contains:
 
 ### Phase 1 — Foundations (Weeks 1–3)
 
-**Week 1 — Setup + Python basics**
+**Week 1 — Python basics**
 
-- Install [Python 3.12](https://www.python.org/downloads/), [VSCode](https://code.visualstudio.com/docs/python/python-tutorial), [git](https://git-scm.com/doc). [Virtual envs (`venv`)](https://docs.python.org/3/library/venv.html).
+- Open `index.html` in your browser — no install needed. Lessons and exercises run in-browser.
+- _(Optional, for local Python later: [Python 3.12](https://www.python.org/downloads/), [VSCode](https://code.visualstudio.com/docs/python/python-tutorial), [git](https://git-scm.com/doc), [venv](https://docs.python.org/3/library/venv.html). See `00-setup/` when ready.)_
 - [Variables & types](https://docs.python.org/3/tutorial/introduction.html), [strings](https://docs.python.org/3/library/stdtypes.html#text-sequence-type-str), [numbers](https://docs.python.org/3/library/stdtypes.html#numeric-types-int-float-complex), [booleans](https://docs.python.org/3/library/stdtypes.html#truth-value-testing).
 - [`if/elif/else`](https://docs.python.org/3/tutorial/controlflow.html#if-statements), [comparison ops](https://docs.python.org/3/library/stdtypes.html#comparisons), [logical ops (`and`/`or`/`not`)](https://docs.python.org/3/library/stdtypes.html#boolean-operations-and-or-not).
 - [String methods](https://docs.python.org/3/library/stdtypes.html#string-methods), [slicing](https://docs.python.org/3/tutorial/introduction.html#strings), [f-strings & format spec](https://docs.python.org/3/library/string.html#format-specification-mini-language).
@@ -62,8 +65,9 @@ Each weekly folder contains:
 - [Functions](https://docs.python.org/3/tutorial/controlflow.html#defining-functions), parameters, [return](https://docs.python.org/3/reference/simple_stmts.html#the-return-statement), [scope (LEGB)](https://realpython.com/python-scope-legb-rule/).
 - [Set operations](https://docs.python.org/3/library/stdtypes.html#set-types-set-frozenset) (`&`, `|`, `-`) for dedup, churn, intersection.
 - **MBA tie-in:** Iterate over list of products → compute [gross margin](https://corporatefinanceinstitute.com/resources/accounting/gross-margin/) per row.
+- [List mutation](https://docs.python.org/3/tutorial/datastructures.html#more-on-lists) (`append`, `insert`, `remove`, index-assign) and [slicing](https://docs.python.org/3/tutorial/introduction.html#lists), including [negative indexing](https://docs.python.org/3/tutorial/introduction.html#strings) and [`IndexError`](https://docs.python.org/3/library/exceptions.html#IndexError) handling.
 - Mini-project: Inventory [reorder-flag](https://corporatefinanceinstitute.com/resources/management/reorder-point/) script (pure Python, no pandas yet).
-- 5 lessons, 8 exercises.
+- 5 lessons, 10 exercises.
 
 **Week 3 — Files, errors, modules**
 

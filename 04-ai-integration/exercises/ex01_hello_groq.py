@@ -1,28 +1,45 @@
 """
-Exercise 1 — Hello, Groq.
+Exercise 1 — Hello, Groq!
 
-Verify your .env is set up and the API key works.
-Should print one short paragraph about MBA + Python.
+Concepts: Groq client, chat.completions.create, system/user roles.
+Lesson: 04-ai-integration/lessons/01-first-call.md
+Difficulty: Easy
+📚 References: see the 📚 Resources block at the bottom of the related lesson for
+official docs, deep dives, and video tutorials.
 
-📚 References: see the 📚 Resources block at the bottom of the related lesson(s) in `lessons/` for official docs, deep dives, and video tutorials. Global resource index lives in ROADMAP.md.
+Goal: make your first API call to Groq and print a short answer about Python
+for MBA students. The response will be different every time — that is normal.
+
+Before running: click the "Install packages" button and install `groq`.
+You will also need a GROQ_API_KEY. Enter it when prompted, or hard-code it
+for quick testing (do not share it with others).
+
+Expected output (example — yours will differ):
+    Python is invaluable for MBA students because it automates repetitive
+    data tasks, letting you focus on insights rather than spreadsheet formulas.
+    It is also the language of choice for machine-learning libraries.
 """
 
 import os
-from dotenv import load_dotenv
 from groq import Groq
 
-load_dotenv()
+# Setup — client (reads GROQ_API_KEY from the environment or input() below).
+api_key = os.environ.get("GROQ_API_KEY") or input("Enter your GROQ_API_KEY: ")
+client = Groq(api_key=api_key)
 
-client = Groq(api_key=os.environ["GROQ_API_KEY"])
+# 🛠️ Step 1: build the messages list.
+#    messages = [
+#        {"role": "system",  "content": "You are concise."},
+#        {"role": "user",    "content": "In 2 sentences, why is Python useful for MBA students?"},
+#    ]
 
-response = client.chat.completions.create(
-    model="llama-3.3-70b-versatile",
-    messages=[
-        {"role": "system", "content": "You are concise."},
-        {"role": "user", "content": "In 2 sentences, why is Python useful for MBA students?"},
-    ],
-    temperature=0.3,
-    max_completion_tokens=120,
-)
+# 🛠️ Step 2: call chat.completions.create.
+#    response = client.chat.completions.create(
+#        model="llama-3.3-70b-versatile",
+#        messages=messages,
+#        temperature=0.3,
+#        max_completion_tokens=120,
+#    )
 
-print(response.choices[0].message.content)
+# 🛠️ Step 3: print the model's reply.
+#    print(response.choices[0].message.content)

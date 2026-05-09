@@ -56,3 +56,25 @@ df.pivot_table(
 ---
 
 Next: [`03-merge.md`](03-merge.md).
+
+---
+
+## 🏋️ Practice
+
+### Easy
+
+Create a pivot table that shows total `amount` by `region` (rows) and `category` (columns). Use `fill_value=0`. Print the result.
+
+[▶ Open exercise](#play/02-data-with-pandas/week-5/exercises/ex02_pivot.py)
+
+### Medium
+
+Build a pivot table using two value columns (`amount` and `units`). Then compute the `amount` column totals across all regions (column-wise sum). Sort the resulting pivot by the `Total` column descending.
+
+[▶ Open exercise](#play/02-data-with-pandas/week-5/exercises/ex02_pivot.py)
+
+### Hard
+
+Create a pivot table of quarterly revenue by region. Then compute the quarter-over-quarter growth rate for each region across the pivot's columns. Highlight regions where any quarter shows negative growth and print a narrative summary of the findings.
+
+[▶ Open exercise](#play/02-data-with-pandas/week-5/exercises/ex07_running_total.py)

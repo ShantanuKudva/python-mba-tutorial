@@ -3,6 +3,7 @@ Exercise 7 — Running total (cumulative sum) over time.
 
 Concepts: sort_values, cumsum, derived columns.
 Lesson: lessons/04-dates.md
+Difficulty: Hard
 📚 References: open the lesson above and see its 📚 Resources section at the bottom (official docs, deep dives, video tutorials). Global index in ROADMAP.md.
 
 Goal: given a sales DataFrame, sort by date and add a `running_total`

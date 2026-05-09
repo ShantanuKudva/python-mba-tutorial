@@ -3,6 +3,7 @@ Exercise 8 — Filter invoices by date range and compute days outstanding.
 
 Concepts: datetime, strptime, timedelta math.
 Lesson: lessons/06-datetime.md
+Difficulty: Hard
 📚 References: open the lesson above and see its 📚 Resources section at the bottom (official docs, deep dives, video tutorials). Global index in ROADMAP.md.
 
 Goal: given a list of invoices, print every invoice that was issued

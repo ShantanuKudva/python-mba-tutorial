@@ -1,6 +1,8 @@
-# 05 — Capstone: Excel Insights
+# Phase 5 — Capstone: Excel Insights (Weeks 11–12)
 
 The capstone takes everything from weeks 1–10 and packages it into a real web app.
+
+> 📦 **Heads-up — local install required for this phase.** Phases 1–4 run entirely in the browser. The capstone needs a real Python + Node.js environment because it deploys a backend (FastAPI) and frontend (Next.js). Treat this phase as your transition from "playground learner" to "shipping engineer". The [00-setup](../00-setup/README.md) page has the optional local-install steps.
 
 ## What you ship
 
@@ -56,8 +58,8 @@ You **do** build the backend. Every endpoint starts as a stub returning mock dat
 ## Done when
 
 - Visiting the deployed URL → uploading a sample workbook → getting metrics + AI summary + download all works.
-- Code is committed and pushed.
 - You recorded a 60-second demo video.
+- Marked the capstone page complete in this workspace.
 
 ---
 

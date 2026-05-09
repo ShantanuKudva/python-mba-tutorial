@@ -93,7 +93,7 @@ print(formatted)
 
 ## 🛠️ Try it
 
-Open a new file `scratch.py` anywhere and write:
+Run this and confirm the output reads `Revenue: $59,988.00`.
 
 ```python
 units_sold = 1200
@@ -103,7 +103,7 @@ revenue = units_sold * price_per_unit
 print(f"Revenue: ${revenue:,.2f}")
 ```
 
-Run it. You should see `Revenue: $59,988.00`.
+Try changing the numbers. What happens when `units_sold = 0`?
 
 ---
 
@@ -142,3 +142,28 @@ Run it. You should see `Revenue: $59,988.00`.
 ---
 
 Next: [`03-conditionals.md`](03-conditionals.md).
+
+---
+
+## 🏋️ Practice
+
+### Easy
+
+Store your age in years, compute your approximate age in days (use 365 days/year), and print a sentence like: `A 28-year-old has lived approximately 10220 days.`
+
+[▶ Open exercise](#play/01-foundations/week-1/exercises/ex01_age_in_days.py)
+
+### Medium
+
+Given `quarter = "Q3"`, `units = 1200`, and `price = 49.99`, compute `revenue` and print one formatted line:
+`Q3 sales: 1,200 units × $49.99 = $59,988.00`
+
+Use f-strings and format specifiers like `{n:,}` and `{n:,.2f}`.
+
+[▶ Open exercise](#play/01-foundations/week-1/exercises/ex02_sales_summary.py)
+
+### Hard
+
+Compute the year-on-year growth rate between two revenues (`rev_current` and `rev_prior`), then print the rate formatted as a percentage with one decimal place. Handle the edge case where `rev_prior` is zero (print `"N/A"` instead of crashing). Finally, print a verdict: `"Strong growth"` if the rate exceeds 15%, `"Moderate growth"` if it is positive, otherwise `"Decline"`.
+
+[▶ Open exercise](#play/01-foundations/week-1/exercises/ex08_growth_rate.py)

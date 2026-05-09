@@ -1,22 +1,46 @@
 """
-Exercise 1 — groupby.
+Exercise 1 — GroupBy with named aggregations.
 
-Read datasets/marketing/sample_orders.xlsx.
-Group by `region`. Compute total revenue, average order value, and order count.
-Print the result.
+Concepts: groupby, named aggregations (.agg), reset_index.
+Lesson: 02-data-with-pandas/week-5/lessons/01-groupby.md
+Difficulty: Easy
+📚 References: see the 📚 Resources block at the bottom of the related lesson for
+official docs, deep dives, and video tutorials.
 
-📚 References: see the 📚 Resources block at the bottom of the related lesson(s) in `lessons/` for official docs, deep dives, and video tutorials. Global resource index lives in ROADMAP.md.
+Goal: given the order data below, group by region and compute three stats:
+  - revenue  = sum of amount
+  - avg_order = mean of amount
+  - n        = count of orders
+
+Then print the summary sorted by revenue descending.
+
+Expected output (approximate):
+      region  revenue  avg_order   n
+    0  North   38950      ...      4
+    ...
 """
 
-from pathlib import Path
 import pandas as pd
 
-ROOT = Path(__file__).resolve().parents[4]
-df = pd.read_excel(ROOT / "datasets" / "marketing" / "sample_orders.xlsx")
+# Setup — synthetic order data.
+df = pd.DataFrame({
+    "order_id": range(1, 13),
+    "region":   ["North", "South", "East", "North", "West", "South",
+                 "North", "East", "North", "South", "West", "East"],
+    "category": ["Widgets", "Gadgets", "Widgets", "Gadgets", "Widgets", "Widgets",
+                 "Gadgets", "Gadgets", "Widgets", "Gadgets", "Gadgets", "Widgets"],
+    "amount":   [4200, 8100, 2300, 5100, 3400, 9200, 6100, 1800, 2900, 4700, 3100, 8600],
+})
 
-# 🛠️ summary = df.groupby("region").agg(
-#         revenue=("amount", "sum"),
-#         avg_order=("amount", "mean"),
-#         n=("amount", "count"),
-#     )
-# 🛠️ Print summary.
+# 🛠️ Step 1: use groupby + agg with named aggregations.
+#    summary = df.groupby("region").agg(
+#        revenue   =("amount", "sum"),
+#        avg_order =("amount", "mean"),
+#        n         =("amount", "count"),
+#    ).reset_index()
+
+# 🛠️ Step 2: sort by revenue descending.
+#    summary = summary.sort_values("revenue", ascending=False)
+
+# 🛠️ Step 3: print the result.
+#    print(summary.to_string(index=False))

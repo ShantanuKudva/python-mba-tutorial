@@ -139,16 +139,23 @@ Next week with `pandas` you'll do this in **one line** — but the underlying da
 
 ---
 
-## 🛠️ Your turn
+## 🛠️ Try it
+
+Run this to see date math in action. Try changing `hire_date` to see how tenure changes.
 
 ```python
 from datetime import date, timedelta
 
-# 1. Print today's date in "March 15, 2026" format.
-# 2. Print the date 90 days from now.
-# 3. Given hire_date = date(2024, 2, 1),
-#    print how many full days the employee has been with the company.
-# 4. Bonus: print the quarter (Q1/Q2/Q3/Q4) of today's date.
+today = date.today()
+hire_date = date(2024, 2, 1)
+
+tenure_days = (today - hire_date).days
+quarter = (today.month - 1) // 3 + 1
+
+print(f"Today     : {today:%B %d, %Y}")
+print(f"Tenure    : {tenure_days} days")
+print(f"Quarter   : Q{quarter} {today.year}")
+print(f"90 days+  : {today + timedelta(days=90):%Y-%m-%d}")
 ```
 
 ---
@@ -166,6 +173,28 @@ from datetime import date, timedelta
 ---
 
 Done with week 3 lessons. Move to [`exercises/`](../exercises/) and the [project](../project.md).
+
+---
+
+## 🏋️ Practice
+
+### Easy
+
+Parse a list of date strings in `"%Y-%m-%d"` format into `date` objects. For each, print the date formatted as `"March 15, 2026"` and the quarter it belongs to (Q1–Q4).
+
+[▶ Open exercise](#play/01-foundations/week-3/exercises/ex08_invoice_dates.py)
+
+### Medium
+
+Given a list of invoice dicts (each with `"invoice_date"` as a string and `"amount"`), parse the dates and compute the number of days since each invoice was issued. Flag any invoice older than 30 days as overdue and print a summary showing total overdue vs. on-time amounts.
+
+[▶ Open exercise](#play/01-foundations/week-3/exercises/ex08_invoice_dates.py)
+
+### Hard
+
+Build a full aging-bucket report. Parse invoice dates, compute days outstanding, and bucket each invoice into `0–30`, `31–60`, `61–90`, or `90+` days. Use a dict to accumulate the total amount per bucket. Print a table showing bucket, total amount, and percentage of the grand total.
+
+[▶ Open exercise](#play/01-foundations/week-3/exercises/ex08_invoice_dates.py)
 
 ---
 

@@ -72,6 +72,8 @@ Same function, three contexts. **That's the point of functions.**
 
 ## 🛠️ Try it
 
+Run this to see a function working inside a comprehension. Try adjusting `threshold` from the default 50 to 100 and observe which products are flagged.
+
 ```python
 def is_low_stock(product, threshold=50):
     return product["stock"] < threshold
@@ -115,3 +117,25 @@ print(low)
 ---
 
 Next: [`05-tuples-and-sets.md`](05-tuples-and-sets.md).
+
+---
+
+## 🏋️ Practice
+
+### Easy
+
+Write a function `apply_discount(price, rate=0.10)` that returns the discounted price. Call it with and without the `rate` argument. Then write a function `label_margin(margin)` that returns `"Excellent"`, `"Healthy"`, `"Thin"`, or `"Loss-making"` based on the margin value. Test both.
+
+[▶ Open exercise](#play/01-foundations/week-2/exercises/ex05_pricing_function.py)
+
+### Medium
+
+Write a function `gross_margin(revenue, cost)` that returns the margin as a float (0–1). Write a second function `top_n(products, n=3)` that takes a list of product dicts (each with `"name"` and `"revenue"`) and returns the `n` highest-revenue products sorted descending. Call `top_n` with the default and then with `n=5`.
+
+[▶ Open exercise](#play/01-foundations/week-2/exercises/ex06_top_n_customers.py)
+
+### Hard
+
+Write a function `revenue_summary(orders)` that accepts a list of order dicts (each with `"region"`, `"amount"`) and returns a summary dict mapping each region to its total amount. Use only plain loops — no pandas. Then write a second function `top_regions(summary, n=2)` that returns the top-N regions by total. Test with at least six orders spanning three regions.
+
+[▶ Open exercise](#play/01-foundations/week-2/exercises/ex01_total_revenue.py)

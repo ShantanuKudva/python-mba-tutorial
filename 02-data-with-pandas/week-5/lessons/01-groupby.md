@@ -66,3 +66,25 @@ summary = summary.reset_index()
 ---
 
 Next: [`02-pivot.md`](02-pivot.md).
+
+---
+
+## 🏋️ Practice
+
+### Easy
+
+Given a DataFrame of sales transactions with `category` and `amount` columns, use `groupby` to compute the total amount per category. Reset the index and print the result sorted by total descending.
+
+[▶ Open exercise](#play/02-data-with-pandas/week-5/exercises/ex01_groupby.py)
+
+### Medium
+
+Use named aggregations (`agg(total=..., avg=..., count=...)`) to compute total, average, and count for the `amount` column grouped by both `region` and `category`. Reset the index and print the result.
+
+[▶ Open exercise](#play/02-data-with-pandas/week-5/exercises/ex06_two_level_groupby.py)
+
+### Hard
+
+Compute a running total (cumulative sum) of `amount` ordered by `date`. Then group by month and compute the month-over-month growth rate for each group. Flag any month with negative growth. Print the full result as a formatted table.
+
+[▶ Open exercise](#play/02-data-with-pandas/week-5/exercises/ex07_running_total.py)

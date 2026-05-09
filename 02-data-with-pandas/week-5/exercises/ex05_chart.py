@@ -1,23 +1,39 @@
 """
-Exercise 5 — Bar chart to PNG.
+Exercise 5 — Plot monthly revenue as a bar chart.
 
-Same dataset. Make a bar chart of monthly revenue.
-Save as `monthly.png` next to this script.
-Use plt.tight_layout() and dpi=150.
+Concepts: matplotlib bar chart, labels, titles, plt.show().
+Lesson: 02-data-with-pandas/week-5/lessons/05-plotting.md
+Difficulty: Easy
+📚 References: see the 📚 Resources block at the bottom of the related lesson for
+official docs, deep dives, and video tutorials.
 
-📚 References: see the 📚 Resources block at the bottom of the related lesson(s) in `lessons/` for official docs, deep dives, and video tutorials. Global resource index lives in ROADMAP.md.
+Goal: use the monthly revenue Series below and draw a bar chart with
+labeled axes and a title. The chart will appear in the playground output area.
+
+Expected output:
+    A bar chart with months on the x-axis and revenue on the y-axis.
 """
 
-from pathlib import Path
 import pandas as pd
 import matplotlib.pyplot as plt
 
-HERE = Path(__file__).parent
-ROOT = HERE.resolve().parents[3]
-df = pd.read_excel(ROOT / "datasets" / "marketing" / "sample_orders.xlsx", sheet_name="orders")
+# Setup — monthly revenue data.
+monthly = pd.Series(
+    [9_300, 17_300, 4_100, 9_500, 7_600, 12_400, 8_200, 11_100, 9_300, 6_500],
+    index=[f"2026-{m:02d}" for m in range(1, 11)],
+    name="revenue",
+)
 
-df["order_date"] = pd.to_datetime(df["order_date"])
-monthly = df.groupby(df["order_date"].dt.to_period("M"))["amount"].sum()
+# 🛠️ Step 1: create the bar chart.
+#    fig, ax = plt.subplots(figsize=(10, 4))
+#    monthly.plot(kind="bar", ax=ax, color="steelblue")
 
-# 🛠️ Plot monthly as a bar chart.
-# 🛠️ Save to HERE / "monthly.png".
+# 🛠️ Step 2: add labels and title.
+#    ax.set_xlabel("Month")
+#    ax.set_ylabel("Revenue ($)")
+#    ax.set_title("Monthly Revenue — 2026")
+#    ax.tick_params(axis="x", rotation=45)
+
+# 🛠️ Step 3: display the chart.
+#    plt.tight_layout()
+#    plt.show()

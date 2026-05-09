@@ -1,8 +1,8 @@
 # Week 3 — Files, Errors, Modules
 
-**Goal of the week:** read data **from disk**, handle bad input, and split your code into reusable modules.
+**Goal of the week:** process structured data in memory, handle bad input gracefully, and write reusable helper functions.
 
-By Friday you'll have a CSV-driven expense categorizer that reads a file, ignores junk rows, and writes a summary out.
+By the end of the week you'll have an expense categorizer that parses CSV data, ignores junk rows, and prints a formatted summary — all in the browser playground.
 
 ## What you'll learn
 
@@ -13,7 +13,7 @@ By Friday you'll have a CSV-driven expense categorizer that reads a file, ignore
 
 ## Why it matters (MBA tie-in)
 
-In real life, data does not live in your script. It lives in `.csv` files exported from systems, or `.xlsx` workbooks. This week you stop hard-coding test data and start handling files like a grown-up.
+In real life, data comes in messy formats: `.csv` exports from systems, partial `.xlsx` workbooks, missing fields, bad values. This week you learn how to parse that data systematically and handle surprises without crashing — a skill every analyst needs before they can automate anything.
 
 ## Map
 
@@ -28,7 +28,7 @@ In real life, data does not live in your script. It lives in `.csv` files export
 
 ## Checklist before week 4
 
-- [ ] You can open a CSV, loop rows, do something useful per row.
+- [ ] You can parse CSV data from an in-memory string, loop rows, and do something useful per row.
 - [ ] You wrapped a risky operation in `try/except`.
-- [ ] You imported a function from another file you wrote.
-- [ ] You finished the categorizer project.
+- [ ] You called a helper function defined in the same script.
+- [ ] You finished the categorizer project playground.

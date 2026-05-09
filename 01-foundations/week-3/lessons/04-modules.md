@@ -104,3 +104,25 @@ Means: "only run this if the file is executed directly, not when it's imported b
 ---
 
 Next: [`05-pathlib-and-json.md`](05-pathlib-and-json.md).
+
+---
+
+## 🏋️ Practice
+
+### Easy
+
+Import `math` from the standard library and `csv` from the standard library. Use `math.ceil()`, `math.floor()`, and `math.sqrt()` on three business-relevant numbers (e.g., units, EOQ, margin). Print the results with labels.
+
+[▶ Open exercise](#play/01-foundations/week-3/exercises/ex05_module_import.py)
+
+### Medium
+
+Create a file `helpers.py` with two functions: `gross_margin(revenue, cost)` and `format_currency(value)`. Then create a second script that imports from `helpers` and calls both functions on a list of products. Print a formatted summary table.
+
+[▶ Open exercise](#play/01-foundations/week-3/exercises/ex05_module_import.py)
+
+### Hard
+
+Write a module `expense_utils.py` containing functions for reading expenses, computing category totals, and formatting a report. In a separate `main.py`, import those functions and use the `if __name__ == "__main__":` guard to run the full pipeline. The pipeline should read `sample_expenses.csv`, compute totals, and write a report JSON.
+
+[▶ Open exercise](#play/01-foundations/week-3/exercises/ex07_json_report.py)

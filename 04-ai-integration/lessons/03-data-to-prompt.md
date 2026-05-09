@@ -56,6 +56,28 @@ Done. Move to [`exercises/`](../exercises/) and [`project.md`](../project.md).
 
 ---
 
+## 🏋️ Practice
+
+### Easy
+
+Aggregate the sample orders dataset to a monthly revenue Series. Render it as a string using `.to_string()` and embed it in a prompt asking for a 3-bullet trend summary. Print the model's response.
+
+[▶ Open exercise](#play/04-ai-integration/exercises/ex04_data_summary.py)
+
+### Medium
+
+Compute top-5 customers by revenue from the orders dataset. Build a structured prompt that asks the model to identify concentration risk. Ask the model to respond in JSON with keys: `"concentration_risk"` (High/Medium/Low) and `"key_insight"` (one sentence). Parse and print the result.
+
+[▶ Open exercise](#play/04-ai-integration/exercises/ex04_data_summary.py)
+
+### Hard
+
+Build a full "explain this dataset" pipeline: (a) read sample orders, (b) compute five summary statistics, (c) render them as a compact text block, (d) call the model asking for a 4-bullet exec summary focused on risks and opportunities, (e) log the prompt and response to a JSON file for reproducibility. Print the summary and confirm the log file was written.
+
+[▶ Open exercise](#play/04-ai-integration/exercises/ex04_data_summary.py)
+
+---
+
 ## 📚 Resources
 
 **Official docs**

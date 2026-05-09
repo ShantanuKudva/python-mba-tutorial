@@ -1,22 +1,29 @@
 """
-Exercise 5 — Import a helper.
+Exercise 5 — Use a helper function.
 
-There's a `helpers.py` next to this file with a function `format_currency`.
+Concepts: defining functions, calling functions from the same script,
+          reusability.
+Lesson: 01-foundations/week-3/lessons/04-modules.md
+Difficulty: Easy
+📚 References: see the 📚 Resources block at the bottom of the related lesson for
+official docs, deep dives, and video tutorials.
 
-🛠️ Import it. Use it to format three numbers (try 1234.5, 0, 9999999.99).
+Goal: the `format_currency` helper is defined in the setup cell below.
+Call it to format three numbers and print the results.
 
-If the import fails, you're probably running the file from the wrong directory.
-Run it as:
-    python 01-foundations/week-3/exercises/ex05_module_import.py
-
-📚 References: see the 📚 Resources block at the bottom of the related lesson(s) in `lessons/` for official docs, deep dives, and video tutorials. Global resource index lives in ROADMAP.md.
+Expected output:
+    $1,234.50
+    $0.00
+    $9,999,999.99
 """
 
-import sys
-from pathlib import Path
+# Setup — helper function (in a real project this would live in a separate module).
+def format_currency(amount: float, symbol: str = "$") -> str:
+    """Return amount formatted as e.g. '$1,234.50'."""
+    return f"{symbol}{amount:,.2f}"
 
-# Make sibling helpers.py importable regardless of where Python runs from.
-sys.path.insert(0, str(Path(__file__).parent))
+# 🛠️ Step 1: call format_currency(1234.50) and print the result.
 
-# 🛠️ from helpers import format_currency
-# 🛠️ Print three formatted numbers.
+# 🛠️ Step 2: call format_currency(0) and print the result.
+
+# 🛠️ Step 3: call format_currency(9_999_999.99) and print the result.

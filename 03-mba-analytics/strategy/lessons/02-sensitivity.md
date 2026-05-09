@@ -51,6 +51,28 @@ Done with strategy lessons. Move to [`exercises/`](../exercises/) and [`project.
 
 ---
 
+## 🏋️ Practice
+
+### Easy
+
+Run the `sensitivity` function from the lesson on the base-case scenario parameters. Print the resulting DataFrame showing each input, its low value, high value, and swing. Which input has the largest swing?
+
+[▶ Open exercise](#play/03-mba-analytics/strategy/exercises/ex03_tornado.py)
+
+### Medium
+
+Run the sensitivity function and produce a tornado chart using `matplotlib`. Save it as `tornado.png`. Make sure the largest swing is at the top and the chart has a vertical line at the base-case revenue.
+
+[▶ Open exercise](#play/03-mba-analytics/strategy/exercises/ex03_tornado.py)
+
+### Hard
+
+Extend the sensitivity analysis to test ±10%, ±20%, and ±30% variations. For the two most impactful inputs, produce a multi-line sensitivity chart showing how revenue responds across the full range. Add annotations showing the base-case value and the two extreme bounds.
+
+[▶ Open exercise](#play/03-mba-analytics/strategy/exercises/ex03_tornado.py)
+
+---
+
 ## 📚 Resources
 
 **Official docs**

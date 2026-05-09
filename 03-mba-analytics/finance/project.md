@@ -2,35 +2,41 @@
 
 ## What you're building
 
-A script that reads the P&L + balance sheet and produces a single Excel file with:
+A script that reads a P&L and a balance sheet, computes six ratios, scores them into a composite health score, and prints a formatted report.
 
-- **Sheet "Ratios"** — ratio name | value | benchmark | status
-- **Sheet "Score"** — composite health score + verdict + key drivers
-- **Sheet "Raw"** — copy of the source P&L and balance sheet for traceability
-
-## Required functions (in `03-mba-analytics/finance/health.py`)
+## Required functions
 
 ```python
-def load_statements(pl_path, bs_path) -> tuple[dict, dict]: ...
 def all_ratios(pl, bs) -> dict[str, float]: ...
 def benchmark(name, value) -> str:    # "Strong" / "OK" / "Weak"
     ...
 def health_score(ratios) -> tuple[float, str]:    # (score, verdict)
     ...
-def write_report(pl, bs, ratios, score, verdict, out_path) -> None: ...
 ```
 
-Plus `main()` and the `__name__` guard.
+Plus code in the main body that calls them and prints the report.
 
-## Output
+## Expected output
 
-`health_report.xlsx` next to the script.
+```
+=== RATIOS ===
+Current ratio     : 1.88x   (Benchmark ≥ 1.5)  Strong
+Quick ratio       : 1.18x   (Benchmark ≥ 1.0)  Strong
+D/E ratio         : 0.72x   (Benchmark ≤ 1.0)  Strong
+Gross margin      : 40.0%   (Benchmark ≥ 30%)  Strong
+Operating margin  : 18.5%   (Benchmark ≥ 10%)  Strong
+Net margin        : 11.2%   (Benchmark ≥  5%)  Strong
+
+=== HEALTH SCORE ===
+Score: 96 / 100 — Healthy
+```
 
 ## Done when
 
-- The Ratios sheet shows all 6 ratios with proper formatting.
-- The Score sheet shows the composite + verdict + at least 3 driver bullets.
-- The script handles missing line items gracefully (skip + log warning, don't crash).
-- You committed.
+- All six ratios print with correct formatting (x for multiples, % for margins).
+- The score is between 0 and 100.
+- The verdict is one of "Healthy", "Stable", or "Distressed".
 
-🛠️ Stretch: also produce `health_report.png` — a 2×3 grid of bar gauges, one per ratio, comparing actual vs. benchmark.
+**Stretch:** write the report to a two-sheet Excel workbook in memory (see Step 5 in the playground).
+
+[▶ Open project playground](#play/03-mba-analytics/finance/project.py)

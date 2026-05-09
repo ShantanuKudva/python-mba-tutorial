@@ -1,8 +1,8 @@
-# Week 1 Project — Break-even Calculator (CLI)
+# Week 1 Project — Break-even Calculator
 
 ## What you're building
 
-A command-line tool that asks for three numbers, computes the break-even point, and tells the user whether their business is viable.
+A break-even calculator that asks for three numbers, computes the break-even point, and tells you whether the business is viable.
 
 ## The math
 
@@ -10,22 +10,22 @@ A command-line tool that asks for three numbers, computes the break-even point, 
 Break-even units = Fixed Costs / (Price per Unit − Variable Cost per Unit)
 ```
 
-The denominator is the **contribution margin per unit**. If it's zero or negative, there is no break-even point and you should say so.
+The denominator is the **contribution margin per unit**. If it is zero or negative, there is no break-even point.
 
 ## Spec
 
-When run, your program should:
+Your playground should:
 
-1. Ask the user for **fixed costs**.
+1. Ask the user for **fixed costs** (using `input()`).
 2. Ask for **price per unit**.
 3. Ask for **variable cost per unit**.
 4. Compute and print:
    - Contribution margin per unit.
-   - Break-even units (rounded up to the next whole unit).
+   - Break-even units (rounded up to the next whole unit using `math.ceil`).
    - Break-even revenue (units × price).
    - A verdict line based on contribution margin.
 
-### Example session
+### Example output
 
 ```
 Fixed costs ($): 50000
@@ -44,28 +44,17 @@ If contribution margin is ≤ 0:
 Verdict: NOT VIABLE — variable cost is at or above price. Lower cost or raise price.
 ```
 
-## How to read user input
+## Hints
 
-```python
-fixed_costs = float(input("Fixed costs ($): "))
-```
-
-`input(...)` always returns a **string** — wrap it in `float(...)` so you can do math.
-
-## Hints (in order — read only when stuck)
-
-1. Build the calculator with **hard-coded values first**. Once the math is right, replace those with `input(...)` calls.
+1. Build the calculator with hard-coded values first. Once the math is right, replace those values with `input()` calls.
 2. Use `import math` and `math.ceil(x)` to round up to the next whole unit.
-3. Use `:,.2f` in your f-strings for the dollar formatting.
-
-## File to create
-
-`01-foundations/week-1/breakeven.py`
+3. Use `:,.2f` in your f-strings for dollar formatting.
 
 ## Done when
 
-- It runs without errors on viable and non-viable inputs.
+- The output matches the format above for viable and non-viable inputs.
 - The verdict line correctly distinguishes the two cases.
-- You committed the code.
 
-🛠️ Stretch: handle the case where the user types something that isn't a number (use `try/except` — week 3 preview).
+**Stretch:** wrap the `input()` calls in `try/except ValueError` so a non-numeric entry prints a friendly error instead of crashing.
+
+[▶ Open project playground](#play/01-foundations/week-1/project.py)

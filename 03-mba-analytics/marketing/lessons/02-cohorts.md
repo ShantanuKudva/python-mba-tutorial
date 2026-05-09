@@ -61,3 +61,25 @@ The result: rows = cohort month, cols = period index (0, 1, 2, …), values = % 
 ---
 
 Next: [`03-ab-test.md`](03-ab-test.md).
+
+---
+
+## 🏋️ Practice
+
+### Easy
+
+Given the cohort retention matrix computed in the exercise, print the retention rate for period 1 (the first follow-on period) for each cohort. Which cohort had the best one-period retention?
+
+[▶ Open exercise](#play/03-mba-analytics/marketing/exercises/ex03_cohort.py)
+
+### Medium
+
+Build the full cohort retention matrix from the sample orders dataset. Print the matrix with percentages rounded to one decimal place. Then compute the average retention rate across all cohorts for each period index.
+
+[▶ Open exercise](#play/03-mba-analytics/marketing/exercises/ex03_cohort.py)
+
+### Hard
+
+Extend the cohort analysis to also compute average revenue per retained customer by cohort × period. Produce two DataFrames — one for retention rate, one for average revenue — and write both to separate sheets of `cohort_report.xlsx`. Print a summary comparing the oldest and newest cohorts on both metrics.
+
+[▶ Open exercise](#play/03-mba-analytics/marketing/exercises/ex03_cohort.py)

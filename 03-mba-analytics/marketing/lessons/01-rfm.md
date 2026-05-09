@@ -88,3 +88,25 @@ Expect Champions to have the highest average spend. If not — your scoring is i
 ---
 
 Next: [`02-cohorts.md`](02-cohorts.md).
+
+---
+
+## 🏋️ Practice
+
+### Easy
+
+Given the RFM DataFrame already computed in the exercise, print the segment distribution: how many customers fall into each segment? Sort by count descending.
+
+[▶ Open exercise](#play/03-mba-analytics/marketing/exercises/ex01_rfm_compute.py)
+
+### Medium
+
+Compute RFM scores from the sample orders dataset. Add the segment labels using the `label` function from the lesson. Print the top-10 Champions by monetary value.
+
+[▶ Open exercise](#play/03-mba-analytics/marketing/exercises/ex02_rfm_score.py)
+
+### Hard
+
+Extend the RFM analysis to include a `value_tier` column: `"High"` for M ≥ 4, `"Mid"` for M ≥ 2, `"Low"` otherwise. Compute average recency, frequency, and monetary by segment and value-tier combination using a two-level groupby. Write the final table to `rfm_report.xlsx`.
+
+[▶ Open exercise](#play/03-mba-analytics/marketing/exercises/ex02_rfm_score.py)

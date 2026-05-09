@@ -1,19 +1,46 @@
 """
 Exercise 4 — Safe parse with try/except.
 
-Same as ex03, but ALSO count and report how many rows you skipped due to bad data.
-Use try/except (ValueError, KeyError).
+Concepts: try/except, ValueError, KeyError, csv.DictReader, io.StringIO.
+Lesson: 01-foundations/week-3/lessons/03-errors.md
+Difficulty: Medium
+📚 References: see the 📚 Resources block at the bottom of the related lesson for
+official docs, deep dives, and video tutorials.
+
+Goal: same as ex03, but also count and report how many rows were skipped
+due to bad data. Catch both ValueError (non-numeric amount) and KeyError
+(missing column).
+
+# (Browser note: this uses io.StringIO instead of a real file.)
 
 Expected output:
     Total: $1,083.55
     Skipped: 1 bad row
-
-📚 References: see the 📚 Resources block at the bottom of the related lesson(s) in `lessons/` for official docs, deep dives, and video tutorials. Global resource index lives in ROADMAP.md.
 """
 
 import csv
-from pathlib import Path
+from io import StringIO
 
-path = Path(__file__).parent / "sample_expenses.csv"
+# Setup — the CSV data lives in memory.
+csv_data = """date,category,description,amount
+2026-01-03,Travel,Flight to client,452.10
+2026-01-05,Meals,Team lunch,86.50
+2026-01-09,Software,SaaS subscription,29.00
+2026-01-12,Travel,Hotel,310.00
+2026-01-15,Office,Stationery,42.75
+2026-01-18,Meals,Client dinner,168.20
+2026-01-22,Software,Cloud hosting,55.00
+2026-01-25,Travel,Taxi,bad-value
+2026-01-28,Office,,33.00"""
 
-# 🛠️ Loop with try/except. Track total and skipped count. Print both.
+# 🛠️ Step 1: create a DictReader: reader = csv.DictReader(StringIO(csv_data))
+
+# 🛠️ Step 2: initialise `total = 0.0` and `skipped = 0`.
+
+# 🛠️ Step 3: loop over reader. Wrap the body in try/except (ValueError, KeyError).
+#    On success: total += float(row["amount"])
+#    On exception: skipped += 1
+
+# 🛠️ Step 4: print both results.
+#    print(f"Total: ${total:,.2f}")
+#    print(f"Skipped: {skipped} bad row{'s' if skipped != 1 else ''}")

@@ -59,15 +59,14 @@ Same idea. The difference: **a Python file is an Excel formula you can save, sha
 
 ---
 
-## 🛠️ Your turn
+## 🛠️ Try it
 
-Edit `hello.py` and add a line that prints your name. Save. Re-run. Confirm you see your name in the output.
+Run the three lines below and see what happens. Then change the strings — try your name, the current year, anything.
 
-Then commit:
-
-```bash
-git add 01-foundations/week-1/lessons/hello.py
-git commit -m "week 1 lesson 1 — first script"
+```python
+print("Hello, Python!")
+print(2 + 2)
+print("MBA cohort", 2026)
 ```
 
 ---
@@ -76,9 +75,9 @@ git commit -m "week 1 lesson 1 — first script"
 
 **"It says SyntaxError."** You probably forgot a quote or a parenthesis. Python is picky. Read the line number it tells you and fix it.
 
-**"It says command not found: python."** On macOS try `python3` instead. Or your `.venv` isn't activated.
+**"It says `python: command not found`."** In the browser IDE, just click Run — no terminal needed.
 
-**"Nothing happens when I run it."** You ran it but VSCode opened a new terminal. Look in the terminal panel (Ctrl+`).
+**"Nothing happens."** Make sure you clicked Run (or pressed Shift+Enter) inside an editor cell.
 
 ---
 
@@ -99,3 +98,31 @@ git commit -m "week 1 lesson 1 — first script"
 ---
 
 Next: [`02-variables-and-types.md`](02-variables-and-types.md).
+
+---
+
+## 🏋️ Practice
+
+### Easy
+
+Print three lines: your name, today's date as a string, and the result of `100 * 3.14`. Confirm all three appear in the output.
+
+[▶ Open exercise](#play/01-foundations/week-1/exercises/ex01_age_in_days.py)
+
+### Medium
+
+Given `units_sold = 1200` and `price_per_unit = 49.99`, compute the revenue and print a formatted line that reads `Revenue: $59,988.00`. Use arithmetic and a `print()` call.
+
+[▶ Open exercise](#play/01-foundations/week-1/exercises/ex02_sales_summary.py)
+
+### Hard
+
+Print a three-line "company card" that looks like the example below — with correct spacing, a thousands separator, and a two-decimal currency amount. You will need variables, arithmetic, string concatenation, and f-string format specifiers all at once.
+
+```
+Company  : Acme Corp
+Quarter  : Q3
+Revenue  : $1,245,000.00
+```
+
+[▶ Open exercise](#play/01-foundations/week-1/exercises/ex08_growth_rate.py)

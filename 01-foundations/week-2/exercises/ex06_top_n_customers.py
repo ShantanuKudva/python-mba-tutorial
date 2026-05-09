@@ -3,6 +3,7 @@ Exercise 6 — Top-N customers by revenue.
 
 Concepts: sorting with `key=`, list slicing, tuple unpacking in loops.
 Lesson: lessons/01-lists-and-loops.md, lessons/05-tuples-and-sets.md
+Difficulty: Medium
 📚 References: open the lesson above and see its 📚 Resources section at the bottom (official docs, deep dives, video tutorials). Global index in ROADMAP.md.
 
 Goal: given a list of (name, revenue) tuples, print the TOP 3 by revenue,

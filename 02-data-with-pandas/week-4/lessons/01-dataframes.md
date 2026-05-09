@@ -76,3 +76,25 @@ df["price"] * 1.10           # vectorized — operates on every row at once
 ---
 
 Next: [`02-read-write-excel.md`](02-read-write-excel.md).
+
+---
+
+## 🏋️ Practice
+
+### Easy
+
+Create a DataFrame from a dict of lists representing three products (columns: `sku`, `name`, `price`, `stock`). Call `.head()`, `.shape`, `.columns`, and `.describe()` on it. Print the results so you can see what each returns.
+
+[▶ Open exercise](#play/02-data-with-pandas/week-4/exercises/ex01_first_df.py)
+
+### Medium
+
+Given the same inventory DataFrame, select only the `sku` and `price` columns. Add a new column `revenue` equal to `price * stock`. Print the mean and max of `revenue`.
+
+[▶ Open exercise](#play/02-data-with-pandas/week-4/exercises/ex07_columns_math.py)
+
+### Hard
+
+Build a DataFrame from a list of sales dicts. Filter it to rows where `price > 10` AND `stock > 50` using boolean indexing. Sort the result by `revenue` descending, reset the index, and print the top five rows formatted with `to_string()`.
+
+[▶ Open exercise](#play/02-data-with-pandas/week-4/exercises/ex03_filter.py)

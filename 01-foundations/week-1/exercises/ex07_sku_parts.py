@@ -3,6 +3,7 @@ Exercise 7 — Pull parts out of a SKU code.
 
 Concepts: string slicing, .split(), f-strings.
 Lesson: lessons/04-strings.md
+Difficulty: Medium
 📚 References: open the lesson above and see its 📚 Resources section at the bottom (official docs, deep dives, video tutorials). Global index in ROADMAP.md.
 
 A SKU follows the format: "<CATEGORY>-<YEAR>-<COLOR>"

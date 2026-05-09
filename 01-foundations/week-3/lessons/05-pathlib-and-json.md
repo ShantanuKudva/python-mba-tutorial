@@ -129,9 +129,9 @@ That's a real ETL micro-task in 7 lines.
 
 ---
 
-## 🛠️ Your turn
+## 🛠️ Try it
 
-Create `lessons/quarter_summary.json`:
+Run this to see a JSON round-trip in action. Change the region values and recompute the total.
 
 ```python
 import json
@@ -147,9 +147,10 @@ summary = {
     "currency": "USD",
 }
 
-# 1. Write it to disk with indent=2.
-# 2. Read it back, parse with json.loads.
-# 3. Print the total revenue across regions.
+text = json.dumps(summary, indent=2)
+parsed = json.loads(text)
+total = sum(parsed["regions"].values())
+print(f"Total revenue: ${total:,}")
 ```
 
 ---
@@ -184,3 +185,25 @@ summary = {
 ---
 
 Next: [`06-datetime.md`](06-datetime.md).
+
+---
+
+## 🏋️ Practice
+
+### Easy
+
+Check whether `exercises/sample_expenses.csv` exists using `Path.exists()`. Print its file name, parent folder, and suffix. List all `.csv` files in the `exercises/` folder using `Path.glob("*.csv")`.
+
+[▶ Open exercise](#play/01-foundations/week-3/exercises/ex06_path_walk.py)
+
+### Medium
+
+Read `exercises/sample_expenses.csv` and compute per-category totals. Serialize the result to a JSON file called `expense_report.json` with `indent=2`. Read it back and print the total across all categories.
+
+[▶ Open exercise](#play/01-foundations/week-3/exercises/ex07_json_report.py)
+
+### Hard
+
+Walk the entire `exercises/` folder recursively using `rglob`. Build a JSON report that captures: the number of `.py` files, the number of `.csv` files, and a dict of filename → file size in bytes (using `Path.stat().st_size`). Write the report to `folder_report.json`. Then read it back and print the five largest files by size.
+
+[▶ Open exercise](#play/01-foundations/week-3/exercises/ex06_path_walk.py)

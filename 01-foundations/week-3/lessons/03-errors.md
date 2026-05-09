@@ -87,3 +87,25 @@ This is exactly how production scripts handle dirty data.
 ---
 
 Next: [`04-modules.md`](04-modules.md).
+
+---
+
+## 🏋️ Practice
+
+### Easy
+
+Write a small script that tries to convert each item in `["100", "abc", "250", "", "75"]` to a float. Wrap the conversion in `try/except ValueError`. Accumulate valid values in one list and invalid ones in another, then print both.
+
+[▶ Open exercise](#play/01-foundations/week-3/exercises/ex04_safe_parse.py)
+
+### Medium
+
+Open `sample_expenses.csv` and accumulate amounts with `try/except (ValueError, KeyError)`. Track skipped rows with a counter. After reading all rows, print the total, the count of valid rows, and the count of skipped rows.
+
+[▶ Open exercise](#play/01-foundations/week-3/exercises/ex04_safe_parse.py)
+
+### Hard
+
+Write a function `safe_load(path)` that opens a CSV file and returns a list of dicts. It must: (a) raise `FileNotFoundError` with a helpful message if the file is missing, (b) skip rows where any numeric column is invalid (catching `ValueError`), (c) return a tuple `(rows, skipped_count)`. Write a second function that calls `safe_load` and prints a formatted summary.
+
+[▶ Open exercise](#play/01-foundations/week-3/exercises/ex03_csv_total.py)

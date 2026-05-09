@@ -30,7 +30,7 @@ A single Excel row is a **dict**. A whole sheet is a **list of dicts**. Once you
 | [`lessons/02-dicts.md`](lessons/02-dicts.md) | Dictionaries |
 | [`lessons/03-comprehensions.md`](lessons/03-comprehensions.md) | List comprehensions |
 | [`lessons/04-functions.md`](lessons/04-functions.md) | Defining and calling functions |
-| [`exercises/`](exercises/) | 5 problems |
+| [`exercises/`](exercises/) | 12 problems — open any from the sidebar → |
 | [`project.md`](project.md) | Inventory reorder-flag script |
 
 ## Daily plan

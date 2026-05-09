@@ -3,6 +3,7 @@ Exercise 6 — Two-level groupby (region + quarter).
 
 Concepts: groupby on multiple columns, agg, reset_index.
 Lesson: lessons/01-groupby.md
+Difficulty: Medium
 📚 References: open the lesson above and see its 📚 Resources section at the bottom (official docs, deep dives, video tutorials). Global index in ROADMAP.md.
 
 Goal: group by (region, quarter) and compute:

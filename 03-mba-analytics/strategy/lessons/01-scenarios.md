@@ -61,3 +61,25 @@ df.to_excel("scenarios.xlsx", index=False)
 ---
 
 Next: [`02-sensitivity.md`](02-sensitivity.md).
+
+---
+
+## 🏋️ Practice
+
+### Easy
+
+Define the `revenue_5y` function from the lesson. Call it with the base-case parameters and print the result. Then call it with the best-case and worst-case parameters and compare the three outputs.
+
+[▶ Open exercise](#play/03-mba-analytics/strategy/exercises/ex01_revenue_model.py)
+
+### Medium
+
+Define three scenario dicts (best, base, worst) and loop through them using `**inputs` to unpack. Print a formatted table showing scenario name, 5-year revenue, and percentage deviation from the base case.
+
+[▶ Open exercise](#play/03-mba-analytics/strategy/exercises/ex02_scenarios.py)
+
+### Hard
+
+Export the scenario results to an Excel file with two sheets: one for the input parameters and one for the output revenues. Format the revenue sheet with thousands separators and color the best-case row green and the worst-case row red using `openpyxl` conditional formatting.
+
+[▶ Open exercise](#play/03-mba-analytics/strategy/exercises/ex02_scenarios.py)

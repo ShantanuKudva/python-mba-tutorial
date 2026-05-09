@@ -2,11 +2,16 @@
 Exercise 4 — Inventory search.
 
 Concepts: list of dicts, loop + if.
-
-Print every product with stock < 30. Format:
-    LOW STOCK: <name> (sku <sku>) — only <n> left
-
+Lesson: lessons/02-dicts.md
+Difficulty: Medium
 📚 References: see the 📚 Resources block at the bottom of the related lesson(s) in `lessons/` for official docs, deep dives, and video tutorials. Global resource index lives in ROADMAP.md.
+
+Goal: print every product with stock < 30 in a warning format.
+
+Expected output:
+    LOW STOCK: Widget B (sku W-002) — only 8 left
+    LOW STOCK: Widget D (sku W-004) — only 22 left
+    LOW STOCK: Widget E (sku W-005) — only 0 left
 """
 
 inventory = [

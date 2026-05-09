@@ -22,6 +22,10 @@
     />
     <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/highlight.min.js"></script>
 
+    <!-- Monaco editor (real VSCode editor) loaded lazily by playground.js -->
+    <script src="playground.js?v=7" defer></script>
+    <script src="progress.js?v=7" defer></script>
+
     <style>
       :root {
         --bg: #f7f8fa;
@@ -268,6 +272,17 @@
       .sidebar-footer .pkg {
         font-weight: 600;
         color: var(--text);
+        display: inline;
+        padding: 0;
+        border-radius: 0;
+        font-size: inherit;
+        background: transparent;
+        text-decoration: none;
+      }
+      .sidebar-footer .pkg:hover {
+        color: var(--accent);
+        background: transparent;
+        text-decoration: underline;
       }
 
       /* === Main === */
@@ -393,9 +408,747 @@
         main { padding: 22px; }
         #content { padding: 24px; }
       }
+
+      /* ---- Notes panel (sidebar tree) ---- */
+      .notes-toolbar {
+        display: flex;
+        gap: 4px;
+        padding: 4px 8px 6px;
+        flex-wrap: wrap;
+      }
+      .notes-toolbar button {
+        background: transparent;
+        color: var(--text-muted);
+        border: 1px solid var(--border);
+        border-radius: 4px;
+        padding: 2px 7px;
+        font-size: 11px;
+        cursor: pointer;
+        font-family: inherit;
+        line-height: 1.4;
+      }
+      .notes-toolbar button:hover {
+        color: var(--accent);
+        border-color: var(--accent);
+      }
+      #notes-tree {
+        font-size: 13px;
+        padding-bottom: 6px;
+      }
+      #notes-tree ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+      #notes-tree li.row {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        padding: 2px 8px 2px 0;
+        cursor: pointer;
+        user-select: none;
+        white-space: nowrap;
+        line-height: 1.7;
+      }
+      #notes-tree li.row:hover { background: rgba(127, 127, 127, 0.08); }
+      #notes-tree li.row.selected {
+        background: rgba(127, 127, 127, 0.16);
+        color: var(--accent);
+      }
+      #notes-tree .indent { display: inline-block; width: 12px; flex-shrink: 0; }
+      #notes-tree .chev {
+        display: inline-block;
+        width: 12px;
+        text-align: center;
+        font-size: 10px;
+        opacity: 0.55;
+        flex-shrink: 0;
+        transition: transform 0.1s;
+      }
+      #notes-tree .chev.open { transform: rotate(90deg); }
+      #notes-tree .icon { font-size: 12px; opacity: 0.85; flex-shrink: 0; }
+      #notes-tree .name { flex: 1; overflow: hidden; text-overflow: ellipsis; }
+      #notes-tree .row-actions {
+        display: none;
+        gap: 2px;
+        flex-shrink: 0;
+      }
+      #notes-tree li.row:hover .row-actions { display: inline-flex; }
+      #notes-tree .row-actions button {
+        background: none;
+        border: none;
+        color: inherit;
+        cursor: pointer;
+        font-size: 11px;
+        padding: 0 3px;
+        opacity: 0.6;
+      }
+      #notes-tree .row-actions button:hover { opacity: 1; color: var(--accent); }
+      #notes-tree .empty {
+        padding: 8px 12px;
+        font-size: 12px;
+        color: var(--text-muted);
+        font-style: italic;
+      }
+
+      /* ---- Notes IDE (main pane: tab bar + Monaco + preview + status bar) ---- */
+      main:has(.notes-ide) { padding: 0; }
+      main:has(.notes-ide) .breadcrumb { display: none; }
+      main:has(.notes-ide) #content { padding: 0; max-width: none; }
+
+      .notes-ide {
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        background: var(--bg);
+      }
+      .notes-tabbar {
+        display: flex;
+        align-items: stretch;
+        background: var(--panel, var(--bg));
+        border-bottom: 1px solid var(--border);
+        height: 34px;
+        flex-shrink: 0;
+      }
+      .notes-tab {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 0 12px;
+        font-size: 13px;
+        border-right: 1px solid var(--border);
+        background: var(--bg);
+        max-width: 280px;
+      }
+      .notes-tab .tab-icon { opacity: 0.85; }
+      .notes-tab .tab-name {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .notes-tab .tab-dirty {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--accent);
+        opacity: 0;
+        flex-shrink: 0;
+      }
+      .notes-tab.dirty .tab-dirty { opacity: 1; }
+      .notes-tab .tab-close {
+        background: none;
+        border: none;
+        color: inherit;
+        cursor: pointer;
+        opacity: 0.5;
+        font-size: 14px;
+        padding: 0 2px;
+        line-height: 1;
+      }
+      .notes-tab .tab-close:hover { opacity: 1; }
+      .notes-tabbar .tabbar-actions {
+        margin-left: auto;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        padding: 0 8px;
+      }
+      .notes-tabbar .tabbar-actions button {
+        background: transparent;
+        border: 1px solid transparent;
+        color: var(--text-muted);
+        cursor: pointer;
+        font-size: 12px;
+        padding: 3px 8px;
+        border-radius: 4px;
+        font-family: inherit;
+      }
+      .notes-tabbar .tabbar-actions button:hover {
+        border-color: var(--border);
+        color: var(--text);
+      }
+      .notes-tabbar .tabbar-actions button.active {
+        border-color: var(--accent);
+        color: var(--accent);
+      }
+      .notes-tabbar .mode-toggle {
+        display: inline-flex;
+        border: 1px solid var(--border);
+        border-radius: 4px;
+        overflow: hidden;
+      }
+      .notes-tabbar .mode-toggle button {
+        border: 0;
+        border-radius: 0;
+        padding: 3px 10px;
+        font-size: 12px;
+        background: transparent;
+        color: var(--text-muted);
+        cursor: pointer;
+        font-family: inherit;
+      }
+      .notes-tabbar .mode-toggle button + button { border-left: 1px solid var(--border); }
+      .notes-tabbar .mode-toggle button.active {
+        background: var(--accent);
+        color: var(--bg);
+      }
+      .notes-tabbar .mode-toggle button:hover:not(.active) { color: var(--text); }
+
+      /* Markdown formatting toolbar (visible in "MD" mode) */
+      .notes-mdtoolbar {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2px;
+        padding: 4px 8px;
+        border-bottom: 1px solid var(--border);
+        background: var(--panel, var(--bg));
+        flex-shrink: 0;
+        align-items: center;
+      }
+      .notes-mdtoolbar.hidden { display: none; }
+      .notes-mdtoolbar button {
+        background: transparent;
+        border: 1px solid transparent;
+        color: var(--text);
+        cursor: pointer;
+        font-size: 12px;
+        padding: 3px 8px;
+        border-radius: 4px;
+        font-family: inherit;
+        min-width: 26px;
+        line-height: 1.4;
+      }
+      .notes-mdtoolbar button:hover {
+        border-color: var(--border);
+        background: rgba(127, 127, 127, 0.08);
+      }
+      .notes-mdtoolbar button.bold { font-weight: 700; }
+      .notes-mdtoolbar button.italic { font-style: italic; }
+      .notes-mdtoolbar button.strike { text-decoration: line-through; }
+      .notes-mdtoolbar button.code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+      .notes-mdtoolbar .sep {
+        width: 1px;
+        align-self: stretch;
+        margin: 2px 4px;
+        background: var(--border);
+      }
+
+      .notes-body {
+        display: flex;
+        flex: 1;
+        min-height: 0;
+        overflow: hidden;
+      }
+      .notes-monaco-host {
+        flex: 1;
+        min-width: 0;
+        height: 100%;
+      }
+      .notes-preview-pane {
+        flex: 1;
+        min-width: 0;
+        overflow: auto;
+        padding: 18px 26px;
+        border-left: 1px solid var(--border);
+        background: var(--bg);
+      }
+      .notes-preview-pane.hidden { display: none; }
+      .notes-preview-pane > *:first-child { margin-top: 0; }
+
+      .notes-statusbar {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 4px 12px;
+        font-size: 11.5px;
+        color: var(--text-muted);
+        border-top: 1px solid var(--border);
+        background: var(--panel, var(--bg));
+        flex-shrink: 0;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      }
+      .notes-statusbar .save-state.dirty { color: var(--accent); }
+      .notes-statusbar .spacer { flex: 1; }
+
+      .notes-empty-state {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        gap: 12px;
+        color: var(--text-muted);
+        text-align: center;
+        padding: 40px 20px;
+      }
+      .notes-empty-state .glyph { font-size: 42px; opacity: 0.4; }
+      .notes-empty-state .hint { font-size: 13px; }
+      .notes-empty-state code {
+        padding: 1px 6px;
+        background: rgba(127, 127, 127, 0.12);
+        border-radius: 3px;
+      }
+
+      /* ---- Playground (Monaco / VSCode-style editors) ---- */
+      .play-wrap {
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        margin: 1em 0;
+        overflow: hidden;
+        background: var(--panel);
+      }
+      .play-monaco-host {
+        width: 100%;
+        min-height: 80px;
+        background: #ffffff;
+      }
+      [data-theme="dark"] .play-monaco-host {
+        background: #1e1e1e;
+      }
+      .play-loading {
+        padding: 16px;
+        font-size: 13px;
+        color: var(--text-muted);
+        font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+        background: var(--code-bg);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        margin: 1em 0;
+      }
+
+      /* Cell-based exercise UI */
+      .play-banner {
+        background: var(--accent-bg);
+        border: 1px solid var(--accent);
+        color: var(--text);
+        border-radius: 8px;
+        padding: 10px 14px;
+        margin: 12px 0 18px;
+        font-size: 13px;
+        line-height: 1.55;
+      }
+      .play-docstring {
+        background: var(--code-bg);
+        border-left: 3px solid var(--border-strong);
+        padding: 12px 16px;
+        margin: 0 0 18px;
+        font-size: 13.5px;
+        border-radius: 0 6px 6px 0;
+      }
+      .play-docstring p { margin: 0.4em 0; }
+      .play-top-toolbar {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 14px;
+      }
+      .play-cell {
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        margin: 14px 0;
+        background: var(--panel);
+        overflow: hidden;
+      }
+      .play-cell-setup .play-monaco-host {
+        opacity: 0.85;
+      }
+      .play-cell-label {
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: var(--text-muted);
+        background: var(--code-bg);
+        padding: 6px 12px;
+        border-bottom: 1px solid var(--border);
+      }
+      .play-hint {
+        padding: 12px 16px;
+        background: var(--code-bg);
+        border-bottom: 1px solid var(--border);
+        font-size: 13.5px;
+        line-height: 1.6;
+      }
+      .play-hint p { margin: 0.3em 0; }
+      .play-hint code {
+        background: var(--panel);
+        padding: 0.1em 0.4em;
+        border-radius: 4px;
+        border: 1px solid var(--border);
+        font-size: 0.9em;
+      }
+      .play-shared-output {
+        margin-top: 14px;
+      }
+      .play-file-note {
+        background: var(--code-bg);
+        border: 1px dashed var(--border-strong);
+        border-radius: 8px;
+        padding: 10px 14px;
+        margin: 0 0 14px;
+        font-size: 12.5px;
+        line-height: 1.55;
+        color: var(--text-muted);
+      }
+      .play-file-note strong { color: var(--text); }
+      .play-file-note code {
+        background: var(--panel);
+        border: 1px solid var(--border);
+        padding: 1px 5px;
+        border-radius: 3px;
+        font-size: 12px;
+      }
+      .play-upload-list {
+        display: inline-flex;
+        gap: 6px;
+        flex-wrap: wrap;
+        margin-left: 6px;
+      }
+      .play-upload-chip {
+        background: var(--accent-bg);
+        color: var(--accent);
+        border: 1px solid var(--accent);
+        border-radius: 12px;
+        padding: 1px 9px;
+        font-size: 11.5px;
+        font-family: ui-monospace, monospace;
+      }
+      .play-reveal {
+        background: transparent !important;
+        color: #cf222e !important;
+        border: 1px dashed #cf222e !important;
+      }
+      .play-reveal:hover:not(:disabled) {
+        background: #ffebe9 !important;
+      }
+      .play-reveal:disabled {
+        color: var(--text-muted) !important;
+        border-color: var(--border) !important;
+        cursor: not-allowed;
+      }
+      [data-theme="dark"] .play-reveal { color: #ff7b72 !important; border-color: #f8514955 !important; }
+      [data-theme="dark"] .play-reveal:hover:not(:disabled) { background: #f8514922 !important; }
+      .play-cell-solution {
+        border-color: #cf222e !important;
+      }
+      [data-theme="dark"] .play-cell-solution { border-color: #ff7b72 !important; }
+
+      /* ---- Progress tracker ---- */
+      #progress-bar {
+        margin: 6px 4px 14px;
+        padding: 10px 12px;
+        background: var(--code-bg);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+      }
+      .progress-bar-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: var(--text-muted);
+        margin-bottom: 6px;
+      }
+      .progress-bar-count {
+        font-weight: 600;
+        font-size: 11.5px;
+        color: var(--text);
+      }
+      .progress-bar-track {
+        height: 6px;
+        background: var(--border);
+        border-radius: 3px;
+        overflow: hidden;
+      }
+      .progress-bar-fill {
+        height: 100%;
+        background: var(--accent);
+        transition: width 0.3s ease;
+      }
+      .progress-bar-phases {
+        display: flex;
+        gap: 4px;
+        margin-top: 8px;
+        flex-wrap: wrap;
+      }
+      .phase-chip {
+        font-size: 10px;
+        background: var(--panel);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 1px 7px;
+        display: inline-flex;
+        gap: 4px;
+        color: var(--text-muted);
+      }
+      .phase-chip-label { font-weight: 700; }
+      aside a.progress-done { color: var(--text-muted); }
+      aside a.progress-done .progress-chip {
+        margin-left: 6px;
+        color: #1a7f37;
+        font-weight: 700;
+      }
+      [data-theme="dark"] aside a.progress-done .progress-chip { color: #3fb950; }
+      .progress-mark-wrap {
+        margin-top: 26px;
+        padding-top: 18px;
+        border-top: 1px dashed var(--border);
+        text-align: right;
+      }
+      .progress-mark-btn {
+        background: var(--panel);
+        color: var(--text);
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        padding: 6px 16px;
+        font-size: 13px;
+        cursor: pointer;
+        font-family: inherit;
+      }
+      .progress-mark-btn:hover {
+        border-color: var(--accent);
+        color: var(--accent);
+      }
+      .progress-mark-btn.done {
+        background: #dafbe1;
+        border-color: #1a7f37;
+        color: #1a7f37;
+        font-weight: 600;
+      }
+      [data-theme="dark"] .progress-mark-btn.done {
+        background: #1a7f3722;
+        border-color: #3fb950;
+        color: #3fb950;
+      }
+
+      /* Difficulty sub-groups inside week exercise sections */
+      .diff-group > summary {
+        font-size: 12px;
+        padding: 3px 8px 3px 10px;
+      }
+      .diff-group > .children {
+        margin-left: 8px;
+      }
+      .diff-group > .children a {
+        font-size: 12.5px;
+      }
+
+      /* Difficulty pills (used in sidebar exercise sublists) */
+      .diff-label {
+        padding: 6px 10px 2px;
+        font-size: 10.5px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: var(--text-muted);
+        display: flex;
+        gap: 6px;
+        align-items: center;
+      }
+      .diff-pill {
+        display: inline-block;
+        padding: 0 6px;
+        border-radius: 8px;
+        font-size: 9.5px;
+        font-weight: 700;
+        text-transform: uppercase;
+      }
+      .diff-pill.easy   { background: #dafbe1; color: #1a7f37; }
+      .diff-pill.medium { background: #fff8c5; color: #9a6700; }
+      .diff-pill.hard   { background: #ffebe9; color: #cf222e; }
+      [data-theme="dark"] .diff-pill.easy   { background: #1a7f3733; color: #3fb950; }
+      [data-theme="dark"] .diff-pill.medium { background: #d4a72c22; color: #d4a72c; }
+      [data-theme="dark"] .diff-pill.hard   { background: #f8514922; color: #ff7b72; }
+
+      /* ---- Top scroll-progress bar ---- */
+      #scroll-progress {
+        position: fixed;
+        top: 0; left: 0; right: 0;
+        height: 3px;
+        background: transparent;
+        z-index: 9999;
+        pointer-events: none;
+      }
+      #scroll-progress-fill {
+        height: 100%;
+        width: 0%;
+        background: linear-gradient(90deg, var(--accent), #58a6ff);
+        transition: width 0.05s linear;
+        box-shadow: 0 0 8px var(--accent);
+      }
+
+      /* ---- Mark-complete nudge + page nav ---- */
+      .mark-nudge {
+        background: #fff8c5;
+        border: 1px dashed #d4a72c;
+        color: #6e5a1c;
+        border-radius: 8px;
+        padding: 10px 14px;
+        margin-bottom: 12px;
+        font-size: 13px;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+      }
+      [data-theme="dark"] .mark-nudge {
+        background: #d4a72c1a;
+        border-color: #d4a72c66;
+        color: #f0d97a;
+      }
+      .mark-arrow {
+        display: inline-block;
+        font-size: 18px;
+        animation: nudge-bounce 1.4s ease-in-out infinite;
+      }
+      @keyframes nudge-bounce {
+        0%, 100% { transform: translateY(0); }
+        50%      { transform: translateY(5px); }
+      }
+      .progress-mark-wrap {
+        text-align: center !important;
+      }
+      .page-nav {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+        margin-top: 18px;
+        padding-top: 14px;
+        border-top: 1px solid var(--border);
+      }
+      .page-nav > span:empty { flex: 1; }
+      .page-nav-btn {
+        background: var(--panel);
+        color: var(--text);
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        padding: 8px 16px;
+        font-size: 13px;
+        cursor: pointer;
+        font-family: inherit;
+        max-width: 45%;
+        text-align: left;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .page-nav-btn:hover {
+        border-color: var(--accent);
+        color: var(--accent);
+        background: var(--accent-bg);
+      }
+      .page-nav-next {
+        background: var(--accent);
+        color: #fff;
+        border-color: var(--accent);
+      }
+      .page-nav-next:hover {
+        background: var(--accent-hover);
+        color: #fff;
+      }
+
+      /* Exercise subtitle (filename + difficulty pill) */
+      .play-subtitle {
+        font-size: 13px;
+        color: var(--text-muted);
+        margin-bottom: 18px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+      .play-subtitle code {
+        font-size: 12px;
+        background: var(--code-bg);
+        border: 1px solid var(--border);
+        padding: 2px 6px;
+        border-radius: 4px;
+      }
+      .play-subtitle .diff-pill {
+        font-size: 11px;
+        padding: 2px 8px;
+      }
+      .play-toolbar {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 12px;
+        background: var(--panel);
+        border-top: 1px solid var(--border);
+        flex-wrap: wrap;
+      }
+      .play-cell .play-toolbar { border-top: 1px solid var(--border); }
+      .play-toolbar button {
+        background: var(--accent);
+        color: #fff;
+        border: 0;
+        border-radius: 5px;
+        padding: 5px 14px;
+        font-size: 12.5px;
+        font-weight: 500;
+        cursor: pointer;
+        font-family: inherit;
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+      }
+      .play-toolbar button:hover { background: var(--accent-hover); }
+      .play-toolbar button:disabled { opacity: 0.5; cursor: default; }
+      .play-toolbar .play-reset {
+        background: transparent;
+        color: var(--text-muted);
+        border: 1px solid var(--border);
+      }
+      .play-toolbar .play-reset:hover {
+        color: var(--accent);
+        border-color: var(--accent);
+        background: transparent;
+      }
+      .play-toolbar .play-install {
+        background: #d4a72c;
+        color: #1f2328;
+      }
+      .play-toolbar .play-install:hover { background: #b88c1c; }
+      .play-toolbar .play-status {
+        font-size: 12px;
+        color: var(--text-muted);
+        margin-left: auto;
+      }
+      .play-toolbar .play-kbhint {
+        font-size: 11px;
+        color: var(--text-muted);
+      }
+      .play-toolbar kbd {
+        background: var(--code-bg);
+        border: 1px solid var(--border);
+        border-radius: 3px;
+        padding: 1px 5px;
+        font-family: ui-monospace, monospace;
+        font-size: 10px;
+      }
+      .play-output {
+        margin: 0 !important;
+        padding: 10px 14px !important;
+        background: var(--panel) !important;
+        color: var(--text) !important;
+        font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+        font-size: 12.5px;
+        line-height: 1.5;
+        white-space: pre-wrap;
+        border: 0 !important;
+        border-radius: 0 !important;
+        max-height: 300px;
+        overflow-y: auto;
+      }
+      .play-output.err { color: #cf222e !important; }
+      [data-theme="dark"] .play-output.err { color: #ffa198 !important; }
     </style>
   </head>
   <body>
+    <div id="scroll-progress"><div id="scroll-progress-fill"></div></div>
     <div class="layout">
       <aside>
         <div class="brand">
@@ -413,6 +1166,8 @@
             <span id="theme-icon">🌙</span>
           </button>
         </div>
+
+        <div id="progress-bar"></div>
 
         <div class="nav-group tree">
           <div class="section-label">Start here</div>
@@ -440,7 +1195,44 @@
                     <li><a data-md="01-foundations/week-1/lessons/03-conditionals.md">03 — Conditionals</a></li>
                     <li><a data-md="01-foundations/week-1/lessons/04-strings.md">04 — Strings & f-strings</a></li>
                   </ul>
-                  <ul><li><a data-md="01-foundations/week-1/project.md">Project</a></li></ul>
+                  <div class="lessons-label">Exercises</div>
+                  <ul>
+                    <li><a data-md="01-foundations/week-1/exercises/README.md">All exercises (index)</a></li>
+                  </ul>
+                  <details class="diff-group">
+                    <summary><span class="chev">▶</span><span class="label">🟢 Easy</span></summary>
+                    <div class="children">
+                      <ul>
+                        <li><a href="#play/01-foundations/week-1/exercises/ex01_age_in_days.py">ex01 — Age in days</a></li>
+                        <li><a href="#play/01-foundations/week-1/exercises/ex04_bonus_eligibility.py">ex04 — Bonus eligibility</a></li>
+                        <li><a href="#play/01-foundations/week-1/exercises/ex06_clean_customer.py">ex06 — Clean customer name</a></li>
+                      </ul>
+                    </div>
+                  </details>
+                  <details class="diff-group">
+                    <summary><span class="chev">▶</span><span class="label">🟡 Medium</span></summary>
+                    <div class="children">
+                      <ul>
+                        <li><a href="#play/01-foundations/week-1/exercises/ex02_sales_summary.py">ex02 — Sales summary</a></li>
+                        <li><a href="#play/01-foundations/week-1/exercises/ex03_grade_margin.py">ex03 — Grade a margin</a></li>
+                        <li><a href="#play/01-foundations/week-1/exercises/ex07_sku_parts.py">ex07 — SKU parts</a></li>
+                      </ul>
+                    </div>
+                  </details>
+                  <details class="diff-group">
+                    <summary><span class="chev">▶</span><span class="label">🔴 Hard</span></summary>
+                    <div class="children">
+                      <ul>
+                        <li><a href="#play/01-foundations/week-1/exercises/ex05_tip_calculator.py">ex05 — Tip calculator</a></li>
+                        <li><a href="#play/01-foundations/week-1/exercises/ex08_growth_rate.py">ex08 — Growth rate</a></li>
+                        <li><a href="#play/01-foundations/week-1/exercises/ex09_margin_table.py">ex09 — Margin table</a></li>
+                      </ul>
+                    </div>
+                  </details>
+                  <ul>
+                    <li><a data-md="01-foundations/week-1/project.md">Project</a></li>
+                    <li><a href="#play/01-foundations/week-1/project.py">▶ Project playground</a></li>
+                  </ul>
                 </div>
               </details>
 
@@ -456,7 +1248,47 @@
                     <li><a data-md="01-foundations/week-2/lessons/04-functions.md">04 — Functions</a></li>
                     <li><a data-md="01-foundations/week-2/lessons/05-tuples-and-sets.md">05 — Tuples & Sets</a></li>
                   </ul>
-                  <ul><li><a data-md="01-foundations/week-2/project.md">Project</a></li></ul>
+                  <div class="lessons-label">Exercises</div>
+                  <ul>
+                    <li><a data-md="01-foundations/week-2/exercises/README.md">All exercises (index)</a></li>
+                  </ul>
+                  <details class="diff-group">
+                    <summary><span class="chev">▶</span><span class="label">🟢 Easy</span></summary>
+                    <div class="children">
+                      <ul>
+                        <li><a href="#play/01-foundations/week-2/exercises/ex01_total_revenue.py">ex01 — Total revenue</a></li>
+                        <li><a href="#play/01-foundations/week-2/exercises/ex02_filter_high_value.py">ex02 — Filter high-value</a></li>
+                        <li><a href="#play/01-foundations/week-2/exercises/ex03_customer_dict.py">ex03 — Customer dict</a></li>
+                        <li><a href="#play/01-foundations/week-2/exercises/ex05_pricing_function.py">ex05 — Pricing function</a></li>
+                        <li><a href="#play/01-foundations/week-2/exercises/ex09_cart_mutation.py">ex09 — Cart mutation</a></li>
+                      </ul>
+                    </div>
+                  </details>
+                  <details class="diff-group">
+                    <summary><span class="chev">▶</span><span class="label">🟡 Medium</span></summary>
+                    <div class="children">
+                      <ul>
+                        <li><a href="#play/01-foundations/week-2/exercises/ex04_inventory_search.py">ex04 — Inventory search</a></li>
+                        <li><a href="#play/01-foundations/week-2/exercises/ex06_top_n_customers.py">ex06 — Top-N customers</a></li>
+                        <li><a href="#play/01-foundations/week-2/exercises/ex07_unique_skus.py">ex07 — Unique SKUs</a></li>
+                        <li><a href="#play/01-foundations/week-2/exercises/ex10_safe_lookup.py">ex10 — Safe lookup</a></li>
+                      </ul>
+                    </div>
+                  </details>
+                  <details class="diff-group">
+                    <summary><span class="chev">▶</span><span class="label">🔴 Hard</span></summary>
+                    <div class="children">
+                      <ul>
+                        <li><a href="#play/01-foundations/week-2/exercises/ex08_word_count.py">ex08 — Count regions</a></li>
+                        <li><a href="#play/01-foundations/week-2/exercises/ex11_budget_tracker.py">ex11 — Budget tracker</a></li>
+                        <li><a href="#play/01-foundations/week-2/exercises/ex12_pipeline_filter.py">ex12 — Pipeline filter</a></li>
+                      </ul>
+                    </div>
+                  </details>
+                  <ul>
+                    <li><a data-md="01-foundations/week-2/project.md">Project</a></li>
+                    <li><a href="#play/01-foundations/week-2/project.py">▶ Project playground</a></li>
+                  </ul>
                 </div>
               </details>
 
@@ -473,7 +1305,44 @@
                     <li><a data-md="01-foundations/week-3/lessons/05-pathlib-and-json.md">05 — pathlib & JSON</a></li>
                     <li><a data-md="01-foundations/week-3/lessons/06-datetime.md">06 — Dates & Times</a></li>
                   </ul>
-                  <ul><li><a data-md="01-foundations/week-3/project.md">Project</a></li></ul>
+                  <div class="lessons-label">Exercises</div>
+                  <ul>
+                    <li><a data-md="01-foundations/week-3/exercises/README.md">All exercises (index)</a></li>
+                  </ul>
+                  <details class="diff-group">
+                    <summary><span class="chev">▶</span><span class="label">🟢 Easy</span></summary>
+                    <div class="children">
+                      <ul>
+                        <li><a href="#play/01-foundations/week-3/exercises/ex01_read_text.py">ex01 — Read text</a></li>
+                        <li><a href="#play/01-foundations/week-3/exercises/ex02_count_lines.py">ex02 — Count lines</a></li>
+                        <li><a href="#play/01-foundations/week-3/exercises/ex05_module_import.py">ex05 — Helper function</a></li>
+                      </ul>
+                    </div>
+                  </details>
+                  <details class="diff-group">
+                    <summary><span class="chev">▶</span><span class="label">🟡 Medium</span></summary>
+                    <div class="children">
+                      <ul>
+                        <li><a href="#play/01-foundations/week-3/exercises/ex03_csv_total.py">ex03 — CSV total</a></li>
+                        <li><a href="#play/01-foundations/week-3/exercises/ex04_safe_parse.py">ex04 — Safe parse</a></li>
+                        <li><a href="#play/01-foundations/week-3/exercises/ex06_path_walk.py">ex06 — File listing</a></li>
+                        <li><a href="#play/01-foundations/week-3/exercises/ex07_json_report.py">ex07 — JSON report</a></li>
+                        <li><a href="#play/01-foundations/week-3/exercises/ex08_invoice_dates.py">ex08 — Invoice dates</a></li>
+                      </ul>
+                    </div>
+                  </details>
+                  <details class="diff-group">
+                    <summary><span class="chev">▶</span><span class="label">🔴 Hard</span></summary>
+                    <div class="children">
+                      <ul>
+                        <li><a href="#play/01-foundations/week-3/exercises/ex09_expense_report.py">ex09 — Expense report</a></li>
+                      </ul>
+                    </div>
+                  </details>
+                  <ul>
+                    <li><a data-md="01-foundations/week-3/project.md">Project</a></li>
+                    <li><a href="#play/01-foundations/week-3/project.py">▶ Project playground</a></li>
+                  </ul>
                 </div>
               </details>
             </div>
@@ -495,7 +1364,43 @@
                     <li><a data-md="02-data-with-pandas/week-4/lessons/03-filter-sort.md">03 — Filter & Sort</a></li>
                     <li><a data-md="02-data-with-pandas/week-4/lessons/04-missing-data.md">04 — Missing Data</a></li>
                   </ul>
-                  <ul><li><a data-md="02-data-with-pandas/week-4/project.md">Project</a></li></ul>
+                  <div class="lessons-label">Exercises</div>
+                  <ul>
+                    <li><a data-md="02-data-with-pandas/week-4/exercises/README.md">All exercises (index)</a></li>
+                  </ul>
+                  <details class="diff-group">
+                    <summary><span class="chev">▶</span><span class="label">🟢 Easy</span></summary>
+                    <div class="children">
+                      <ul>
+                        <li><a href="#play/02-data-with-pandas/week-4/exercises/ex01_first_df.py">ex01 — First DataFrame</a></li>
+                        <li><a href="#play/02-data-with-pandas/week-4/exercises/ex02_read_xlsx.py">ex02 — Inspect P&amp;L</a></li>
+                        <li><a href="#play/02-data-with-pandas/week-4/exercises/ex06_top_products.py">ex06 — Top products</a></li>
+                      </ul>
+                    </div>
+                  </details>
+                  <details class="diff-group">
+                    <summary><span class="chev">▶</span><span class="label">🟡 Medium</span></summary>
+                    <div class="children">
+                      <ul>
+                        <li><a href="#play/02-data-with-pandas/week-4/exercises/ex03_filter.py">ex03 — Boolean filter</a></li>
+                        <li><a href="#play/02-data-with-pandas/week-4/exercises/ex04_missing.py">ex04 — NaN handling</a></li>
+                        <li><a href="#play/02-data-with-pandas/week-4/exercises/ex05_save_xlsx.py">ex05 — Round-trip Excel</a></li>
+                      </ul>
+                    </div>
+                  </details>
+                  <details class="diff-group">
+                    <summary><span class="chev">▶</span><span class="label">🔴 Hard</span></summary>
+                    <div class="children">
+                      <ul>
+                        <li><a href="#play/02-data-with-pandas/week-4/exercises/ex07_columns_math.py">ex07 — Profit and margin</a></li>
+                        <li><a href="#play/02-data-with-pandas/week-4/exercises/ex08_multi_column_sort.py">ex08 — Multi-col sort &amp; rank</a></li>
+                      </ul>
+                    </div>
+                  </details>
+                  <ul>
+                    <li><a data-md="02-data-with-pandas/week-4/project.md">Project</a></li>
+                    <li><a href="#play/02-data-with-pandas/week-4/project.py">▶ Project playground</a></li>
+                  </ul>
                 </div>
               </details>
 
@@ -511,7 +1416,44 @@
                     <li><a data-md="02-data-with-pandas/week-5/lessons/04-dates.md">04 — Dates</a></li>
                     <li><a data-md="02-data-with-pandas/week-5/lessons/05-plotting.md">05 — Plotting</a></li>
                   </ul>
-                  <ul><li><a data-md="02-data-with-pandas/week-5/project.md">Project</a></li></ul>
+                  <div class="lessons-label">Exercises</div>
+                  <ul>
+                    <li><a data-md="02-data-with-pandas/week-5/exercises/README.md">All exercises (index)</a></li>
+                  </ul>
+                  <details class="diff-group">
+                    <summary><span class="chev">▶</span><span class="label">🟢 Easy</span></summary>
+                    <div class="children">
+                      <ul>
+                        <li><a href="#play/02-data-with-pandas/week-5/exercises/ex01_groupby.py">ex01 — GroupBy</a></li>
+                        <li><a href="#play/02-data-with-pandas/week-5/exercises/ex05_chart.py">ex05 — Bar chart</a></li>
+                        <li><a href="#play/02-data-with-pandas/week-5/exercises/ex09_yoy_growth.py">ex09 — YoY growth</a></li>
+                      </ul>
+                    </div>
+                  </details>
+                  <details class="diff-group">
+                    <summary><span class="chev">▶</span><span class="label">🟡 Medium</span></summary>
+                    <div class="children">
+                      <ul>
+                        <li><a href="#play/02-data-with-pandas/week-5/exercises/ex02_pivot.py">ex02 — Pivot table</a></li>
+                        <li><a href="#play/02-data-with-pandas/week-5/exercises/ex03_merge.py">ex03 — Merge tables</a></li>
+                        <li><a href="#play/02-data-with-pandas/week-5/exercises/ex04_dates.py">ex04 — Dates &amp; monthly totals</a></li>
+                        <li><a href="#play/02-data-with-pandas/week-5/exercises/ex06_two_level_groupby.py">ex06 — Two-level groupby</a></li>
+                      </ul>
+                    </div>
+                  </details>
+                  <details class="diff-group">
+                    <summary><span class="chev">▶</span><span class="label">🔴 Hard</span></summary>
+                    <div class="children">
+                      <ul>
+                        <li><a href="#play/02-data-with-pandas/week-5/exercises/ex07_running_total.py">ex07 — Running total</a></li>
+                        <li><a href="#play/02-data-with-pandas/week-5/exercises/ex08_segment_dashboard.py">ex08 — Segment dashboard</a></li>
+                      </ul>
+                    </div>
+                  </details>
+                  <ul>
+                    <li><a data-md="02-data-with-pandas/week-5/project.md">Project</a></li>
+                    <li><a href="#play/02-data-with-pandas/week-5/project.py">▶ Project playground</a></li>
+                  </ul>
                 </div>
               </details>
             </div>
@@ -531,7 +1473,41 @@
                     <li><a data-md="03-mba-analytics/finance/lessons/01-ratios.md">01 — Ratios</a></li>
                     <li><a data-md="03-mba-analytics/finance/lessons/02-time-value.md">02 — Time Value</a></li>
                   </ul>
-                  <ul><li><a data-md="03-mba-analytics/finance/project.md">Project</a></li></ul>
+                  <div class="lessons-label">Exercises</div>
+                  <ul>
+                    <li><a data-md="03-mba-analytics/finance/exercises/README.md">All exercises (index)</a></li>
+                  </ul>
+                  <details class="diff-group">
+                    <summary><span class="chev">▶</span><span class="label">🟢 Easy</span></summary>
+                    <div class="children">
+                      <ul>
+                        <li><a href="#play/03-mba-analytics/finance/exercises/ex01_ratios.py">ex01 — Financial ratios</a></li>
+                        <li><a href="#play/03-mba-analytics/finance/exercises/ex02_npv.py">ex02 — NPV &amp; IRR</a></li>
+                      </ul>
+                    </div>
+                  </details>
+                  <details class="diff-group">
+                    <summary><span class="chev">▶</span><span class="label">🟡 Medium</span></summary>
+                    <div class="children">
+                      <ul>
+                        <li><a href="#play/03-mba-analytics/finance/exercises/ex03_dcf.py">ex03 — Mini DCF</a></li>
+                        <li><a href="#play/03-mba-analytics/finance/exercises/ex05_break_even.py">ex05 — Break-even analysis</a></li>
+                        <li><a href="#play/03-mba-analytics/finance/exercises/ex06_wacc.py">ex06 — WACC</a></li>
+                      </ul>
+                    </div>
+                  </details>
+                  <details class="diff-group">
+                    <summary><span class="chev">▶</span><span class="label">🔴 Hard</span></summary>
+                    <div class="children">
+                      <ul>
+                        <li><a href="#play/03-mba-analytics/finance/exercises/ex04_health_score.py">ex04 — Health score</a></li>
+                      </ul>
+                    </div>
+                  </details>
+                  <ul>
+                    <li><a data-md="03-mba-analytics/finance/project.md">Project</a></li>
+                    <li><a href="#play/03-mba-analytics/finance/project.py">▶ Project playground</a></li>
+                  </ul>
                 </div>
               </details>
 
@@ -545,7 +1521,41 @@
                     <li><a data-md="03-mba-analytics/marketing/lessons/02-cohorts.md">02 — Cohorts</a></li>
                     <li><a data-md="03-mba-analytics/marketing/lessons/03-ab-test.md">03 — A/B Test</a></li>
                   </ul>
-                  <ul><li><a data-md="03-mba-analytics/marketing/project.md">Project</a></li></ul>
+                  <div class="lessons-label">Exercises</div>
+                  <ul>
+                    <li><a data-md="03-mba-analytics/marketing/exercises/README.md">All exercises (index)</a></li>
+                  </ul>
+                  <details class="diff-group">
+                    <summary><span class="chev">▶</span><span class="label">🟢 Easy</span></summary>
+                    <div class="children">
+                      <ul>
+                        <li><a href="#play/03-mba-analytics/marketing/exercises/ex01_rfm_compute.py">ex01 — Raw RFM metrics</a></li>
+                        <li><a href="#play/03-mba-analytics/marketing/exercises/ex05_churn_rate.py">ex05 — Churn rate</a></li>
+                        <li><a href="#play/03-mba-analytics/marketing/exercises/ex06_ltv_cac.py">ex06 — LTV &amp; CAC ratio</a></li>
+                      </ul>
+                    </div>
+                  </details>
+                  <details class="diff-group">
+                    <summary><span class="chev">▶</span><span class="label">🟡 Medium</span></summary>
+                    <div class="children">
+                      <ul>
+                        <li><a href="#play/03-mba-analytics/marketing/exercises/ex02_rfm_score.py">ex02 — RFM scoring</a></li>
+                        <li><a href="#play/03-mba-analytics/marketing/exercises/ex04_ab_test.py">ex04 — A/B test</a></li>
+                      </ul>
+                    </div>
+                  </details>
+                  <details class="diff-group">
+                    <summary><span class="chev">▶</span><span class="label">🔴 Hard</span></summary>
+                    <div class="children">
+                      <ul>
+                        <li><a href="#play/03-mba-analytics/marketing/exercises/ex03_cohort.py">ex03 — Cohort retention</a></li>
+                      </ul>
+                    </div>
+                  </details>
+                  <ul>
+                    <li><a data-md="03-mba-analytics/marketing/project.md">Project</a></li>
+                    <li><a href="#play/03-mba-analytics/marketing/project.py">▶ Project playground</a></li>
+                  </ul>
                 </div>
               </details>
 
@@ -559,7 +1569,41 @@
                     <li><a data-md="03-mba-analytics/operations/lessons/02-ets.md">02 — ETS</a></li>
                     <li><a data-md="03-mba-analytics/operations/lessons/03-inventory.md">03 — Inventory</a></li>
                   </ul>
-                  <ul><li><a data-md="03-mba-analytics/operations/project.md">Project</a></li></ul>
+                  <div class="lessons-label">Exercises</div>
+                  <ul>
+                    <li><a data-md="03-mba-analytics/operations/exercises/README.md">All exercises (index)</a></li>
+                  </ul>
+                  <details class="diff-group">
+                    <summary><span class="chev">▶</span><span class="label">🟢 Easy</span></summary>
+                    <div class="children">
+                      <ul>
+                        <li><a href="#play/03-mba-analytics/operations/exercises/ex01_moving_avg.py">ex01 — Moving average</a></li>
+                        <li><a href="#play/03-mba-analytics/operations/exercises/ex03_eoq.py">ex03 — EOQ formula</a></li>
+                      </ul>
+                    </div>
+                  </details>
+                  <details class="diff-group">
+                    <summary><span class="chev">▶</span><span class="label">🟡 Medium</span></summary>
+                    <div class="children">
+                      <ul>
+                        <li><a href="#play/03-mba-analytics/operations/exercises/ex02_ets.py">ex02 — ETS forecast</a></li>
+                        <li><a href="#play/03-mba-analytics/operations/exercises/ex05_lead_time_analysis.py">ex05 — Lead-time analysis</a></li>
+                        <li><a href="#play/03-mba-analytics/operations/exercises/ex06_demand_variance.py">ex06 — Demand variance</a></li>
+                      </ul>
+                    </div>
+                  </details>
+                  <details class="diff-group">
+                    <summary><span class="chev">▶</span><span class="label">🔴 Hard</span></summary>
+                    <div class="children">
+                      <ul>
+                        <li><a href="#play/03-mba-analytics/operations/exercises/ex04_reorder.py">ex04 — Safety stock &amp; reorder</a></li>
+                      </ul>
+                    </div>
+                  </details>
+                  <ul>
+                    <li><a data-md="03-mba-analytics/operations/project.md">Project</a></li>
+                    <li><a href="#play/03-mba-analytics/operations/project.py">▶ Project playground</a></li>
+                  </ul>
                 </div>
               </details>
 
@@ -572,7 +1616,38 @@
                     <li><a data-md="03-mba-analytics/strategy/lessons/01-scenarios.md">01 — Scenarios</a></li>
                     <li><a data-md="03-mba-analytics/strategy/lessons/02-sensitivity.md">02 — Sensitivity</a></li>
                   </ul>
-                  <ul><li><a data-md="03-mba-analytics/strategy/project.md">Project</a></li></ul>
+                  <div class="lessons-label">Exercises</div>
+                  <ul>
+                    <li><a data-md="03-mba-analytics/strategy/exercises/README.md">All exercises (index)</a></li>
+                  </ul>
+                  <details class="diff-group">
+                    <summary><span class="chev">▶</span><span class="label">🟢 Easy</span></summary>
+                    <div class="children">
+                      <ul>
+                        <li><a href="#play/03-mba-analytics/strategy/exercises/ex01_revenue_model.py">ex01 — Revenue model</a></li>
+                      </ul>
+                    </div>
+                  </details>
+                  <details class="diff-group">
+                    <summary><span class="chev">▶</span><span class="label">🟡 Medium</span></summary>
+                    <div class="children">
+                      <ul>
+                        <li><a href="#play/03-mba-analytics/strategy/exercises/ex02_scenarios.py">ex02 — Three scenarios</a></li>
+                      </ul>
+                    </div>
+                  </details>
+                  <details class="diff-group">
+                    <summary><span class="chev">▶</span><span class="label">🔴 Hard</span></summary>
+                    <div class="children">
+                      <ul>
+                        <li><a href="#play/03-mba-analytics/strategy/exercises/ex03_tornado.py">ex03 — Tornado chart</a></li>
+                      </ul>
+                    </div>
+                  </details>
+                  <ul>
+                    <li><a data-md="03-mba-analytics/strategy/project.md">Project</a></li>
+                    <li><a href="#play/03-mba-analytics/strategy/project.py">▶ Project playground</a></li>
+                  </ul>
                 </div>
               </details>
             </div>
@@ -591,6 +1666,37 @@
                     <li><a data-md="04-ai-integration/lessons/02-prompts.md">02 — Prompts</a></li>
                     <li><a data-md="04-ai-integration/lessons/03-data-to-prompt.md">03 — Data to Prompt</a></li>
                   </ul>
+                  <div class="lessons-label">Exercises</div>
+                  <ul>
+                    <li><a data-md="04-ai-integration/exercises/README.md">All exercises (index)</a></li>
+                  </ul>
+                  <details class="diff-group">
+                    <summary><span class="chev">▶</span><span class="label">🟢 Easy</span></summary>
+                    <div class="children">
+                      <ul>
+                        <li><a href="#play/04-ai-integration/exercises/ex01_hello_groq.py">ex01 — Hello, Groq!</a></li>
+                        <li><a href="#play/04-ai-integration/exercises/ex02_summarize.py">ex02 — Executive summary</a></li>
+                      </ul>
+                    </div>
+                  </details>
+                  <details class="diff-group">
+                    <summary><span class="chev">▶</span><span class="label">🟡 Medium</span></summary>
+                    <div class="children">
+                      <ul>
+                        <li><a href="#play/04-ai-integration/exercises/ex03_extract_json.py">ex03 — Extract JSON</a></li>
+                        <li><a href="#play/04-ai-integration/exercises/ex05_sentiment_score.py">ex05 — Sentiment scoring</a></li>
+                        <li><a href="#play/04-ai-integration/exercises/ex06_classification_pipeline.py">ex06 — Classification pipeline</a></li>
+                      </ul>
+                    </div>
+                  </details>
+                  <details class="diff-group">
+                    <summary><span class="chev">▶</span><span class="label">🔴 Hard</span></summary>
+                    <div class="children">
+                      <ul>
+                        <li><a href="#play/04-ai-integration/exercises/ex04_data_summary.py">ex04 — Data → narrative</a></li>
+                      </ul>
+                    </div>
+                  </details>
                 </div>
               </details>
             </div>
@@ -611,12 +1717,21 @@
           <ul>
             <li><a data-md="datasets/README.md">Datasets</a></li>
             <li><a data-md="solutions/README.md">Solutions</a></li>
-            <li><a data-md="notebooks/README.md">Notebooks</a></li>
           </ul>
+
+          <div class="section-label">Notes</div>
+          <div class="notes-toolbar">
+            <button id="notes-add-folder" title="New folder (inside selected folder, else root)">+ Folder</button>
+            <button id="notes-add-note" title="New note (inside selected folder, else root)">+ Note</button>
+            <button id="notes-export" title="Download notes as JSON">Export</button>
+            <button id="notes-import" title="Import notes from JSON">Import</button>
+          </div>
+          <div id="notes-tree"></div>
+          <input type="file" id="notes-import-file" accept="application/json,.json" style="display:none" />
         </div>
 
         <div class="sidebar-footer">
-          Packaged by <span class="pkg">Shantanu</span>.<br />
+          Packaged by <a class="pkg" href="https://shantanukudva.vercel.app" target="_blank" rel="noopener">Shantanu</a>.<br />
           Open <code>index.html</code> in any browser — no server needed.
         </div>
       </aside>
@@ -661,9 +1776,19 @@
 
       const contentEl = document.getElementById("content");
       const breadcrumbEl = document.getElementById("breadcrumb");
-      const sidebarLinks = document.querySelectorAll("aside a[data-md]");
+      const sidebarLinks = document.querySelectorAll(
+        'aside a[data-md], aside a[href^="#play/"], aside a[href^="#"]'
+      );
 
-      sidebarLinks.forEach((a) => {
+      function linkKey(a) {
+        if (a.dataset && a.dataset.md) return a.dataset.md;
+        const href = a.getAttribute("href") || "";
+        if (href.startsWith("#play/")) return decodeURIComponent(href.slice(6));
+        if (href.startsWith("#")) return decodeURIComponent(href.slice(1));
+        return "";
+      }
+
+      document.querySelectorAll("aside a[data-md]").forEach((a) => {
         a.addEventListener("click", (e) => {
           e.preventDefault();
           location.hash = a.getAttribute("data-md");
@@ -679,13 +1804,14 @@
 
         sidebarLinks.forEach((a) => {
           a.classList.remove("active");
-          const md = a.getAttribute("data-md") || "";
-          if (md === path) {
+          const key = linkKey(a);
+          if (!key) return;
+          if (key === path) {
             exact = a;
             return;
           }
-          if (md.endsWith("/README.md")) {
-            const dir = md.slice(0, -"README.md".length); // ends with "/"
+          if (key.endsWith("/README.md")) {
+            const dir = key.slice(0, -"README.md".length);
             if (
               dir.length > 0 &&
               path.startsWith(dir) &&
@@ -715,6 +1841,33 @@
         return i === -1 ? "" : path.slice(0, i + 1);
       }
 
+      // If `target` isn't in FILES, walk up `baseDir` looking for a sibling
+      // path that ends with the same tail (e.g. "lessons/01-x.md"). Lets us
+      // resolve docstring paths written relative to the lesson dir even when
+      // they're embedded in an exercise file one folder over.
+      function resolveInBundle(target, baseDir) {
+        if (!window.FILES) return target;
+        if (Object.prototype.hasOwnProperty.call(window.FILES, target)) return target;
+        const parts = target.split("/");
+        // Try suffixes of decreasing length: "lessons/01-x.md", "01-x.md".
+        for (let take = Math.min(parts.length, 3); take >= 1; take--) {
+          const tail = parts.slice(-take).join("/");
+          const dirParts = (baseDir || "").replace(/\/+$/, "").split("/").filter(Boolean);
+          for (let d = dirParts.length; d >= 0; d--) {
+            const candidate = (dirParts.slice(0, d).join("/") +
+              (d ? "/" : "") + tail).replace(/^\/+/, "");
+            if (Object.prototype.hasOwnProperty.call(window.FILES, candidate)) {
+              return candidate;
+            }
+          }
+          // Fallback: any FILES key ending in this tail.
+          for (const k of Object.keys(window.FILES)) {
+            if (k === tail || k.endsWith("/" + tail)) return k;
+          }
+        }
+        return target;
+      }
+
       function rewriteLinks(baseDir) {
         contentEl.querySelectorAll("a[href]").forEach((a) => {
           const href = a.getAttribute("href");
@@ -723,9 +1876,28 @@
 
           const url = new URL(href, "file:///" + baseDir);
           let resolved = url.pathname.replace(/^\/+/, "");
+          const lower = resolved.toLowerCase();
 
-          if (resolved.toLowerCase().endsWith(".md")) {
-            a.setAttribute("href", "#" + resolved);
+          if (lower.endsWith(".md")) {
+            const target = resolveInBundle(resolved, baseDir);
+            a.setAttribute("href", "#" + target);
+            a.removeAttribute("target");
+          } else if (lower.endsWith(".py")) {
+            const target = resolveInBundle(resolved, baseDir);
+            a.setAttribute("href", "#play/" + target);
+            a.removeAttribute("target");
+          } else if (lower.endsWith("/") || !/\.[a-z0-9]+$/i.test(lower)) {
+            const dir = resolved.replace(/\/+$/, "");
+            const readme = (dir ? dir + "/" : "") + "README.md";
+            const target = resolveInBundle(readme, baseDir);
+            if (window.FILES && Object.prototype.hasOwnProperty.call(window.FILES, target)) {
+              a.setAttribute("href", "#" + target);
+              a.removeAttribute("target");
+            } else {
+              a.setAttribute("href", "javascript:void(0)");
+              a.setAttribute("title", "(missing: " + resolved + ")");
+              a.style.color = "var(--text-muted)";
+            }
           } else {
             a.setAttribute("href", resolved);
             a.setAttribute("target", "_blank");
@@ -747,6 +1919,8 @@
         contentEl.innerHTML = marked.parse(md);
         rewriteLinks(dirOf(path));
         contentEl.querySelectorAll("pre code").forEach((b) => hljs.highlightElement(b));
+        if (window.Playground) window.Playground.enhanceCodeBlocks(contentEl);
+        if (window.Progress) window.Progress.attachMarkButton(contentEl, path);
         window.scrollTo(0, 0);
       }
 
@@ -755,6 +1929,7 @@
         setActive(path);
         breadcrumbEl.innerHTML = `<a href="#README.md">Home</a> / ${path}`;
 
+        // 1. Try direct hit in FILES.
         if (
           window.FILES &&
           Object.prototype.hasOwnProperty.call(window.FILES, path)
@@ -762,32 +1937,709 @@
           render(path, window.FILES[path]);
           return;
         }
-
-        try {
-          const res = await fetch(path);
-          if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
-          render(path, await res.text());
-        } catch (err) {
-          contentEl.innerHTML = `
-            <h1>Couldn't load <code>${path}</code></h1>
-            <p class="error">${err.message}</p>
-            <p>To fix this, run once from this folder:</p>
-            <pre><code>python build_site.py</code></pre>
-            <p>That bundles all markdown so the site works even when opened directly (file://).</p>
-          `;
+        // 2. Try smart resolution for paths that came from a relative link
+        //    written against a different base dir.
+        if (window.FILES) {
+          const guess = resolveInBundle(path, "");
+          if (guess !== path && Object.prototype.hasOwnProperty.call(window.FILES, guess)) {
+            // Update the URL so back/forward and Mark-complete use the canonical key.
+            location.hash = guess;
+            return;
+          }
         }
+
+        contentEl.innerHTML = `
+          <h1>Couldn't find <code>${path}</code></h1>
+          <p class="error">That page isn't bundled yet.</p>
+          <p>If you just edited or added a markdown file, regenerate the bundle:</p>
+          <pre><code>python build_site.py</code></pre>
+        `;
       }
 
       function pathFromHash() {
         return decodeURIComponent(location.hash.replace(/^#\/?/, ""));
       }
 
-      window.addEventListener("hashchange", () => loadMarkdown(pathFromHash()));
+      function routeHash() {
+        const raw = location.hash.replace(/^#\/?/, "");
+        const decoded = decodeURIComponent(raw);
+        if (decoded.startsWith("notes/")) {
+          renderNoteEditor(decoded.slice("notes/".length));
+          renderNotesTree();
+          return;
+        }
+        if (decoded.startsWith("play/")) {
+          loadPlayground(decoded.slice("play/".length));
+          return;
+        }
+        loadMarkdown(decoded);
+      }
+
+      async function loadPlayground(path) {
+        setActive(path);
+        breadcrumbEl.innerHTML =
+          `<a href="#README.md">Home</a> / Playground / ${path}`;
+        let code = null;
+        if (window.FILES && Object.prototype.hasOwnProperty.call(window.FILES, path)) {
+          code = window.FILES[path];
+        } else if (window.FILES) {
+          // Try smart resolution.
+          const guess = resolveInBundle(path, "");
+          if (guess !== path && Object.prototype.hasOwnProperty.call(window.FILES, guess)) {
+            location.hash = "play/" + guess;
+            return;
+          }
+        }
+        if (code === null) {
+          contentEl.innerHTML = `
+            <h1>Couldn't load <code>${path}</code></h1>
+            <p class="error">File not found. Run <code>python build_site.py</code> to bundle it.</p>`;
+          return;
+        }
+        if (!window.Playground) {
+          contentEl.innerHTML = "<p>Loading editor…</p>";
+          setTimeout(() => loadPlayground(path), 100);
+          return;
+        }
+        await window.Playground.mountFullEditor(contentEl, path, code);
+        // Rewrite any links inside the rendered docstring so they route
+        // through the SPA hash router instead of triggering file:// fetches.
+        rewriteLinks(dirOf(path));
+        if (window.Progress) window.Progress.attachMarkButton(contentEl, path);
+        window.scrollTo(0, 0);
+        // Pre-load Pyodide so squigglies + Run feel snappy.
+        window.Playground.ensurePyodide(null).catch(() => {});
+      }
+
+      window.addEventListener("hashchange", routeHash);
 
       window.addEventListener("DOMContentLoaded", () => {
         if (window.FILES_MISSING) showStaleWarning();
-        loadMarkdown(pathFromHash());
+        initNotes();
+        if (window.Progress) {
+          window.Progress.hydrateSidebar();
+          window.Progress.refreshBar();
+        }
+        routeHash();
       });
+
+      // ---- Notes (localStorage-backed) ----
+      const NOTES_KEY = "docs-notes";
+      let notesState = loadNotes();
+      let selectedFolderId = null;
+      let saveTimer = null;
+
+      function loadNotes() {
+        try {
+          const raw = localStorage.getItem(NOTES_KEY);
+          if (raw) return JSON.parse(raw);
+        } catch (e) {}
+        return { tree: [], notes: {} };
+      }
+      function saveNotes() {
+        localStorage.setItem(NOTES_KEY, JSON.stringify(notesState));
+      }
+      function uid() {
+        return Math.random().toString(36).slice(2, 8) + Date.now().toString(36);
+      }
+      function escHtml(s) {
+        return String(s).replace(/[&<>"']/g, (c) => ({
+          "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;",
+        }[c]));
+      }
+
+      function findNode(id, list) {
+        list = list || notesState.tree;
+        for (const n of list) {
+          if (n.id === id) return { node: n, parent: list };
+          if (n.type === "folder") {
+            const f = findNode(id, n.children);
+            if (f) return f;
+          }
+        }
+        return null;
+      }
+
+      function getTargetList() {
+        if (!selectedFolderId) return notesState.tree;
+        const found = findNode(selectedFolderId);
+        if (found && found.node.type === "folder") {
+          found.node._open = true;
+          return found.node.children;
+        }
+        return notesState.tree;
+      }
+
+      function renderNotesTree() {
+        const container = document.getElementById("notes-tree");
+        if (!container) return;
+        container.innerHTML = "";
+        if (notesState.tree.length === 0) {
+          const empty = document.createElement("div");
+          empty.className = "empty";
+          empty.textContent = "No notes yet — click + Note.";
+          container.appendChild(empty);
+          return;
+        }
+        container.appendChild(renderList(notesState.tree));
+      }
+
+      function renderList(list, depth) {
+        depth = depth || 0;
+        const ul = document.createElement("ul");
+        const currentNoteHash = location.hash.replace(/^#\/?/, "");
+        for (const node of list) {
+          const li = document.createElement("li");
+          li.className = "row";
+          li.dataset.id = node.id;
+          li.style.paddingLeft = 6 + depth * 12 + "px";
+
+          if (node.type === "folder") {
+            const chev = document.createElement("span");
+            chev.className = "chev" + (node._open ? " open" : "");
+            chev.textContent = "▶";
+            const icon = document.createElement("span");
+            icon.className = "icon";
+            icon.textContent = node._open ? "📂" : "📁";
+            const name = document.createElement("span");
+            name.className = "name";
+            name.textContent = node.name;
+            li.append(chev, icon, name);
+
+            if (node.id === selectedFolderId) li.classList.add("selected");
+            li.addEventListener("click", (e) => {
+              e.stopPropagation();
+              node._open = !node._open;
+              selectedFolderId = node._open ? node.id : null;
+              renderNotesTree();
+            });
+            li.appendChild(makeRowActions(node));
+            ul.appendChild(li);
+            if (node._open && node.children.length) {
+              ul.appendChild(renderList(node.children, depth + 1));
+            }
+          } else {
+            const indent = document.createElement("span");
+            indent.className = "indent";
+            const icon = document.createElement("span");
+            icon.className = "icon";
+            icon.textContent = "📝";
+            const name = document.createElement("span");
+            name.className = "name";
+            name.textContent = node.name;
+            li.append(indent, icon, name);
+
+            if (currentNoteHash === "notes/" + node.id) li.classList.add("selected");
+            li.addEventListener("click", (e) => {
+              e.stopPropagation();
+              location.hash = "notes/" + node.id;
+            });
+            li.appendChild(makeRowActions(node));
+            ul.appendChild(li);
+          }
+        }
+        return ul;
+      }
+
+      function makeRowActions(node) {
+        const wrap = document.createElement("span");
+        wrap.className = "row-actions";
+        const ren = document.createElement("button");
+        ren.textContent = "✎";
+        ren.title = "Rename";
+        ren.addEventListener("click", (e) => {
+          e.stopPropagation();
+          renameNode(node);
+        });
+        const del = document.createElement("button");
+        del.textContent = "🗑";
+        del.title = "Delete";
+        del.addEventListener("click", (e) => {
+          e.stopPropagation();
+          deleteNode(node);
+        });
+        wrap.appendChild(ren);
+        wrap.appendChild(del);
+        return wrap;
+      }
+
+      function addFolder() {
+        const name = prompt("Folder name:");
+        if (!name || !name.trim()) return;
+        const list = getTargetList();
+        list.push({
+          type: "folder",
+          id: uid(),
+          name: name.trim(),
+          children: [],
+          _open: true,
+        });
+        saveNotes();
+        renderNotesTree();
+      }
+
+      function addNote() {
+        const name = prompt("Note name:", "untitled.md");
+        if (!name || !name.trim()) return;
+        const id = uid();
+        const cleanName = name.trim();
+        getTargetList().push({ type: "note", id, name: cleanName });
+        notesState.notes[id] =
+          "# " + cleanName.replace(/\.md$/, "") + "\n\n";
+        saveNotes();
+        renderNotesTree();
+        location.hash = "notes/" + id;
+      }
+
+      function renameNode(node) {
+        const name = prompt("New name:", node.name);
+        if (!name || !name.trim()) return;
+        node.name = name.trim();
+        saveNotes();
+        renderNotesTree();
+        if (location.hash === "#notes/" + node.id) routeHash();
+      }
+
+      function deleteNode(node) {
+        const msg =
+          'Delete "' +
+          node.name +
+          '"' +
+          (node.type === "folder" ? " and everything inside?" : "?");
+        if (!confirm(msg)) return;
+        removeRecursive(node, notesState.tree);
+        if (node.type === "note") delete notesState.notes[node.id];
+        if (node.type === "folder") purgeFolderNotes(node);
+        if (selectedFolderId === node.id) selectedFolderId = null;
+        saveNotes();
+        renderNotesTree();
+        if (location.hash.startsWith("#notes/" + node.id)) {
+          location.hash = "README.md";
+        }
+      }
+
+      function purgeFolderNotes(folder) {
+        for (const child of folder.children || []) {
+          if (child.type === "note") delete notesState.notes[child.id];
+          else purgeFolderNotes(child);
+        }
+      }
+
+      function removeRecursive(target, list) {
+        const idx = list.indexOf(target);
+        if (idx >= 0) {
+          list.splice(idx, 1);
+          return true;
+        }
+        for (const n of list) {
+          if (n.type === "folder" && removeRecursive(target, n.children))
+            return true;
+        }
+        return false;
+      }
+
+      // Per-user UI prefs for the notes editor (preview pane on/off etc.).
+      const NOTES_PREF_KEY = "docs-notes-prefs";
+      function loadNotesPrefs() {
+        try {
+          return JSON.parse(localStorage.getItem(NOTES_PREF_KEY)) || {};
+        } catch (e) {
+          return {};
+        }
+      }
+      function saveNotesPrefs(p) {
+        localStorage.setItem(NOTES_PREF_KEY, JSON.stringify(p));
+      }
+      let notesPrefs = loadNotesPrefs();
+
+      function renderNoteEditor(id) {
+        const found = findNode(id);
+        if (!found || found.node.type !== "note") {
+          contentEl.innerHTML =
+            '<div class="notes-ide"><div class="notes-empty-state">' +
+            '<div class="glyph">📭</div>' +
+            "<div><strong>Note not found</strong></div>" +
+            '<div class="hint">Maybe it was deleted. Pick another from the sidebar — or click <code>+ Note</code> to make a new one.</div>' +
+            "</div></div>";
+          breadcrumbEl.innerHTML = "";
+          return;
+        }
+        const node = found.node;
+        const initial = notesState.notes[id] || "";
+        const editMode = notesPrefs.editMode === "code" ? "code" : "md"; // default MD
+        const previewOn = editMode === "code" && notesPrefs.previewOn !== false;
+
+        contentEl.innerHTML =
+          '<div class="notes-ide">' +
+          // Tab bar
+          '<div class="notes-tabbar">' +
+          '<div class="notes-tab" id="notes-tab">' +
+          '<span class="tab-icon">📝</span>' +
+          '<span class="tab-name" id="notes-tab-name"></span>' +
+          '<span class="tab-dirty" title="Unsaved changes"></span>' +
+          '<button class="tab-close" id="notes-tab-close" title="Close (back to home)">×</button>' +
+          "</div>" +
+          '<div class="tabbar-actions">' +
+          '<div class="mode-toggle" role="group" aria-label="Edit mode">' +
+          '<button data-mode="md" id="notes-mode-md" title="Rich markdown editor with formatting buttons">¶ MD</button>' +
+          '<button data-mode="code" id="notes-mode-code" title="Raw markdown source with side preview">&lt;/&gt; Code</button>' +
+          "</div>" +
+          '<button id="notes-toggle-preview" title="Toggle preview pane (Code mode only)">Preview</button>' +
+          '<button id="notes-download" title="Download as .md file">Download</button>' +
+          "</div>" +
+          "</div>" +
+          // Markdown formatting toolbar (visible only in MD mode)
+          '<div class="notes-mdtoolbar" id="notes-mdtoolbar">' +
+          '<button data-md="h1" title="Heading 1">H1</button>' +
+          '<button data-md="h2" title="Heading 2">H2</button>' +
+          '<button data-md="h3" title="Heading 3">H3</button>' +
+          '<span class="sep"></span>' +
+          '<button class="bold" data-md="bold" title="Bold (Cmd/Ctrl+B)">B</button>' +
+          '<button class="italic" data-md="italic" title="Italic (Cmd/Ctrl+I)">I</button>' +
+          '<button class="strike" data-md="strike" title="Strikethrough">S</button>' +
+          '<button class="code" data-md="inlinecode" title="Inline code">` `</button>' +
+          '<span class="sep"></span>' +
+          '<button data-md="link" title="Link (Cmd/Ctrl+K)">🔗 Link</button>' +
+          '<button data-md="image" title="Image">🖼 Image</button>' +
+          '<span class="sep"></span>' +
+          '<button data-md="ul" title="Bullet list">• List</button>' +
+          '<button data-md="ol" title="Numbered list">1. List</button>' +
+          '<button data-md="task" title="Task list">☐ Task</button>' +
+          '<button data-md="quote" title="Blockquote">❝ Quote</button>' +
+          '<span class="sep"></span>' +
+          '<button data-md="codeblock" title="Code block">{ } Block</button>' +
+          '<button data-md="hr" title="Horizontal rule">— HR</button>' +
+          '<button data-md="table" title="Table (3×3)">⊞ Table</button>' +
+          "</div>" +
+          // Editor + preview body
+          '<div class="notes-body">' +
+          '<div class="notes-monaco-host" id="notes-monaco-host"></div>' +
+          '<div class="notes-preview-pane" id="notes-preview"></div>' +
+          "</div>" +
+          // Status bar
+          '<div class="notes-statusbar">' +
+          '<span class="save-state" id="notes-save-state">● Saved</span>' +
+          '<span id="notes-cursor">Ln 1, Col 1</span>' +
+          '<span id="notes-mode-label">MD</span>' +
+          '<span class="spacer"></span>' +
+          '<span id="notes-stats"></span>' +
+          "</div>" +
+          "</div>";
+
+        breadcrumbEl.innerHTML = "";
+        document.getElementById("notes-tab-name").textContent = node.name;
+
+        const tab = document.getElementById("notes-tab");
+        const saveStateEl = document.getElementById("notes-save-state");
+        const cursorEl = document.getElementById("notes-cursor");
+        const statsEl = document.getElementById("notes-stats");
+        const previewEl = document.getElementById("notes-preview");
+        const togglePreviewBtn = document.getElementById("notes-toggle-preview");
+        const downloadBtn = document.getElementById("notes-download");
+        const closeBtn = document.getElementById("notes-tab-close");
+        const host = document.getElementById("notes-monaco-host");
+        const mdToolbar = document.getElementById("notes-mdtoolbar");
+        const modeMdBtn = document.getElementById("notes-mode-md");
+        const modeCodeBtn = document.getElementById("notes-mode-code");
+        const modeLabel = document.getElementById("notes-mode-label");
+
+        let editor = null;
+        let dirty = false;
+
+        function refreshPreview() {
+          if (!previewOn || !editor) return;
+          previewEl.innerHTML = window.marked
+            ? window.marked.parse(editor.getValue())
+            : "";
+          previewEl
+            .querySelectorAll("pre code")
+            .forEach((b) => window.hljs && window.hljs.highlightElement(b));
+        }
+
+        function applyModeUI() {
+          // Mode toggle highlight
+          modeMdBtn.classList.toggle("active", editMode === "md");
+          modeCodeBtn.classList.toggle("active", editMode === "code");
+          modeLabel.textContent = editMode === "md" ? "MD (rich)" : "Markdown source";
+          // MD toolbar only in MD mode
+          mdToolbar.classList.toggle("hidden", editMode !== "md");
+          // Preview button + pane only in code mode
+          togglePreviewBtn.style.display = editMode === "code" ? "" : "none";
+          if (previewOn) {
+            previewEl.classList.remove("hidden");
+            togglePreviewBtn.classList.add("active");
+            refreshPreview();
+          } else {
+            previewEl.classList.add("hidden");
+            togglePreviewBtn.classList.remove("active");
+          }
+        }
+
+        function updateStats(text) {
+          const chars = text.length;
+          const words = text.trim() ? text.trim().split(/\s+/).length : 0;
+          statsEl.textContent = words + " words · " + chars + " chars";
+        }
+
+        function setDirty(d) {
+          if (d === dirty) return;
+          dirty = d;
+          tab.classList.toggle("dirty", d);
+          if (d) {
+            saveStateEl.textContent = "● Modified";
+            saveStateEl.classList.add("dirty");
+          }
+        }
+
+        function flush() {
+          saveNotes();
+          saveStateEl.textContent = "● Saved";
+          saveStateEl.classList.remove("dirty");
+          tab.classList.remove("dirty");
+          dirty = false;
+        }
+
+        function onChange(value) {
+          notesState.notes[id] = value;
+          updateStats(value);
+          setDirty(true);
+          clearTimeout(saveTimer);
+          saveTimer = setTimeout(() => {
+            flush();
+            refreshPreview();
+          }, 350);
+        }
+
+        function onCursor(pos) {
+          if (pos)
+            cursorEl.textContent =
+              "Ln " + pos.lineNumber + ", Col " + pos.column;
+        }
+
+        togglePreviewBtn.addEventListener("click", () => {
+          notesPrefs.previewOn = !previewOn;
+          saveNotesPrefs(notesPrefs);
+          renderNoteEditor(id);
+        });
+
+        modeMdBtn.addEventListener("click", () => {
+          if (editMode === "md") return;
+          notesPrefs.editMode = "md";
+          saveNotesPrefs(notesPrefs);
+          renderNoteEditor(id);
+        });
+        modeCodeBtn.addEventListener("click", () => {
+          if (editMode === "code") return;
+          notesPrefs.editMode = "code";
+          saveNotesPrefs(notesPrefs);
+          renderNoteEditor(id);
+        });
+
+        // ---- Markdown toolbar actions (MD mode) ----
+        function withMonaco(cb) {
+          if (!editor || !window.monaco) return;
+          cb(window.monaco, editor);
+        }
+        function wrapSelection(before, after, placeholder) {
+          withMonaco((monaco, ed) => {
+            const sel = ed.getSelection();
+            const text =
+              ed.getModel().getValueInRange(sel) || placeholder || "text";
+            ed.executeEdits("md-wrap", [
+              { range: sel, text: before + text + after },
+            ]);
+            ed.focus();
+          });
+        }
+        function prefixLines(prefix, ordered) {
+          withMonaco((monaco, ed) => {
+            const sel = ed.getSelection();
+            const startLine = sel.startLineNumber;
+            const endLine = sel.endLineNumber;
+            const edits = [];
+            let n = 1;
+            for (let line = startLine; line <= endLine; line++) {
+              const txt = ordered ? n + ". " : prefix;
+              edits.push({
+                range: new monaco.Range(line, 1, line, 1),
+                text: txt,
+              });
+              n++;
+            }
+            ed.executeEdits("md-prefix", edits);
+            ed.focus();
+          });
+        }
+        function insertBlock(text) {
+          withMonaco((monaco, ed) => {
+            const sel = ed.getSelection();
+            const line = sel.endLineNumber;
+            const col = ed.getModel().getLineLength(line) + 1;
+            const range = new monaco.Range(line, col, line, col);
+            ed.executeEdits("md-block", [
+              { range, text: "\n" + text + "\n" },
+            ]);
+            ed.focus();
+          });
+        }
+        const mdActions = {
+          h1: () => prefixLines("# "),
+          h2: () => prefixLines("## "),
+          h3: () => prefixLines("### "),
+          bold: () => wrapSelection("**", "**", "bold text"),
+          italic: () => wrapSelection("_", "_", "italic text"),
+          strike: () => wrapSelection("~~", "~~", "text"),
+          inlinecode: () => wrapSelection("`", "`", "code"),
+          link: () => {
+            const url = prompt("URL:", "https://");
+            if (!url) return;
+            wrapSelection("[", "](" + url + ")", "link text");
+          },
+          image: () => {
+            const url = prompt("Image URL:", "https://");
+            if (!url) return;
+            const alt = prompt("Alt text:", "alt") || "alt";
+            insertBlock("![" + alt + "](" + url + ")");
+          },
+          ul: () => prefixLines("- "),
+          ol: () => prefixLines("", true),
+          task: () => prefixLines("- [ ] "),
+          quote: () => prefixLines("> "),
+          codeblock: () => insertBlock("```python\ncode\n```"),
+          hr: () => insertBlock("---"),
+          table: () =>
+            insertBlock(
+              "| col1 | col2 | col3 |\n|---|---|---|\n| a | b | c |\n| d | e | f |"
+            ),
+        };
+        mdToolbar.addEventListener("click", (e) => {
+          const btn = e.target.closest("button[data-md]");
+          if (!btn) return;
+          const action = btn.dataset.md;
+          if (mdActions[action]) mdActions[action]();
+        });
+
+        downloadBtn.addEventListener("click", () => {
+          if (!editor) return;
+          const fname = node.name.endsWith(".md")
+            ? node.name
+            : node.name + ".md";
+          const blob = new Blob([editor.getValue()], {
+            type: "text/markdown",
+          });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement("a");
+          a.href = url;
+          a.download = fname;
+          a.click();
+          URL.revokeObjectURL(url);
+        });
+
+        closeBtn.addEventListener("click", () => {
+          if (dirty) flush();
+          location.hash = "README.md";
+        });
+
+        applyModeUI();
+        updateStats(initial);
+
+        // Mount Monaco for a true IDE feel. Falls back to a plain textarea
+        // if Playground/Monaco can't be loaded (e.g. offline).
+        if (window.Playground && window.Playground.createMarkdownEditor) {
+          window.Playground.createMarkdownEditor(host, initial, {
+            onChange,
+            onCursor,
+          })
+            .then((ed) => {
+              editor = ed;
+              ed.focus();
+              if (window.monaco) {
+                const KeyMod = window.monaco.KeyMod;
+                const KeyCode = window.monaco.KeyCode;
+                ed.addCommand(KeyMod.CtrlCmd | KeyCode.KeyB, () =>
+                  mdActions.bold()
+                );
+                ed.addCommand(KeyMod.CtrlCmd | KeyCode.KeyI, () =>
+                  mdActions.italic()
+                );
+                ed.addCommand(KeyMod.CtrlCmd | KeyCode.KeyK, () =>
+                  mdActions.link()
+                );
+              }
+              refreshPreview();
+            })
+            .catch(() => mountTextareaFallback());
+        } else {
+          mountTextareaFallback();
+        }
+
+        function mountTextareaFallback() {
+          host.innerHTML =
+            '<textarea id="notes-fallback-ta" style="width:100%;height:100%;padding:12px;border:0;background:var(--bg);color:var(--text);font-family:ui-monospace,monospace;font-size:14px;line-height:1.5;resize:none;outline:none;box-sizing:border-box;"></textarea>';
+          const ta = document.getElementById("notes-fallback-ta");
+          ta.value = initial;
+          editor = {
+            getValue: () => ta.value,
+            focus: () => ta.focus(),
+            setValue: (v) => (ta.value = v),
+          };
+          ta.addEventListener("input", () => onChange(ta.value));
+          ta.focus();
+          refreshPreview();
+        }
+      }
+
+      function exportNotes() {
+        const blob = new Blob([JSON.stringify(notesState, null, 2)], {
+          type: "application/json",
+        });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "notes.json";
+        a.click();
+        URL.revokeObjectURL(url);
+      }
+
+      function importNotes(file) {
+        const reader = new FileReader();
+        reader.onload = () => {
+          try {
+            const parsed = JSON.parse(reader.result);
+            if (!parsed || !Array.isArray(parsed.tree) || typeof parsed.notes !== "object") {
+              alert("Invalid notes file.");
+              return;
+            }
+            if (!confirm("Replace your current notes with the imported file?")) return;
+            notesState = parsed;
+            saveNotes();
+            renderNotesTree();
+          } catch (e) {
+            alert("Couldn't parse JSON: " + e.message);
+          }
+        };
+        reader.readAsText(file);
+      }
+
+      function initNotes() {
+        document
+          .getElementById("notes-add-folder")
+          .addEventListener("click", addFolder);
+        document
+          .getElementById("notes-add-note")
+          .addEventListener("click", addNote);
+        document
+          .getElementById("notes-export")
+          .addEventListener("click", exportNotes);
+        const importBtn = document.getElementById("notes-import");
+        const importInput = document.getElementById("notes-import-file");
+        importBtn.addEventListener("click", () => importInput.click());
+        importInput.addEventListener("change", (e) => {
+          if (e.target.files[0]) importNotes(e.target.files[0]);
+          e.target.value = "";
+        });
+        renderNotesTree();
+      }
     </script>
   </body>
 </html>

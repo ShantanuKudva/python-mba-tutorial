@@ -48,6 +48,28 @@ Done with marketing lessons. Move to [`exercises/`](../exercises/) and [`project
 
 ---
 
+## 🏋️ Practice
+
+### Easy
+
+Given two lists of revenue-per-user values (group A and group B), run `scipy.stats.ttest_ind` and print the mean of each group, the p-value, and whether the result is statistically significant at α = 0.05.
+
+[▶ Open exercise](#play/03-mba-analytics/marketing/exercises/ex04_ab_test.py)
+
+### Medium
+
+Use the `ab_test` wrapper function from the lesson to compare two groups. Print the lift percentage and a plain-English recommendation: should the business ship variant B?
+
+[▶ Open exercise](#play/03-mba-analytics/marketing/exercises/ex04_ab_test.py)
+
+### Hard
+
+Extend the A/B test to also compute a 95% confidence interval for the lift. Simulate what happens as the sample size grows (n = 50, 200, 500, 2000): print the p-value for each sample size to show how statistical significance depends on sample size. Comment on what this means for real-world A/B tests.
+
+[▶ Open exercise](#play/03-mba-analytics/marketing/exercises/ex04_ab_test.py)
+
+---
+
 ## 📚 Resources
 
 **Official docs**

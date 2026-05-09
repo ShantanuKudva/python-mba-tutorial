@@ -3,6 +3,7 @@ Exercise 7 — Unique SKUs and churn analysis.
 
 Concepts: sets, set operations.
 Lesson: lessons/05-tuples-and-sets.md
+Difficulty: Medium
 📚 References: open the lesson above and see its 📚 Resources section at the bottom (official docs, deep dives, video tutorials). Global index in ROADMAP.md.
 
 Goal: compare two months of orders and report:

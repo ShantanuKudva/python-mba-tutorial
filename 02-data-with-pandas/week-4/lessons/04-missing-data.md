@@ -55,6 +55,28 @@ Done with week 4 lessons. Move to [`exercises/`](../exercises/) and [`project.md
 
 ---
 
+## 🏋️ Practice
+
+### Easy
+
+Create a DataFrame that has several `NaN` values. Use `isna().sum()` to count missing values per column. Then fill the numeric column's `NaN` with the column's median and the text column's `NaN` with `"Unknown"`.
+
+[▶ Open exercise](#play/02-data-with-pandas/week-4/exercises/ex04_missing.py)
+
+### Medium
+
+Read a DataFrame from `sample_pl.xlsx`. Identify columns with missing values. Drop rows where the primary numeric column is `NaN`. For remaining rows, fill text-column `NaN` values with `"Unclassified"`. Print the shape before and after cleaning.
+
+[▶ Open exercise](#play/02-data-with-pandas/week-4/exercises/ex04_missing.py)
+
+### Hard
+
+Build a DataFrame with intentional gaps: some rows missing `price`, some missing `category`, some missing both. Write a cleaning function that: (a) fills `price` with the median, (b) fills `category` with `"Unknown"`, (c) logs a warning for every row where both were missing, and (d) returns the cleaned DataFrame. Call the function and print the final shape and `isna().sum()` to confirm no NaNs remain.
+
+[▶ Open exercise](#play/02-data-with-pandas/week-4/exercises/ex04_missing.py)
+
+---
+
 ## 📚 Resources
 
 **Official docs**

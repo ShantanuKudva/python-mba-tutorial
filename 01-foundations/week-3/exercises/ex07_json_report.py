@@ -1,23 +1,27 @@
 """
-Exercise 7 — Write and re-read a JSON quarterly report.
+Exercise 7 — Build and parse a JSON quarterly report.
 
-Concepts: json.dumps / json.loads, pathlib.write_text / read_text.
-Lesson: lessons/05-pathlib-and-json.md
-📚 References: open the lesson above and see its 📚 Resources section at the bottom (official docs, deep dives, video tutorials). Global index in ROADMAP.md.
+Concepts: json.dumps, json.loads, dict operations, formatted output.
+Lesson: 01-foundations/week-3/lessons/05-pathlib-and-json.md
+Difficulty: Medium
+📚 References: see the 📚 Resources block at the bottom of the related lesson for
+official docs, deep dives, and video tutorials.
 
 Goal:
-  1. Build a Python dict describing Q1 revenue by region.
-  2. Write it to `q1_report.json` next to this file.
-  3. Read it back and print the total revenue.
+  1. Serialise the report dict to a JSON string using json.dumps.
+  2. Parse it back with json.loads.
+  3. Compute and print the total revenue.
+
+# (Browser note: this serialises to a string rather than writing to disk.)
 
 Expected output:
-    Wrote q1_report.json
+    JSON length: <some number> characters
     Q1 total revenue: $3,635,000
 """
 
 import json
-from pathlib import Path
 
+# Setup — the report dict to serialise.
 report = {
     "quarter": "Q1",
     "currency": "USD",
@@ -28,14 +32,14 @@ report = {
     },
 }
 
-out = Path(__file__).parent / "q1_report.json"
+# 🛠️ Step 1: serialise the report to a JSON string.
+#    json_str = json.dumps(report, indent=2)
+#    print(f"JSON length: {len(json_str)} characters")
 
-# 🛠️ Step 1: write the report.
-#    out.write_text(json.dumps(report, indent=2))
-
-# 🛠️ Step 2: read it back and parse.
-#    data = json.loads(out.read_text())
+# 🛠️ Step 2: parse it back.
+#    data = json.loads(json_str)
 
 # 🛠️ Step 3: total = sum(data["regions"].values())
 
-# 🛠️ Step 4: print confirmation and total (use ":,.0f" formatting).
+# 🛠️ Step 4: print the formatted total.
+#    print(f"Q1 total revenue: ${total:,.0f}")

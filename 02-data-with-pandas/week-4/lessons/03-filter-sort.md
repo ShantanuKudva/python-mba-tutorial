@@ -64,3 +64,25 @@ df = df.rename(columns={"old_name": "new_name"})
 ---
 
 Next: [`04-missing-data.md`](04-missing-data.md).
+
+---
+
+## 🏋️ Practice
+
+### Easy
+
+Given a DataFrame of products, filter it to show only rows where `price < 10`. Then sort the filtered result by `stock` descending. Print the result.
+
+[▶ Open exercise](#play/02-data-with-pandas/week-4/exercises/ex03_filter.py)
+
+### Medium
+
+Add a computed column `revenue = price * stock`. Then filter to rows where `revenue > 500` AND `stock > 20`. Sort by `revenue` descending and print the top 3 products using `.iloc[:3]`.
+
+[▶ Open exercise](#play/02-data-with-pandas/week-4/exercises/ex06_top_products.py)
+
+### Hard
+
+Use `.loc` to select all rows where the category column (as string) starts with `"W"` (use `.str.startswith()`). Use `.iloc` to select the last row and the second column. Rename two columns, add a `margin` column, and produce a final report DataFrame sorted by `margin` descending.
+
+[▶ Open exercise](#play/02-data-with-pandas/week-4/exercises/ex07_columns_math.py)

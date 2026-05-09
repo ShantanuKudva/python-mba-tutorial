@@ -59,3 +59,25 @@ orders.merge(customers, on="customer_id", suffixes=("_order", "_cust"))
 ---
 
 Next: [`04-dates.md`](04-dates.md).
+
+---
+
+## 🏋️ Practice
+
+### Easy
+
+Merge an `orders` DataFrame with a `customers` DataFrame on `customer_id` using a left join. Print the shape before and after the merge to confirm no orders were dropped.
+
+[▶ Open exercise](#play/02-data-with-pandas/week-5/exercises/ex03_merge.py)
+
+### Medium
+
+Merge `orders` with `customers` using different column names (`left_on="cust_id"`, `right_on="id"`). After the merge, check for any rows where customer columns are `NaN` (unmatched orders). Print the count of unmatched orders.
+
+[▶ Open exercise](#play/02-data-with-pandas/week-5/exercises/ex03_merge.py)
+
+### Hard
+
+Perform a three-way merge: `orders` → `customers` → `products`. Start with a left join from orders to customers, then left join that result to products on `sku`. After the merge, compute total revenue per customer segment. Handle any column name collisions with the `suffixes` argument.
+
+[▶ Open exercise](#play/02-data-with-pandas/week-5/exercises/ex03_merge.py)

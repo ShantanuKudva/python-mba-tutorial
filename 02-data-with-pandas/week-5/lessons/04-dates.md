@@ -56,3 +56,25 @@ df[df["date"] >= "2026-01-01"]          # column form
 ---
 
 Next: [`05-plotting.md`](05-plotting.md).
+
+---
+
+## 🏋️ Practice
+
+### Easy
+
+Given a DataFrame with a string `date` column, convert it to datetime with `pd.to_datetime`. Then extract the year, month, and quarter into separate columns. Print the result.
+
+[▶ Open exercise](#play/02-data-with-pandas/week-5/exercises/ex04_dates.py)
+
+### Medium
+
+Set `date` as the index and resample the `amount` column to monthly totals. Then filter the resampled result to only show months where total exceeds $10,000. Print the months that qualify.
+
+[▶ Open exercise](#play/02-data-with-pandas/week-5/exercises/ex04_dates.py)
+
+### Hard
+
+Parse dates, set as index, and resample to compute both monthly totals and monthly counts. Add a column `avg_per_order`. Then compute the 3-month rolling average of monthly totals. Print the full time-series table including rolling average, with dates formatted as `"Jan 2026"`.
+
+[▶ Open exercise](#play/02-data-with-pandas/week-5/exercises/ex04_dates.py)

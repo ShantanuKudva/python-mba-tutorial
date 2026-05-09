@@ -1,26 +1,31 @@
-# Week 1 — Exercises
+# Exercises — Week 1 · Python Basics
 
-8 problems. Each is a short `.py` file with a TODO. Open the file, fill in the missing code, run it, check the expected output.
+> Practice problems for the lessons in this module. Each exercise opens directly in the browser playground — fill in the steps and click ▶ Run.
 
-| # | File | What it teaches |
-|---|---|---|
-| 1 | [`ex01_age_in_days.py`](ex01_age_in_days.py) | Variables, arithmetic |
-| 2 | [`ex02_sales_summary.py`](ex02_sales_summary.py) | f-strings, formatting |
-| 3 | [`ex03_grade_margin.py`](ex03_grade_margin.py) | if / elif / else |
-| 4 | [`ex04_bonus_eligibility.py`](ex04_bonus_eligibility.py) | Logical operators |
-| 5 | [`ex05_tip_calculator.py`](ex05_tip_calculator.py) | Putting it all together |
-| 6 | [`ex06_clean_customer.py`](ex06_clean_customer.py) | String methods (`.strip`, `.title`, `.replace`) |
-| 7 | [`ex07_sku_parts.py`](ex07_sku_parts.py) | `.split`, slicing, padded f-strings |
-| 8 | [`ex08_growth_rate.py`](ex08_growth_rate.py) | Conditionals + percent formatting |
+## 📚 Read first
 
-## How to run
+Skim these before attempting the harder exercises:
+- [Lesson 01 — Hello Python](../lessons/01-hello-python.md)
+- [Lesson 02 — Variables & Types](../lessons/02-variables-and-types.md)
+- [Lesson 03 — Conditionals](../lessons/03-conditionals.md)
+- [Lesson 04 — Strings & f-strings](../lessons/04-strings.md)
+- [Python official docs — Built-in Types](https://docs.python.org/3/library/stdtypes.html)
+- [Real Python — f-Strings](https://realpython.com/python-f-strings/)
 
-```bash
-python 01-foundations/week-1/exercises/ex01_age_in_days.py
-```
+## 🟢 Easy
 
-## Stuck?
+- [ex01 — Age in days](#play/01-foundations/week-1/exercises/ex01_age_in_days.py) — variables, integer arithmetic.
+- [ex04 — Bonus eligibility](#play/01-foundations/week-1/exercises/ex04_bonus_eligibility.py) — boolean logic with `and` / `not`.
+- [ex06 — Clean a customer name](#play/01-foundations/week-1/exercises/ex06_clean_customer.py) — string methods: `.strip`, `.title`, `.replace`.
 
-1. Re-read the lesson the exercise points to.
-2. Add `print(...)` to inspect intermediate values.
-3. Solutions are in [`../../../solutions/week-1/`](../../../solutions/week-1/) — but **only after** you've spent at least 15 minutes trying.
+## 🟡 Medium
+
+- [ex02 — Sales summary](#play/01-foundations/week-1/exercises/ex02_sales_summary.py) — f-strings, number formatting.
+- [ex03 — Grade a margin](#play/01-foundations/week-1/exercises/ex03_grade_margin.py) — `if` / `elif` / `else` ladder.
+- [ex07 — SKU parts](#play/01-foundations/week-1/exercises/ex07_sku_parts.py) — `.split`, slicing, padded f-strings.
+
+## 🔴 Hard
+
+- [ex05 — Tip calculator](#play/01-foundations/week-1/exercises/ex05_tip_calculator.py) — conditionals + arithmetic + formatted output combined.
+- [ex08 — YoY growth rate](#play/01-foundations/week-1/exercises/ex08_growth_rate.py) — percent formatting, verdict logic.
+- [ex09 — Margin table](#play/01-foundations/week-1/exercises/ex09_margin_table.py) — loops, functions, multi-row formatted table with flags.

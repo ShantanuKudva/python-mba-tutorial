@@ -3,6 +3,7 @@ Exercise 7 — Derived columns: profit and margin.
 
 Concepts: column arithmetic, derived columns.
 Lesson: lessons/01-dataframes.md
+Difficulty: Hard
 📚 References: open the lesson above and see its 📚 Resources section at the bottom (official docs, deep dives, video tutorials). Global index in ROADMAP.md.
 
 Goal: add two new columns to the DataFrame:

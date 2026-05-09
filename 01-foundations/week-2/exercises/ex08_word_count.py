@@ -3,6 +3,7 @@ Exercise 8 — Count occurrences of each region.
 
 Concepts: dicts as counters, .get() with default, looping.
 Lesson: lessons/02-dicts.md
+Difficulty: Hard
 📚 References: open the lesson above and see its 📚 Resources section at the bottom (official docs, deep dives, video tutorials). Global index in ROADMAP.md.
 
 Goal: given a list of region tags, build a dict of {region: count}

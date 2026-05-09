@@ -61,6 +61,28 @@ Done with finance lessons. On to [`exercises/`](../exercises/) and [`project.md`
 
 ---
 
+## 🏋️ Practice
+
+### Easy
+
+Given a list of cash flows `[-1000, 300, 300, 300, 300, 300]` and a discount rate of 10%, compute and print the NPV and IRR using `numpy_financial`. Interpret: is this a good investment?
+
+[▶ Open exercise](#play/03-mba-analytics/finance/exercises/ex02_npv.py)
+
+### Medium
+
+Build a 5-year DCF model from scratch using a pandas DataFrame of projected free cash flows. Use a 10% discount rate and a 2.5% terminal growth rate. Compute the enterprise value and print a year-by-year table showing FCF, discount factor, and present value.
+
+[▶ Open exercise](#play/03-mba-analytics/finance/exercises/ex03_dcf.py)
+
+### Hard
+
+Create a DCF sensitivity table that varies the discount rate (8%, 10%, 12%) and terminal growth rate (1.5%, 2.5%, 3.5%) in a 3×3 grid. Each cell should show the resulting enterprise value. Print the table with rows as discount rates and columns as terminal growth rates. Highlight the base-case cell.
+
+[▶ Open exercise](#play/03-mba-analytics/finance/exercises/ex03_dcf.py)
+
+---
+
 ## 📚 Resources
 
 **Official docs**

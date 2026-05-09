@@ -45,6 +45,28 @@ Done with week 5 lessons. Move to [`exercises/`](../exercises/) and [`project.md
 
 ---
 
+## 🏋️ Practice
+
+### Easy
+
+Group a sales DataFrame by month and plot the monthly totals as a bar chart. Save it as `monthly_bar.png` using `savefig`. Print confirmation that the file was written.
+
+[▶ Open exercise](#play/02-data-with-pandas/week-5/exercises/ex05_chart.py)
+
+### Medium
+
+Create a two-panel figure: a line chart of monthly revenue on the left and a horizontal bar chart of top-5 products by revenue on the right. Use `plt.subplots(1, 2)` and `figsize=(12, 4)`. Save as `dashboard.png`.
+
+[▶ Open exercise](#play/02-data-with-pandas/week-5/exercises/ex05_chart.py)
+
+### Hard
+
+Build a four-panel dashboard figure showing: (1) monthly revenue trend, (2) revenue by region as a bar chart, (3) a histogram of order amounts, and (4) a scatter plot of order count vs. total amount per customer. Add a title to each panel and a shared `suptitle`. Save as `full_dashboard.png`.
+
+[▶ Open exercise](#play/02-data-with-pandas/week-5/exercises/ex05_chart.py)
+
+---
+
 ## 📚 Resources
 
 **Official docs**

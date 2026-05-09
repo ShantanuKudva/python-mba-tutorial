@@ -1,48 +1,56 @@
-# Week 5 Project — Multi-Sheet Workbook → Consolidated Dashboard
+# Week 5 Project — Multi-Sheet Dashboard
 
 ## What you're building
 
-A script that reads a multi-sheet Excel workbook, joins the sheets, and produces:
-
-1. A single cleaned DataFrame.
-2. A summary Excel with multiple sheets (totals + pivot).
-3. A PNG dashboard image with two charts.
+A script that joins two tables, produces a pivot table and a top-segments summary, then draws a two-panel dashboard chart.
 
 ## Input
 
-`datasets/marketing/sample_orders.xlsx` with sheets:
+Two in-memory DataFrames:
 
-- `orders` — order_id, customer_id, order_date, product_category, amount
+- `orders` — order_id, customer_id, amount, order_date
 - `customers` — customer_id, name, region, segment
 
-## Output (next to your script)
+## Expected output
 
-- `dashboard.xlsx` with sheets:
-  - `monthly_by_region` — pivot, rows=month, cols=region, values=sum amount.
-  - `top_segments` — sorted: segment | total revenue | order count.
-- `dashboard.png` — two side-by-side charts:
-  - Left: bar chart of monthly revenue (overall).
-  - Right: bar chart of revenue by segment.
+```
+=== MONTHLY × REGION PIVOT ===
+region     East  North  South  West
+month
+2026-01    2300   4200   8100     0
+...
+
+=== TOP SEGMENTS ===
+             revenue  orders
+segment
+Enterprise     30700       7
+SMB            10400       5
+
+(A 1×2 matplotlib chart in the output area)
+```
 
 ## Required structure
 
 ```python
-def load(path) -> pd.DataFrame:        # joins orders + customers
+def load(orders_df, customers_df) -> pd.DataFrame:
+    """Merge on customer_id, add month column."""
+
 def monthly_by_region(df) -> pd.DataFrame:
+    """pivot_table(index=month, columns=region, values=amount, aggfunc=sum)."""
+
 def top_segments(df) -> pd.DataFrame:
-def make_dashboard(df, out_png: Path) -> None:
-def write_workbook(month_df, seg_df, out_xlsx: Path) -> None:
-def main(): ...
+    """groupby(segment).agg(revenue, orders).sort_values(revenue desc)."""
+
+def make_dashboard(df) -> None:
+    """Draw 1×2 subplot: bar by segment + cumulative revenue line."""
 ```
-
-## File to create
-
-`02-data-with-pandas/week-5/dashboard.py`
 
 ## Done when
 
-- `dashboard.xlsx` opens and both sheets look right.
-- `dashboard.png` shows two clean, labeled charts.
-- You committed.
+- The pivot table has months as rows and regions as columns.
+- The top-segments table is sorted by revenue descending.
+- The chart displays two panels with labelled axes and titles.
 
-🛠️ Stretch: also output a top-10 customers sheet by lifetime revenue.
+**Stretch:** add a third panel to the chart showing revenue by customer name (top 5 only).
+
+[▶ Open project playground](#play/02-data-with-pandas/week-5/project.py)

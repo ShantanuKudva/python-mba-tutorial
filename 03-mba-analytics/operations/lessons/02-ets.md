@@ -62,3 +62,25 @@ band = pd.DataFrame({
 ---
 
 Next: [`03-inventory.md`](03-inventory.md).
+
+---
+
+## 🏋️ Practice
+
+### Easy
+
+Run the ETS model on the 24-month demand series from the lesson using `trend="add"` and `seasonal="add"`. Print the 12-month forecast values.
+
+[▶ Open exercise](#play/03-mba-analytics/operations/exercises/ex02_ets.py)
+
+### Medium
+
+Fit the ETS model, generate a forecast, and compute the rough 95% confidence band using residual standard deviation. Print a table with three columns: forecast, lower bound, upper bound.
+
+[▶ Open exercise](#play/03-mba-analytics/operations/exercises/ex02_ets.py)
+
+### Hard
+
+Compare the ETS forecast with the naive moving average from lesson 1. Compute MAE and MAPE for both models on the last 6 months of actual data (hold them out before fitting). Print a comparison table and state which model performs better.
+
+[▶ Open exercise](#play/03-mba-analytics/operations/exercises/ex02_ets.py)

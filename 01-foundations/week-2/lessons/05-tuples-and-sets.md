@@ -107,16 +107,21 @@ That's customer churn analysis in 4 lines.
 
 ---
 
-## 🛠️ Your turn
+## 🛠️ Try it
+
+Run this to see set operations on customer data. Think: what does the difference set tell a marketing team?
 
 ```python
-# Customers who ordered last quarter and this quarter:
-last_q = ["acme", "globex", "acme", "umbrella", "initech"]
-this_q = ["acme", "stark", "umbrella", "umbrella"]
+last_q = {"acme", "globex", "umbrella", "initech"}
+this_q = {"acme", "stark", "umbrella"}
 
-# 1. Print unique customers across both quarters.
-# 2. Print customers who appeared in BOTH.
-# 3. Print customers who churned (in last_q but not this_q).
+retained  = last_q & this_q      # in both
+churned   = last_q - this_q      # left
+new       = this_q - last_q      # joined this quarter
+
+print("Retained:", retained)
+print("Churned: ", churned)
+print("New:     ", new)
 ```
 
 ---
@@ -149,3 +154,25 @@ this_q = ["acme", "stark", "umbrella", "umbrella"]
 ---
 
 Next: [exercises](../exercises/) and [project](../project.md).
+
+---
+
+## 🏋️ Practice
+
+### Easy
+
+Given two raw customer lists (with duplicates), convert them to sets and use set operations to find: all unique customers, customers in both quarters, customers who churned, and new customers this quarter. Print each group with a label.
+
+[▶ Open exercise](#play/01-foundations/week-2/exercises/ex07_unique_skus.py)
+
+### Medium
+
+Given a list of sales tuples in the form `(region, quarter, revenue)`, loop through them with tuple unpacking. Print a formatted line for each row, then use a comprehension to build a list of only the revenues and compute the total and average.
+
+[▶ Open exercise](#play/01-foundations/week-2/exercises/ex06_top_n_customers.py)
+
+### Hard
+
+Build a duplicate-detection tool. Given a list of order dicts (each with `"order_id"` and `"customer_id"`), find all `order_id` values that appear more than once. Also find customers who placed orders in both `"North"` and `"South"` regions. Use sets for both checks and print the results with counts.
+
+[▶ Open exercise](#play/01-foundations/week-2/exercises/ex07_unique_skus.py)

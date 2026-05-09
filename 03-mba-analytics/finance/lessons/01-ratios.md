@@ -109,3 +109,25 @@ print(f"Net margin:       {pct(net_margin(pl))}")
 ---
 
 Next: [`02-time-value.md`](02-time-value.md).
+
+---
+
+## 🏋️ Practice
+
+### Easy
+
+Given a P&L dict and a balance sheet dict (already provided in the exercise), compute and print the four ratios covered in this lesson: current ratio, debt-to-equity, gross margin, and net margin. Format ratios with two decimal places and margins as percentages.
+
+[▶ Open exercise](#play/03-mba-analytics/finance/exercises/ex01_ratios.py)
+
+### Medium
+
+Write a function `financial_health(pl, bs)` that accepts the two lookup dicts and returns a dict with all six ratios (current ratio, quick ratio, debt-to-equity, gross margin, operating margin, net margin). Call it on the sample data and print each ratio with a label and a brief benchmark comment.
+
+[▶ Open exercise](#play/03-mba-analytics/finance/exercises/ex04_health_score.py)
+
+### Hard
+
+Build a full scorecard function that: (a) computes all ratios, (b) assigns a RAG (Red/Amber/Green) status to each based on industry benchmarks, (c) prints a formatted table, and (d) returns an overall health score (0–100) as a weighted average. Use at least four benchmarks from the lesson.
+
+[▶ Open exercise](#play/03-mba-analytics/finance/exercises/ex04_health_score.py)

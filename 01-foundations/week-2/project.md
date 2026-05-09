@@ -2,9 +2,7 @@
 
 ## What you're building
 
-A script that takes a hard-coded list of inventory items and produces a reorder report.
-
-You're going to use **dicts**, **loops**, and **functions** — and the result will look genuinely useful.
+A script that takes a hard-coded list of inventory items and produces a reorder report, using **dicts**, **loops**, and **functions**.
 
 ## Spec
 
@@ -25,7 +23,7 @@ For each item, compute:
 - **Weeks of stock** = `stock / weekly_sales`
 - **Reorder needed** if `weeks_of_stock < lead_time_weeks * 1.5`  (1.5× safety buffer)
 
-Output a report:
+Expected output:
 
 ```
 INVENTORY REPORT
@@ -51,17 +49,15 @@ def needs_reorder(item, safety=1.5) -> bool:
     ...
 ```
 
-The main script should loop through `INVENTORY`, call these functions, and print the report.
-
-## File to create
-
-`01-foundations/week-2/inventory_report.py`
+The main script loops through `INVENTORY`, calls these functions, and prints the report.
 
 ## Done when
 
 - The output matches the format above (column alignment doesn't have to be perfect).
 - The summary count is correct.
-- You used the two functions defined above.
-- Edge case: `weekly_sales == 0` should not crash — treat as "infinite cover" → OK.
+- You used both functions.
+- Edge case: `weekly_sales == 0` should not crash — treat it as "infinite cover" → OK.
 
-🛠️ Stretch: read the inventory from a CSV file instead of a hard-coded list. (Preview of week 3.)
+**Stretch:** extend the report with a "days of stock" column alongside weeks.
+
+[▶ Open project playground](#play/01-foundations/week-2/project.py)

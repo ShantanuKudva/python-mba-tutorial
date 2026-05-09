@@ -65,3 +65,25 @@ Feedback:
 ---
 
 Next: [`03-data-to-prompt.md`](03-data-to-prompt.md).
+
+---
+
+## 🏋️ Practice
+
+### Easy
+
+Write a summarize prompt that asks the model to write a 3-bullet executive summary of the following metrics: `Revenue YoY: +18%, Gross margin: 47% (up 3 pts), Churn: 7.2% (up)`. Print the result.
+
+[▶ Open exercise](#play/04-ai-integration/exercises/ex02_summarize.py)
+
+### Medium
+
+Write an extract prompt that pulls `company`, `revenue`, and `CEO` from a paragraph of text and returns them as JSON. Use `json.loads` to parse the response and print each field.
+
+[▶ Open exercise](#play/04-ai-integration/exercises/ex03_extract_json.py)
+
+### Hard
+
+Write a classify prompt that categorizes a list of five customer feedback strings into one of `[Praise, Bug Report, Feature Request, Billing Issue, Other]`. Ask the model to return a JSON array of `{"feedback": ..., "category": ...}` objects. Parse the response and print a frequency table of categories.
+
+[▶ Open exercise](#play/04-ai-integration/exercises/ex03_extract_json.py)

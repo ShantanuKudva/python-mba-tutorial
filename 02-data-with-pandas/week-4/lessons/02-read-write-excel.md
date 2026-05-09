@@ -72,3 +72,25 @@ Same patterns, faster format.
 ---
 
 Next: [`03-filter-sort.md`](03-filter-sort.md).
+
+---
+
+## 🏋️ Practice
+
+### Easy
+
+Read `datasets/finance/sample_pl.xlsx` with `pd.read_excel`. Print the first five rows, the column names, and the shape of the resulting DataFrame.
+
+[▶ Open exercise](#play/02-data-with-pandas/week-4/exercises/ex02_read_xlsx.py)
+
+### Medium
+
+Read a multi-sheet workbook. For each sheet name, print the sheet name and its number of rows. Then write a combined DataFrame (all sheets stacked) to a new file called `combined.xlsx` with `index=False`.
+
+[▶ Open exercise](#play/02-data-with-pandas/week-4/exercises/ex02_read_xlsx.py)
+
+### Hard
+
+Read `sample_pl.xlsx`, add a column `margin_pct` computed from two existing columns, sort by that column descending, and write the result to a two-sheet workbook: one sheet for rows with positive margin and one for rows with negative margin.
+
+[▶ Open exercise](#play/02-data-with-pandas/week-4/exercises/ex05_save_xlsx.py)

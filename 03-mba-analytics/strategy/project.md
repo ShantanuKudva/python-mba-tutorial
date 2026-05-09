@@ -1,41 +1,44 @@
-# Week 9 Project — Scenario Model with Tornado
+# Week 9 Project — Scenario Model with Tornado Chart
 
 ## What you're building
 
-A script that takes base assumptions (read from `sample_inputs.xlsx`) and produces:
+A script that takes base assumptions and produces: a scenario table, a sensitivity table, and a tornado chart.
 
-1. A scenario table (best/base/worst).
-2. A sensitivity table.
-3. A tornado chart.
-4. A formatted Excel report combining all three.
-
-## Output
-
-- **`strategy_report.xlsx`** with:
-  - Sheet "Inputs" — the base assumptions (annotated).
-  - Sheet "Scenarios" — best/base/worst with their input values + 5-yr revenue.
-  - Sheet "Sensitivity" — input | low | high | swing | abs_swing, sorted.
-- **`tornado.png`** — saved alongside.
-
-## Required structure
+## Required functions
 
 ```python
 def revenue_model(starting_units, price, growth_rate, churn_rate, years=5) -> float: ...
 def scenarios_table(base) -> pd.DataFrame: ...
-def sensitivity_table(base, model, delta=0.20) -> pd.DataFrame: ...
-def tornado_chart(sens_df, base_value, out_path) -> None: ...
-def write_report(base, scenarios_df, sens_df, out_path) -> None: ...
+def sensitivity_table(base, delta=0.20) -> pd.DataFrame: ...
 ```
 
-## File to create
+Plus code that draws a horizontal tornado chart.
 
-`03-mba-analytics/strategy/scenarios.py`
+## Expected output
+
+```
+=== SCENARIO TABLE ===
+best   → $17,890,000  (+41% vs base)
+base   → $12,675,000
+worst  →  $7,902,000  (-38% vs base)
+
+=== SENSITIVITY TABLE ===
+         input         low        high       swing   abs_swing
+           price   7,200,000  18,900,000  11,700,000  11,700,000
+    growth_rate    8,100,000  17,000,000   8,900,000   8,900,000
+     churn_rate   10,100,000  15,300,000   5,200,000   5,200,000
+  starting_units  10,200,000  15,200,000   5,000,000   5,000,000
+
+(A horizontal tornado chart in the output area)
+```
 
 ## Done when
 
-- All three sheets present and populated.
-- Tornado is sorted (largest swing at top).
-- The ranking of inputs by impact is sensible (price and growth almost always dominate).
-- You committed.
+- The scenario table is sorted best → base → worst.
+- The sensitivity table is sorted by abs_swing descending.
+- The tornado chart is horizontal (barh) with the largest-swing input at the top.
+- The ranking (price > growth_rate > churn_rate) is sensible.
 
-🛠️ Stretch: 2-way sensitivity — for the top-2 inputs, build a heatmap of revenue across a grid of values.
+**Stretch:** build a 2-way sensitivity heatmap for the top-2 inputs using a grid of values.
+
+[▶ Open project playground](#play/03-mba-analytics/strategy/project.py)

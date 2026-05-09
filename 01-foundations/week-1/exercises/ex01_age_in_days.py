@@ -3,6 +3,7 @@ Exercise 1 — Age in days.
 
 Concepts: variables, integer arithmetic.
 Lesson: lessons/02-variables-and-types.md
+Difficulty: Easy
 📚 References: open the lesson above and see its 📚 Resources section at the bottom (official docs, deep dives, video tutorials). Global index in ROADMAP.md.
 
 Goal: given an age in years, print the (approximate) age in days.

@@ -77,3 +77,25 @@ Common errors: invalid key, rate limited (429), model busy.
 ---
 
 Next: [`02-prompts.md`](02-prompts.md).
+
+---
+
+## 🏋️ Practice
+
+### Easy
+
+Make a Groq API call using the pattern from the lesson. Ask the model to define "gross margin" in exactly one sentence. Print the response.
+
+[▶ Open exercise](#play/04-ai-integration/exercises/ex01_hello_groq.py)
+
+### Medium
+
+Make two Groq calls: one with `temperature=0.0` and one with `temperature=0.9`. Ask both to explain "WACC" in two sentences. Print both responses and note any differences in tone or detail.
+
+[▶ Open exercise](#play/04-ai-integration/exercises/ex01_hello_groq.py)
+
+### Hard
+
+Write a function `groq_with_retry(client, messages, max_attempts=3)` that calls the API and retries on `APIError` with a 2-second delay between attempts. Wrap the function with error handling that prints which attempt failed. Call it with a sample financial analysis prompt.
+
+[▶ Open exercise](#play/04-ai-integration/exercises/ex01_hello_groq.py)

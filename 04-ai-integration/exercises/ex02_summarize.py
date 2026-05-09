@@ -1,18 +1,28 @@
 """
-Exercise 2 — Summarize prompt.
+Exercise 2 — Executive summary from bullet points.
 
-Send the metrics below. Ask for a 4-bullet executive summary, ≤15 words per bullet.
-Print the response.
+Concepts: prompt design, summarise pattern, temperature.
+Lesson: 04-ai-integration/lessons/02-prompts.md
+Difficulty: Easy
+📚 References: see the 📚 Resources block at the bottom of the related lesson for
+official docs, deep dives, and video tutorials.
 
-📚 References: see the 📚 Resources block at the bottom of the related lesson(s) in `lessons/` for official docs, deep dives, and video tutorials. Global resource index lives in ROADMAP.md.
+Goal: send the business metrics below to Groq and ask for a 4-bullet executive
+summary with at most 15 words per bullet. Print the model's response.
+
+Expected output (example — yours will differ):
+    • Revenue grew 18% YoY, outpacing the 10% industry average.
+    • Gross margin improved 3 pts to 47%, signalling strong pricing power.
+    • Churn rose to 7.2%, reversing a three-year declining trend.
+    • New customer additions fell 9%, suggesting slower top-of-funnel activity.
 """
 
 import os
-from dotenv import load_dotenv
 from groq import Groq
 
-load_dotenv()
-client = Groq(api_key=os.environ["GROQ_API_KEY"])
+# Setup — client and metrics.
+api_key = os.environ.get("GROQ_API_KEY") or input("Enter your GROQ_API_KEY: ")
+client = Groq(api_key=api_key)
 
 metrics = """
 Revenue YoY: +18%
@@ -22,4 +32,11 @@ New customers: 1,420 (down 9%)
 Top product line: Widgets (62% of revenue)
 """
 
-# 🛠️ Build the prompt and call Groq. Print the result.
+# 🛠️ Step 1: build a user message asking for a 4-bullet executive summary
+#    with at most 15 words per bullet, based on `metrics`.
+#    Include `metrics` in the prompt string.
+
+# 🛠️ Step 2: call Groq with temperature=0.3 and max_completion_tokens=200.
+
+# 🛠️ Step 3: print the model's reply.
+#    print(response.choices[0].message.content)

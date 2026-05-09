@@ -1,14 +1,48 @@
 # 00 — Setup
 
-Goal: a working Python + VSCode + git environment in under an hour. Do this **once**, before week 1.
+## The fast path (recommended)
 
-If anything goes wrong: read the error, search it, then move on. You can always come back.
+**Double-click `index.html`.** It opens in your browser. That's it.
+
+Every lesson and exercise from Week 1 through Week 9 runs entirely in the browser — no Python, no VSCode, no terminal. Python executes locally via [Pyodide](https://pyodide.org/) (WebAssembly), so nothing leaves your machine and nothing needs to be installed.
+
+Use the sidebar to navigate lessons, click `▶` links to open exercises, and hit **Run** to execute code.
+
+> If markdown was edited and content looks stale, ask Shantanu to run `python build_site.py` once to regenerate the bundle.
 
 ---
 
-## 1. Install Python 3.12
+## When you will need a local Python install
 
-### macOS
+A local Python install is only required for:
+
+| Week | Why |
+|---|---|
+| Week 10 — Groq AI | Needs a `.env` file with your API key; browser sandbox can't load local secrets. |
+| Weeks 11–12 — Capstone | FastAPI server must run locally (or be deployed). |
+
+If you are on Week 1–9, skip everything below and open `index.html`.
+
+---
+
+## Advanced: local Python install (optional)
+
+Do this only when you reach Week 10, or if you want to run scripts from the terminal.
+
+### 1. Install Python 3.12
+
+**Windows**
+
+1. Go to https://www.python.org/downloads/
+2. Download **Python 3.12.x** for Windows.
+3. **CRITICAL:** during install, check **"Add Python to PATH"**. Without this the terminal won't find Python.
+4. Open PowerShell and verify:
+
+   ```powershell
+   python --version
+   ```
+
+**macOS**
 
 1. Open Terminal (Cmd+Space → "Terminal").
 2. Install Homebrew if you don't have it: https://brew.sh/
@@ -16,58 +50,34 @@ If anything goes wrong: read the error, search it, then move on. You can always 
 
    ```bash
    brew install python@3.12
-   ```
-
-4. Verify:
-
-   ```bash
    python3 --version
    ```
 
-   You should see `Python 3.12.x`.
-
-### Windows
-
-1. Go to https://www.python.org/downloads/
-2. Download **Python 3.12.x** for Windows.
-3. **CRITICAL:** during install, check the box **"Add Python to PATH"**. Without this you'll fight the terminal forever.
-4. Open PowerShell and verify:
-
-   ```powershell
-   python --version
-   ```
-
 ---
 
-## 2. Install VSCode
+### 2. Install VSCode (optional editor)
 
 - Download: https://code.visualstudio.com/
-- Open it.
-- Install these extensions (left sidebar → squares icon → search):
+- Install extensions (sidebar → squares icon → search):
   - **Python** (by Microsoft)
   - **Jupyter** (by Microsoft)
-  - **Pylance** (usually auto-installs with Python)
 
 ---
 
-## 3. Install git
+### 3. Install git (optional, for saving your work)
 
-### macOS
+**Windows:** https://git-scm.com/download/win — use defaults. Open "Git Bash" and verify:
+
+```bash
+git --version
+```
+
+**macOS:**
 
 ```bash
 brew install git
 git --version
 ```
-
-### Windows
-
-- Download: https://git-scm.com/download/win
-- Use defaults during install.
-- Open "Git Bash" from Start menu and run:
-
-  ```bash
-  git --version
-  ```
 
 Tell git who you are (one-time):
 
@@ -78,39 +88,28 @@ git config --global user.email "you@example.com"
 
 ---
 
-## 4. Get this repository onto your computer
+### 4. Get the repository (if you don't have it yet)
 
 ```bash
-# pick a folder, e.g.:
 cd ~/Documents
 git clone <URL-of-this-repo> python-excel-mba
 cd python-excel-mba
 ```
 
-(If your instructor/mentor sent this as a zip, just unzip it instead.)
-
-Open the folder in VSCode:
-
-```bash
-code .
-```
+Or just unzip the folder Shantanu sent.
 
 ---
 
-## 5. Create your virtual environment
+### 5. Create a virtual environment
 
-A virtual environment is a private "sandbox" of Python packages just for this project. It keeps things tidy.
-
-From inside the project folder:
-
-### macOS / Linux
+**macOS / Linux**
 
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
 ```
 
-### Windows (PowerShell)
+**Windows (PowerShell)**
 
 ```powershell
 python -m venv .venv
@@ -123,30 +122,28 @@ If PowerShell complains about execution policy, run once:
 Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
 ```
 
-After activation, your prompt should start with `(.venv)`.
+After activation your prompt starts with `(.venv)`.
 
 ---
 
-## 6. Install all course packages
+### 6. Install course packages
 
 ```bash
 pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
-This will take a few minutes the first time. Go make tea.
+First run takes a few minutes. Subsequent installs are cached.
 
 ---
 
-## 7. Verify everything works
-
-Run the verifier:
+### 7. Verify
 
 ```bash
 python 00-setup/verify.py
 ```
 
-You should see something like:
+Expected output:
 
 ```
 ✅ Python 3.12.x
@@ -157,33 +154,30 @@ You should see something like:
 🎉 You're ready for Week 1.
 ```
 
-If anything is `❌`, re-run `pip install -r requirements.txt` and read the error.
+If anything shows `❌`, re-run `pip install -r requirements.txt` and read the error message.
 
 ---
 
-## 8. (Later, week 11) Install Node.js
+### 8. Node.js (capstone frontend only — Week 11)
 
-Only needed when you start the capstone frontend. **Skip for now.**
+**Skip until Week 11.**
 
-- Download: https://nodejs.org/ → "LTS" version (20.x or higher).
+- Download: https://nodejs.org/ → LTS version (20.x or higher).
 - Verify: `node --version` and `npm --version`.
 
 ---
 
-## Common problems
+## Common problems (local install)
 
 **`python: command not found` (macOS)**
-On macOS, use `python3` and `pip3` instead of `python`/`pip`.
+Use `python3` and `pip3` instead of `python`/`pip`.
 
-**VSCode is using the wrong Python**
+**VSCode picks the wrong Python**
 Bottom-right of VSCode shows the active interpreter. Click it, choose the one inside `.venv`.
-
-**`pip install` is super slow**
-That's normal the first time. Subsequent installs are cached.
 
 **`ModuleNotFoundError` after install**
 You forgot to activate `.venv`. Check the prompt has `(.venv)`.
 
 ---
 
-Once `verify.py` passes, you are done with setup. Open [`../01-foundations/week-1/README.md`](../01-foundations/week-1/README.md) and start the course.
+Once `verify.py` passes, open [`../01-foundations/week-1/README.md`](../01-foundations/week-1/README.md) and start the course — or just open `index.html` and click Week 1 in the sidebar.

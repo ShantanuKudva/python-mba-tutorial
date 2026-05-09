@@ -1,17 +1,47 @@
 """
-Exercise 1 — Compute raw R, F, M per customer.
-Print head() of the resulting DataFrame.
+Exercise 1 — Compute raw Recency, Frequency, Monetary per customer.
 
-📚 References: see the 📚 Resources block at the bottom of the related lesson(s) in `lessons/` for official docs, deep dives, and video tutorials. Global resource index lives in ROADMAP.md.
+Concepts: groupby, agg, timedelta, lambda.
+Lesson: 03-mba-analytics/marketing/lessons/01-rfm.md
+Difficulty: Easy
+📚 References: see the 📚 Resources block at the bottom of the related lesson for
+official docs, deep dives, and video tutorials.
+
+Goal: compute three RFM metrics per customer from the synthetic order data below:
+  - Recency    = days since the customer's most recent order (relative to ref_date)
+  - Frequency  = total number of orders
+  - Monetary   = total spend
+
+Expected output:
+    rfm table with columns: customer_id, recency, frequency, monetary
+    (5 rows, values will match the data below)
 """
 
-from pathlib import Path
 import pandas as pd
 
-ROOT = Path(__file__).resolve().parents[4]
-orders = pd.read_excel(ROOT / "datasets" / "marketing" / "sample_orders.xlsx", sheet_name="orders")
-orders["order_date"] = pd.to_datetime(orders["order_date"])
-ref_date = orders["order_date"].max() + pd.Timedelta(days=1)
+# Setup — synthetic order data (no file needed in the browser).
+orders = pd.DataFrame({
+    "customer_id": [101, 102, 103, 101, 104, 102, 103, 105, 101, 104],
+    "order_date":  pd.to_datetime([
+        "2026-01-10", "2026-01-15", "2026-02-01", "2026-02-20",
+        "2026-03-05", "2026-03-15", "2026-04-01", "2026-04-10",
+        "2026-04-25", "2026-04-30",
+    ]),
+    "amount": [1200, 800, 500, 1500, 300, 950, 700, 200, 1100, 400],
+})
 
-# 🛠️ Build the rfm DataFrame using groupby + agg as in the lesson.
-# Print rfm.head() and rfm.shape.
+ref_date = pd.Timestamp("2026-05-01")   # "today" for recency calculation
+
+# 🛠️ Step 1: group by customer_id and compute each metric.
+#    rfm = orders.groupby("customer_id").agg(
+#        recency  =("order_date", lambda x: (ref_date - x.max()).days),
+#        frequency=("order_date", "count"),
+#        monetary =("amount",     "sum"),
+#    ).reset_index()
+
+# 🛠️ Step 2: sort by recency ascending (most recent customer first).
+#    rfm = rfm.sort_values("recency")
+
+# 🛠️ Step 3: print rfm and rfm.shape.
+#    print(rfm.to_string(index=False))
+#    print(f"\nShape: {rfm.shape}")

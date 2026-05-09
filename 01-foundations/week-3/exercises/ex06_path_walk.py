@@ -1,26 +1,35 @@
 """
-Exercise 6 — Walk a folder and find every CSV.
+Exercise 6 — Walk a list of file metadata.
 
-Concepts: pathlib, .rglob, iteration.
-Lesson: lessons/05-pathlib-and-json.md
-📚 References: open the lesson above and see its 📚 Resources section at the bottom (official docs, deep dives, video tutorials). Global index in ROADMAP.md.
+Concepts: list of dicts, loops, formatted output, string methods.
+Lesson: 01-foundations/week-3/lessons/05-pathlib-and-json.md
+Difficulty: Medium
+📚 References: see the 📚 Resources block at the bottom of the related lesson for
+official docs, deep dives, and video tutorials.
 
-Goal: starting from THIS exercise folder, find every file whose name
-ends in `.csv` (recursively) and print its name and size in bytes.
+Goal: given a simulated directory listing (list of dicts with name and size),
+print every CSV file's name and size in bytes.
 
-Expected output (sample):
-    sample_expenses.csv  — 318 bytes
+# (Browser note: this uses an in-memory list instead of scanning a real folder.)
 
-Tip: only sample_expenses.csv is shipped here, but your code should
-work if more CSVs are added later.
+Expected output:
+    sample_expenses.csv   — 318 bytes
+    q1_sales.csv          — 204 bytes
 """
 
-from pathlib import Path
+# Setup — simulated directory listing (what pathlib.rglob would return on disk).
+file_listing = [
+    {"name": "sample_expenses.csv", "size": 318},
+    {"name": "helpers.py",          "size": 142},
+    {"name": "q1_sales.csv",        "size": 204},
+    {"name": "README.md",           "size": 876},
+    {"name": "ex01_read_text.py",   "size": 512},
+]
 
-here = Path(__file__).parent
+# 🛠️ Step 1: loop over `file_listing`.
 
-# 🛠️ Step 1: use `here.rglob("*.csv")` and loop over the results.
+# 🛠️ Step 2: check whether the file name ends with ".csv".
+#    if entry["name"].endswith(".csv"):
 
-# 🛠️ Step 2: for each path, get its size with `p.stat().st_size`.
-
-# 🛠️ Step 3: print  f"{p.name}  — {size} bytes"
+# 🛠️ Step 3: print the name (left-padded to 22 chars) and the size.
+#    print(f"{entry['name']:<22} — {entry['size']} bytes")

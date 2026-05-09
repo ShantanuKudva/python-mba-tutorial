@@ -39,3 +39,25 @@ print(forecast)
 ---
 
 Next: [`02-ets.md`](02-ets.md).
+
+---
+
+## 🏋️ Practice
+
+### Easy
+
+Given the 12-month demand series from the lesson, compute the 3-month trailing moving average for each month. Print the original demand and the moving average side by side.
+
+[▶ Open exercise](#play/03-mba-analytics/operations/exercises/ex01_moving_avg.py)
+
+### Medium
+
+Compute both a 3-month and a 6-month trailing moving average. Plot both on the same line chart alongside the original demand. Save as `moving_avg.png`. Which window smooths more aggressively?
+
+[▶ Open exercise](#play/03-mba-analytics/operations/exercises/ex01_moving_avg.py)
+
+### Hard
+
+Compute the Mean Absolute Error (MAE) and Mean Absolute Percentage Error (MAPE) of the 3-month moving average against the held-out last 3 months. Then extend the forecast 6 months into the future. Print the error metrics and the forecast table.
+
+[▶ Open exercise](#play/03-mba-analytics/operations/exercises/ex01_moving_avg.py)

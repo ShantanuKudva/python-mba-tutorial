@@ -29,6 +29,14 @@ Then refresh `index.html` in the browser. That's it.
 
 > Why this exists: most browsers block JavaScript `fetch()` from `file://`, which would normally break a static site. The build step pre-bundles all markdown into `site_data.js` so the page never needs to fetch anything from disk at runtime.
 
+### 📝 Personal notes
+
+The sidebar has a **Notes** section. Click `+ Folder` and `+ Note` to build your own markdown notebook — organized in folders, edited in-browser with live preview. Notes are saved to your browser's `localStorage`, so they persist across reloads on the same machine + browser.
+
+Use `Export` to download all notes as one `notes.json` file (back-up or move to another machine), and `Import` to restore. Each note also has a `Download .md` button to save it as a standalone markdown file.
+
+> Notes live in your browser only — they are **not** committed to the repo.
+
 ---
 
 ## Who this is for
@@ -46,7 +54,7 @@ If that's you — you're in the right place.
 
 | Folder | What's inside | When to open it |
 |---|---|---|
-| [`00-setup/`](00-setup/) | Install Python, VSCode, git. One-time setup. | Before week 1, day 1. |
+| [`00-setup/`](00-setup/) | Optional: local Python install for power users. | Only if you want to run Python outside the browser. |
 | [`01-foundations/`](01-foundations/) | Weeks 1–3: pure Python basics. | Weeks 1, 2, 3. |
 | [`02-data-with-pandas/`](02-data-with-pandas/) | Weeks 4–5: read/write Excel with pandas. | Weeks 4, 5. |
 | [`03-mba-analytics/`](03-mba-analytics/) | Weeks 6–9: one MBA domain per week. | Weeks 6, 7, 8, 9. |
@@ -62,8 +70,9 @@ Inside each weekly folder you will always find the same four things:
 week-N/
 ├── README.md       ← start here. Goals + concepts for the week.
 ├── lessons/        ← short readings, one concept each.
-├── exercises/      ← practice problems. Try, fail, fix, repeat.
-└── project.md      ← the mini-project that ties the week together.
+├── exercises/      ← practice problems. Open in the playground → fill in → click ▶ Run.
+├── project.md      ← the mini-project that ties the week together.
+└── project.py      ← the project as a runnable playground (click ▶ Open project playground).
 ```
 
 Every lesson ends with a **📚 Resources** section linking to:
@@ -77,20 +86,14 @@ Use them when the lesson skims a topic you'd like to understand more deeply.
 
 ## Daily flow (suggested, ~1 hour/day)
 
-1. **Open the week's `README.md`.** Skim the goals.
-2. **Read one lesson** in `lessons/`. Type the examples out — don't copy-paste.
-3. **Do one exercise** in `exercises/`. If you get stuck for >15 minutes:
+1. **Open `index.html`** in your browser (or double-click it). Use the sidebar to navigate.
+2. **Read one lesson** — click it in the sidebar. Read through the walkthrough.
+3. **Do one exercise** — click the `▶` link next to the exercise name in the sidebar. Edit and run right there.
+   If stuck for >15 minutes:
    - Re-read the lesson.
    - Search the linked official docs.
    - Ask an AI to **explain the error**, not solve the problem.
-4. **End with a git commit.** Even if ugly. Even if just one line.
-
-```
-git add .
-git commit -m "week 1 day 2 — done with conditionals exercise"
-```
-
-5. **Once a week**, do the project in `project.md`. This is what you'll show off.
+4. **Once a week**, do the project in `project.md`. This is what you'll show off.
 
 ---
 
@@ -119,14 +122,17 @@ When something doesn't work:
 
 ---
 
-## Tools you'll install (week 1)
+## How to use this workspace
 
-- **Python 3.12** — the language.
-- **VSCode** — the editor.
-- **git** — for saving snapshots of your work.
-- **Node.js 20+** — only needed for the capstone frontend (week 11).
+**Option A — Browser only (recommended to start)**
 
-Step-by-step in [`00-setup/README.md`](00-setup/README.md).
+Double-click `index.html`. Done. Everything opens in your browser — lessons, exercises, runnable code. No install needed. Python runs inside the browser via [Pyodide](https://pyodide.org/).
+
+> If you (or Shantanu) edited any `.md` file, regenerate the bundle once with `python build_site.py`, then refresh.
+
+**Option B — Local Python install (optional, needed for AI + capstone weeks)**
+
+See [`00-setup/README.md`](00-setup/README.md) for the full Python + VSCode + git install guide. Required only for Week 10 (Groq API keys, `.env`) and Weeks 11–12 (FastAPI backend).
 
 ---
 
@@ -145,7 +151,6 @@ Frontend (Next.js) is **already built**. You wire up the backend (FastAPI). Ever
 - `🛠️` = your turn — code to write yourself.
 - `📚` = resources — docs / deep-dives / videos at the end of each lesson.
 - `✅` = solution exists in `solutions/` for this exercise.
-- File mentions like [`week-1/lessons/01-hello-python.md`](01-foundations/week-1/lessons/01-hello-python.md) are clickable in VSCode and GitHub.
 
 ---
 
@@ -184,4 +189,4 @@ Bookmark these — you'll come back to them constantly.
 - Open [`00-setup/README.md`](00-setup/README.md) if Python or VSCode breaks.
 - Skim [`solutions/README.md`](solutions/README.md) for the "peek policy."
 
-You've got this. 12 weeks. One commit at a time.
+You've got this. 12 weeks. One exercise at a time.

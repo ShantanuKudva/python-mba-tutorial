@@ -40,18 +40,30 @@ def should_skip(path: Path) -> bool:
     return any(part in SKIP_DIRS for part in path.parts)
 
 
+EXTS = ("*.md", "*.py")
+# Only bundle .py from these subtrees — runnable exercises/solutions/lessons.
+PY_PREFIXES = ("01-foundations", "02-data-with-pandas", "03-mba-analytics",
+               "04-ai-integration", "solutions")
+
+
+def include_py(rel_posix: str) -> bool:
+    return any(rel_posix.startswith(p + "/") for p in PY_PREFIXES)
+
+
 def collect() -> dict[str, str]:
     files: dict[str, str] = {}
-    for md_path in ROOT.rglob("*.md"):
-        rel = md_path.relative_to(ROOT)
-        if should_skip(rel):
-            continue
-        # Normalize to forward slashes — that's how the SPA routes work.
-        key = rel.as_posix()
-        try:
-            files[key] = md_path.read_text(encoding="utf-8")
-        except Exception as exc:
-            print(f"  ⚠️  skipped {key}: {exc}")
+    for ext in EXTS:
+        for path in ROOT.rglob(ext):
+            rel = path.relative_to(ROOT)
+            if should_skip(rel):
+                continue
+            key = rel.as_posix()
+            if ext == "*.py" and not include_py(key):
+                continue
+            try:
+                files[key] = path.read_text(encoding="utf-8")
+            except Exception as exc:
+                print(f"  ⚠️  skipped {key}: {exc}")
     return files
 
 
@@ -64,7 +76,7 @@ def main() -> int:
         f"window.FILES = {payload};\n",
         encoding="utf-8",
     )
-    print(f"✅ Wrote {out_path.name} with {len(files)} markdown file(s).")
+    print(f"✅ Wrote {out_path.name} with {len(files)} file(s).")
     print("   Open index.html directly in your browser to view the site.")
     return 0
 

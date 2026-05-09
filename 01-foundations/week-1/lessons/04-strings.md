@@ -100,22 +100,17 @@ This replaces Excel's `TEXT()` function — and it's faster to type once you hav
 
 ---
 
-## 🛠️ Your turn
+## 🛠️ Try it
 
-Make a file `lessons/strings_practice.py`:
+Run this and confirm the output. Try feeding in different `raw` strings with extra spaces or mixed case.
 
 ```python
-customer = "  ACME Industries, LLC.  "
-revenue  = 248_500.50
-
-# 1. Clean: strip whitespace and remove the trailing period.
-# 2. Print one line:  "Acme Industries, Llc — $248,500.50"
+raw = "  ACME corp.  "
+clean = raw.strip()
+clean = clean.replace(".", "")
+clean = clean.title()
+print(clean)   # Acme Corp
 ```
-
-Goals:
-- use `.strip()` and `.replace()`
-- use `.title()`
-- use an f-string with `:,.2f`
 
 ---
 
@@ -150,3 +145,30 @@ Goals:
 ---
 
 Next: that's all of week 1's lessons. Head to the [exercises](../exercises/) and [project](../project.md).
+
+---
+
+## 🏋️ Practice
+
+### Easy
+
+Clean the string `"  ACME Industries, LLC.  "` by stripping whitespace, removing the trailing period, and applying `.title()`. Print the result.
+
+[▶ Open exercise](#play/01-foundations/week-1/exercises/ex06_clean_customer.py)
+
+### Medium
+
+Given the SKU string `"WIDGET-2026-RED"`, use slicing and `.split()` to extract the product category (`"WIDGET"`), year (`"2026"`), and colour (`"RED"`). Print each on its own line.
+
+[▶ Open exercise](#play/01-foundations/week-1/exercises/ex07_sku_parts.py)
+
+### Hard
+
+Build a formatted two-line report from a messy CSV row string `"  north , Q1 , 1245000.00  "`. Parse it with `.strip()` and `.split(",")`, convert the amount to a float, then print:
+```
+Region  : North
+Revenue : $1,245,000.00
+```
+Handle leading and trailing whitespace in every field before displaying.
+
+[▶ Open exercise](#play/01-foundations/week-1/exercises/ex08_growth_rate.py)

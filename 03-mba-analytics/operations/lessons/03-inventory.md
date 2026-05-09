@@ -58,6 +58,28 @@ Done with operations lessons. Move to [`exercises/`](../exercises/) and [`projec
 
 ---
 
+## 🏋️ Practice
+
+### Easy
+
+Given `annual_demand=12000`, `order_cost=50`, `holding_cost=2`, compute the EOQ. Print the result and interpret it: how many orders per year does this imply?
+
+[▶ Open exercise](#play/03-mba-analytics/operations/exercises/ex03_eoq.py)
+
+### Medium
+
+Compute safety stock and reorder point for a product with weekly demand average of 230 units, weekly demand standard deviation of 40 units, and a 4-week lead time. Use a 95% service level (z = 1.65). Then compute EOQ using `annual_demand = weekly_avg * 52` and `order_cost=75`, `holding_cost=3`. Print all three values.
+
+[▶ Open exercise](#play/03-mba-analytics/operations/exercises/ex04_reorder.py)
+
+### Hard
+
+Build a full inventory policy report for three SKUs with different demand and cost profiles. For each SKU, compute EOQ, safety stock, and reorder point. Present the results in a formatted table and calculate the total annual holding cost if all SKUs maintain safety stock at all times.
+
+[▶ Open exercise](#play/03-mba-analytics/operations/exercises/ex04_reorder.py)
+
+---
+
 ## 📚 Resources
 
 **Official docs**
