@@ -23,8 +23,8 @@
     <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/highlight.min.js"></script>
 
     <!-- Monaco editor (real VSCode editor) loaded lazily by playground.js -->
-    <script src="playground.js?v=7" defer></script>
-    <script src="progress.js?v=7" defer></script>
+    <script src="playground.js?v=9" defer></script>
+    <script src="progress.js?v=9" defer></script>
 
     <style>
       :root {
@@ -832,6 +832,113 @@
       }
       [data-theme="dark"] .play-cell-solution { border-color: #ff7b72 !important; }
 
+      /* ---- Celebration modal + confetti ---- */
+      .celebration-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.55);
+        z-index: 100000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        animation: cel-fadein 0.25s ease-out;
+        overflow: hidden;
+      }
+      @keyframes cel-fadein {
+        from { opacity: 0; }
+        to   { opacity: 1; }
+      }
+      .celebration-card {
+        background: var(--panel);
+        color: var(--text);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        padding: 32px 40px;
+        text-align: center;
+        max-width: 440px;
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+        position: relative;
+        z-index: 2;
+        animation: cel-pop 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+      }
+      @keyframes cel-pop {
+        0%   { transform: scale(0.6); opacity: 0; }
+        100% { transform: scale(1);   opacity: 1; }
+      }
+      .celebration-emoji {
+        font-size: 56px;
+        margin-bottom: 6px;
+        animation: cel-bounce 1s ease-in-out infinite;
+      }
+      @keyframes cel-bounce {
+        0%, 100% { transform: translateY(0); }
+        50%      { transform: translateY(-8px); }
+      }
+      .celebration-card h2 {
+        font-size: 26px;
+        margin: 0 0 10px;
+        color: var(--accent);
+      }
+      .celebration-card p {
+        margin: 6px 0;
+        color: var(--text-muted);
+        font-size: 14px;
+      }
+      .celebration-line {
+        font-style: italic;
+        color: var(--text) !important;
+        font-size: 15px !important;
+        margin-top: 14px !important;
+      }
+      .celebration-btn {
+        margin-top: 18px;
+        background: var(--accent);
+        color: #fff;
+        border: 0;
+        border-radius: 8px;
+        padding: 10px 22px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        font-family: inherit;
+      }
+      .celebration-btn:hover { background: var(--accent-hover); }
+
+      .celebration-confetti {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        overflow: hidden;
+      }
+      .celebration-confetti span {
+        position: absolute;
+        top: -40px;
+        animation: cel-fall linear forwards;
+        will-change: transform;
+      }
+      @keyframes cel-fall {
+        0%   { transform: translateY(0)        rotate(0deg);   opacity: 1; }
+        100% { transform: translateY(110vh)    rotate(720deg); opacity: 0.9; }
+      }
+
+      /* Test celebration button in sidebar */
+      .progress-test-btn {
+        margin-top: 8px;
+        width: 100%;
+        background: transparent;
+        color: var(--text-muted);
+        border: 1px dashed var(--border);
+        border-radius: 6px;
+        padding: 4px 8px;
+        font-size: 11px;
+        cursor: pointer;
+        font-family: inherit;
+      }
+      .progress-test-btn:hover {
+        color: var(--accent);
+        border-color: var(--accent);
+      }
+
       /* ---- Progress tracker ---- */
       #progress-bar {
         margin: 6px 4px 14px;
@@ -884,13 +991,29 @@
         color: var(--text-muted);
       }
       .phase-chip-label { font-weight: 700; }
+      aside a {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 6px;
+      }
+      aside a .progress-chip {
+        flex: none;
+        font-size: 11px;
+        line-height: 1;
+        opacity: 0.85;
+      }
       aside a.progress-done { color: var(--text-muted); }
       aside a.progress-done .progress-chip {
-        margin-left: 6px;
         color: #1a7f37;
         font-weight: 700;
       }
       [data-theme="dark"] aside a.progress-done .progress-chip { color: #3fb950; }
+      aside a.progress-todo .progress-chip {
+        color: var(--text-muted);
+        font-weight: 400;
+        opacity: 0.6;
+      }
       .progress-mark-wrap {
         margin-top: 26px;
         padding-top: 18px;
@@ -1188,13 +1311,17 @@
                   <ul>
                     <li><a data-md="01-foundations/week-1/README.md">Overview</a></li>
                   </ul>
-                  <div class="lessons-label">Lessons</div>
-                  <ul>
+                  <details class="diff-group">
+                    <summary><span class="chev">▶</span><span class="label">📖 Lessons</span></summary>
+                    <div class="children">
+                      <ul>
                     <li><a data-md="01-foundations/week-1/lessons/01-hello-python.md">01 — Hello Python</a></li>
                     <li><a data-md="01-foundations/week-1/lessons/02-variables-and-types.md">02 — Variables & Types</a></li>
                     <li><a data-md="01-foundations/week-1/lessons/03-conditionals.md">03 — Conditionals</a></li>
                     <li><a data-md="01-foundations/week-1/lessons/04-strings.md">04 — Strings & f-strings</a></li>
                   </ul>
+                    </div>
+                  </details>
                   <div class="lessons-label">Exercises</div>
                   <ul>
                     <li><a data-md="01-foundations/week-1/exercises/README.md">All exercises (index)</a></li>
@@ -1240,14 +1367,18 @@
                 <summary><span class="chev">▶</span><span class="label">Week 2 — Collections</span></summary>
                 <div class="children">
                   <ul><li><a data-md="01-foundations/week-2/README.md">Overview</a></li></ul>
-                  <div class="lessons-label">Lessons</div>
-                  <ul>
+                  <details class="diff-group">
+                    <summary><span class="chev">▶</span><span class="label">📖 Lessons</span></summary>
+                    <div class="children">
+                      <ul>
                     <li><a data-md="01-foundations/week-2/lessons/01-lists-and-loops.md">01 — Lists & Loops</a></li>
                     <li><a data-md="01-foundations/week-2/lessons/02-dicts.md">02 — Dicts</a></li>
                     <li><a data-md="01-foundations/week-2/lessons/03-comprehensions.md">03 — Comprehensions</a></li>
                     <li><a data-md="01-foundations/week-2/lessons/04-functions.md">04 — Functions</a></li>
                     <li><a data-md="01-foundations/week-2/lessons/05-tuples-and-sets.md">05 — Tuples & Sets</a></li>
                   </ul>
+                    </div>
+                  </details>
                   <div class="lessons-label">Exercises</div>
                   <ul>
                     <li><a data-md="01-foundations/week-2/exercises/README.md">All exercises (index)</a></li>
@@ -1296,8 +1427,10 @@
                 <summary><span class="chev">▶</span><span class="label">Week 3 — Files & Errors</span></summary>
                 <div class="children">
                   <ul><li><a data-md="01-foundations/week-3/README.md">Overview</a></li></ul>
-                  <div class="lessons-label">Lessons</div>
-                  <ul>
+                  <details class="diff-group">
+                    <summary><span class="chev">▶</span><span class="label">📖 Lessons</span></summary>
+                    <div class="children">
+                      <ul>
                     <li><a data-md="01-foundations/week-3/lessons/01-files.md">01 — Files</a></li>
                     <li><a data-md="01-foundations/week-3/lessons/02-csv.md">02 — CSV</a></li>
                     <li><a data-md="01-foundations/week-3/lessons/03-errors.md">03 — Errors</a></li>
@@ -1305,6 +1438,8 @@
                     <li><a data-md="01-foundations/week-3/lessons/05-pathlib-and-json.md">05 — pathlib & JSON</a></li>
                     <li><a data-md="01-foundations/week-3/lessons/06-datetime.md">06 — Dates & Times</a></li>
                   </ul>
+                    </div>
+                  </details>
                   <div class="lessons-label">Exercises</div>
                   <ul>
                     <li><a data-md="01-foundations/week-3/exercises/README.md">All exercises (index)</a></li>
@@ -1357,13 +1492,17 @@
                 <summary><span class="chev">▶</span><span class="label">Week 4 — DataFrames</span></summary>
                 <div class="children">
                   <ul><li><a data-md="02-data-with-pandas/week-4/README.md">Overview</a></li></ul>
-                  <div class="lessons-label">Lessons</div>
-                  <ul>
+                  <details class="diff-group">
+                    <summary><span class="chev">▶</span><span class="label">📖 Lessons</span></summary>
+                    <div class="children">
+                      <ul>
                     <li><a data-md="02-data-with-pandas/week-4/lessons/01-dataframes.md">01 — DataFrames</a></li>
                     <li><a data-md="02-data-with-pandas/week-4/lessons/02-read-write-excel.md">02 — Read/Write Excel</a></li>
                     <li><a data-md="02-data-with-pandas/week-4/lessons/03-filter-sort.md">03 — Filter & Sort</a></li>
                     <li><a data-md="02-data-with-pandas/week-4/lessons/04-missing-data.md">04 — Missing Data</a></li>
                   </ul>
+                    </div>
+                  </details>
                   <div class="lessons-label">Exercises</div>
                   <ul>
                     <li><a data-md="02-data-with-pandas/week-4/exercises/README.md">All exercises (index)</a></li>
@@ -1408,14 +1547,18 @@
                 <summary><span class="chev">▶</span><span class="label">Week 5 — Group & Reshape</span></summary>
                 <div class="children">
                   <ul><li><a data-md="02-data-with-pandas/week-5/README.md">Overview</a></li></ul>
-                  <div class="lessons-label">Lessons</div>
-                  <ul>
+                  <details class="diff-group">
+                    <summary><span class="chev">▶</span><span class="label">📖 Lessons</span></summary>
+                    <div class="children">
+                      <ul>
                     <li><a data-md="02-data-with-pandas/week-5/lessons/01-groupby.md">01 — GroupBy</a></li>
                     <li><a data-md="02-data-with-pandas/week-5/lessons/02-pivot.md">02 — Pivot</a></li>
                     <li><a data-md="02-data-with-pandas/week-5/lessons/03-merge.md">03 — Merge</a></li>
                     <li><a data-md="02-data-with-pandas/week-5/lessons/04-dates.md">04 — Dates</a></li>
                     <li><a data-md="02-data-with-pandas/week-5/lessons/05-plotting.md">05 — Plotting</a></li>
                   </ul>
+                    </div>
+                  </details>
                   <div class="lessons-label">Exercises</div>
                   <ul>
                     <li><a data-md="02-data-with-pandas/week-5/exercises/README.md">All exercises (index)</a></li>
@@ -1468,11 +1611,15 @@
                 <summary><span class="chev">▶</span><span class="label">Week 6 — Finance</span></summary>
                 <div class="children">
                   <ul><li><a data-md="03-mba-analytics/finance/README.md">Overview</a></li></ul>
-                  <div class="lessons-label">Lessons</div>
-                  <ul>
+                  <details class="diff-group">
+                    <summary><span class="chev">▶</span><span class="label">📖 Lessons</span></summary>
+                    <div class="children">
+                      <ul>
                     <li><a data-md="03-mba-analytics/finance/lessons/01-ratios.md">01 — Ratios</a></li>
                     <li><a data-md="03-mba-analytics/finance/lessons/02-time-value.md">02 — Time Value</a></li>
                   </ul>
+                    </div>
+                  </details>
                   <div class="lessons-label">Exercises</div>
                   <ul>
                     <li><a data-md="03-mba-analytics/finance/exercises/README.md">All exercises (index)</a></li>
@@ -1515,12 +1662,16 @@
                 <summary><span class="chev">▶</span><span class="label">Week 7 — Marketing</span></summary>
                 <div class="children">
                   <ul><li><a data-md="03-mba-analytics/marketing/README.md">Overview</a></li></ul>
-                  <div class="lessons-label">Lessons</div>
-                  <ul>
+                  <details class="diff-group">
+                    <summary><span class="chev">▶</span><span class="label">📖 Lessons</span></summary>
+                    <div class="children">
+                      <ul>
                     <li><a data-md="03-mba-analytics/marketing/lessons/01-rfm.md">01 — RFM</a></li>
                     <li><a data-md="03-mba-analytics/marketing/lessons/02-cohorts.md">02 — Cohorts</a></li>
                     <li><a data-md="03-mba-analytics/marketing/lessons/03-ab-test.md">03 — A/B Test</a></li>
                   </ul>
+                    </div>
+                  </details>
                   <div class="lessons-label">Exercises</div>
                   <ul>
                     <li><a data-md="03-mba-analytics/marketing/exercises/README.md">All exercises (index)</a></li>
@@ -1563,12 +1714,16 @@
                 <summary><span class="chev">▶</span><span class="label">Week 8 — Operations</span></summary>
                 <div class="children">
                   <ul><li><a data-md="03-mba-analytics/operations/README.md">Overview</a></li></ul>
-                  <div class="lessons-label">Lessons</div>
-                  <ul>
+                  <details class="diff-group">
+                    <summary><span class="chev">▶</span><span class="label">📖 Lessons</span></summary>
+                    <div class="children">
+                      <ul>
                     <li><a data-md="03-mba-analytics/operations/lessons/01-moving-average.md">01 — Moving Average</a></li>
                     <li><a data-md="03-mba-analytics/operations/lessons/02-ets.md">02 — ETS</a></li>
                     <li><a data-md="03-mba-analytics/operations/lessons/03-inventory.md">03 — Inventory</a></li>
                   </ul>
+                    </div>
+                  </details>
                   <div class="lessons-label">Exercises</div>
                   <ul>
                     <li><a data-md="03-mba-analytics/operations/exercises/README.md">All exercises (index)</a></li>
@@ -1611,11 +1766,15 @@
                 <summary><span class="chev">▶</span><span class="label">Week 9 — Strategy</span></summary>
                 <div class="children">
                   <ul><li><a data-md="03-mba-analytics/strategy/README.md">Overview</a></li></ul>
-                  <div class="lessons-label">Lessons</div>
-                  <ul>
+                  <details class="diff-group">
+                    <summary><span class="chev">▶</span><span class="label">📖 Lessons</span></summary>
+                    <div class="children">
+                      <ul>
                     <li><a data-md="03-mba-analytics/strategy/lessons/01-scenarios.md">01 — Scenarios</a></li>
                     <li><a data-md="03-mba-analytics/strategy/lessons/02-sensitivity.md">02 — Sensitivity</a></li>
                   </ul>
+                    </div>
+                  </details>
                   <div class="lessons-label">Exercises</div>
                   <ul>
                     <li><a data-md="03-mba-analytics/strategy/exercises/README.md">All exercises (index)</a></li>
@@ -1660,12 +1819,16 @@
                 <summary><span class="chev">▶</span><span class="label">Week 10 — Groq</span></summary>
                 <div class="children">
                   <ul><li><a data-md="04-ai-integration/README.md">Overview</a></li></ul>
-                  <div class="lessons-label">Lessons</div>
-                  <ul>
+                  <details class="diff-group">
+                    <summary><span class="chev">▶</span><span class="label">📖 Lessons</span></summary>
+                    <div class="children">
+                      <ul>
                     <li><a data-md="04-ai-integration/lessons/01-first-call.md">01 — First Call</a></li>
                     <li><a data-md="04-ai-integration/lessons/02-prompts.md">02 — Prompts</a></li>
                     <li><a data-md="04-ai-integration/lessons/03-data-to-prompt.md">03 — Data to Prompt</a></li>
                   </ul>
+                    </div>
+                  </details>
                   <div class="lessons-label">Exercises</div>
                   <ul>
                     <li><a data-md="04-ai-integration/exercises/README.md">All exercises (index)</a></li>

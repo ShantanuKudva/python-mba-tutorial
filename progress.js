@@ -34,6 +34,7 @@
     return !!(state[key] && state[key].completed);
   }
   function markComplete(key) {
+    const prevPct = getStats().pct;
     state[key] = Object.assign({}, state[key], {
       completed: true,
       completedAt: Date.now(),
@@ -41,6 +42,16 @@
     save(state);
     hydrateSidebar();
     refreshBar();
+    const newPct = getStats().pct;
+    maybeCelebrate(prevPct, newPct);
+  }
+
+  function maybeCelebrate(prev, now) {
+    const prevTier = Math.floor(prev / 10);
+    const nowTier = Math.floor(now / 10);
+    if (nowTier > prevTier && nowTier > 0) {
+      showCelebration(nowTier * 10);
+    }
   }
   function unmark(key) {
     if (state[key]) {
@@ -79,16 +90,20 @@
       // Strip any prior chip.
       const old = a.querySelector(".progress-chip");
       if (old) old.remove();
-      a.classList.remove("progress-done");
+      a.classList.remove("progress-done", "progress-todo");
       if (!key || !isCountable(key)) return;
+      const chip = document.createElement("span");
+      chip.className = "progress-chip";
       if (isComplete(key)) {
         a.classList.add("progress-done");
-        const chip = document.createElement("span");
-        chip.className = "progress-chip";
         chip.textContent = "✓";
         chip.title = "Completed";
-        a.appendChild(chip);
+      } else {
+        a.classList.add("progress-todo");
+        chip.textContent = "○";
+        chip.title = "Not yet completed";
       }
+      a.appendChild(chip);
     });
   }
 
@@ -107,6 +122,56 @@
     const total = keys.size;
     const pct = total ? Math.round((done / total) * 100) : 0;
     return { done, total, pct };
+  }
+
+  // ---- Celebration popup (every 10% milestone) ----
+  const ENCOURAGE = [
+    "Solid start. Keep going.",
+    "Quarter way there.",
+    "Compound progress beats sprints.",
+    "Big chunk done. Brain's wiring up.",
+    "Halfway. The hard part is behind you.",
+    "More than half. Momentum is real.",
+    "Two-thirds. You're now harder to stop than to start.",
+    "Most people quit before this. You didn't.",
+    "Final stretch.",
+    "Last 10%. Go finish it.",
+  ];
+  function showCelebration(pct) {
+    const stats = getStats();
+    const overlay = document.createElement("div");
+    overlay.className = "celebration-overlay";
+    const idx = Math.max(0, Math.min(9, Math.floor(pct / 10) - 1));
+    const msg = ENCOURAGE[idx] || "Keep going.";
+    overlay.innerHTML =
+      '<div class="celebration-confetti"></div>' +
+      '<div class="celebration-card">' +
+      '<div class="celebration-emoji">🎉</div>' +
+      '<h2>' + pct + '% complete!</h2>' +
+      '<p>You\'ve finished <strong>' + stats.done + '</strong> of <strong>' +
+      stats.total + '</strong> pages.</p>' +
+      '<p class="celebration-line">' + msg + '</p>' +
+      '<button class="celebration-btn">Keep going →</button>' +
+      "</div>";
+    document.body.appendChild(overlay);
+    // Confetti: scatter 40 emoji pieces with random positions + delays.
+    const cf = overlay.querySelector(".celebration-confetti");
+    const items = ["🎉", "✨", "🎊", "⭐", "🌟", "💫"];
+    for (let i = 0; i < 40; i++) {
+      const s = document.createElement("span");
+      s.textContent = items[i % items.length];
+      s.style.left = Math.random() * 100 + "%";
+      s.style.animationDelay = Math.random() * 0.8 + "s";
+      s.style.animationDuration = 1.5 + Math.random() * 1.5 + "s";
+      s.style.fontSize = 16 + Math.random() * 18 + "px";
+      cf.appendChild(s);
+    }
+    const close = () => overlay.remove();
+    overlay.querySelector(".celebration-btn").addEventListener("click", close);
+    overlay.addEventListener("click", (e) => { if (e.target === overlay) close(); });
+    document.addEventListener("keydown", function esc(e) {
+      if (e.key === "Escape") { close(); document.removeEventListener("keydown", esc); }
+    });
   }
 
   function refreshBar() {
@@ -134,7 +199,16 @@
       phaseChip("P3", phase3) +
       phaseChip("P4", phase4) +
       phaseChip("P5", phase5) +
-      "</div>";
+      "</div>" +
+      '<button class="progress-test-btn" id="progress-test-celebration">' +
+      "🎉 Test celebration</button>";
+    const testBtn = document.getElementById("progress-test-celebration");
+    if (testBtn) {
+      testBtn.addEventListener("click", () => {
+        const pct = stats.pct >= 100 ? 100 : Math.max(10, ((Math.floor(stats.pct / 10) + 1) * 10));
+        showCelebration(pct);
+      });
+    }
   }
   function phaseChip(label, s) {
     if (s.total === 0) return "";
@@ -297,5 +371,6 @@
     attachMarkButton,
     refreshBar,
     getStats,
+    celebrate: showCelebration, // call window.Progress.celebrate(30) from devtools
   };
 })();
