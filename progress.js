@@ -199,16 +199,7 @@
       phaseChip("P3", phase3) +
       phaseChip("P4", phase4) +
       phaseChip("P5", phase5) +
-      "</div>" +
-      '<button class="progress-test-btn" id="progress-test-celebration">' +
-      "🎉 Test celebration</button>";
-    const testBtn = document.getElementById("progress-test-celebration");
-    if (testBtn) {
-      testBtn.addEventListener("click", () => {
-        const pct = stats.pct >= 100 ? 100 : Math.max(10, ((Math.floor(stats.pct / 10) + 1) * 10));
-        showCelebration(pct);
-      });
-    }
+      "</div>";
   }
   function phaseChip(label, s) {
     if (s.total === 0) return "";
