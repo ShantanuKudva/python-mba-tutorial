@@ -23,8 +23,8 @@
     <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/highlight.min.js"></script>
 
     <!-- Monaco editor (real VSCode editor) loaded lazily by playground.js -->
-    <script src="playground.js?v=10" defer></script>
-    <script src="progress.js?v=10" defer></script>
+    <script src="playground.js?v=11" defer></script>
+    <script src="progress.js?v=11" defer></script>
 
     <style>
       :root {
@@ -1268,6 +1268,65 @@
       }
       .play-output.err { color: #cf222e !important; }
       [data-theme="dark"] .play-output.err { color: #ffa198 !important; }
+
+      /* === SQL result rendering === */
+      .sql-output {
+        white-space: normal;
+        max-height: 420px;
+      }
+      .sql-output.err { white-space: pre-wrap; }
+      .sql-meta {
+        font-size: 11.5px;
+        color: var(--text-muted);
+        margin-bottom: 6px;
+        font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+      }
+      .sql-empty {
+        color: var(--text-muted);
+        font-style: italic;
+        font-size: 12.5px;
+      }
+      .sql-table-wrap {
+        overflow-x: auto;
+        border: 1px solid var(--border);
+        border-radius: 6px;
+      }
+      table.sql-table {
+        border-collapse: collapse;
+        width: 100%;
+        font-size: 12.5px;
+        font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+      }
+      table.sql-table th,
+      table.sql-table td {
+        padding: 5px 10px;
+        text-align: left;
+        border-bottom: 1px solid var(--border);
+        white-space: nowrap;
+      }
+      table.sql-table th {
+        background: var(--code-bg);
+        font-weight: 600;
+        color: var(--text);
+        position: sticky;
+        top: 0;
+        border-bottom: 1px solid var(--border-strong);
+      }
+      table.sql-table tbody tr:nth-child(odd) td {
+        background: var(--bg);
+      }
+      table.sql-table tbody tr:hover td {
+        background: var(--accent-bg);
+      }
+      table.sql-table td.sql-num { text-align: right; }
+      table.sql-table td.sql-null {
+        color: var(--text-muted);
+        font-style: italic;
+      }
+      .play-sql-setup {
+        opacity: 0.92;
+        border-left: 3px solid var(--accent);
+      }
     </style>
   </head>
   <body>
@@ -1484,36 +1543,37 @@
           </details>
 
           <details class="phase">
-            <summary><span class="chev">▶</span><span class="label">Phase 2 — pandas</span></summary>
+            <summary><span class="chev">▶</span><span class="label">Phase 2 — Excel</span></summary>
             <div class="children">
-              <ul><li><a data-md="02-data-with-pandas/README.md">Overview</a></li></ul>
+              <ul><li><a data-md="02-excel/README.md">Overview</a></li></ul>
 
               <details class="week">
-                <summary><span class="chev">▶</span><span class="label">Week 4 — DataFrames</span></summary>
+                <summary><span class="chev">▶</span><span class="label">Week 4 — Excel Basics</span></summary>
                 <div class="children">
-                  <ul><li><a data-md="02-data-with-pandas/week-4/README.md">Overview</a></li></ul>
+                  <ul><li><a data-md="02-excel/week-4/README.md">Overview</a></li></ul>
                   <details class="diff-group">
                     <summary><span class="chev">▶</span><span class="label">📖 Lessons</span></summary>
                     <div class="children">
                       <ul>
-                    <li><a data-md="02-data-with-pandas/week-4/lessons/01-dataframes.md">01 — DataFrames</a></li>
-                    <li><a data-md="02-data-with-pandas/week-4/lessons/02-read-write-excel.md">02 — Read/Write Excel</a></li>
-                    <li><a data-md="02-data-with-pandas/week-4/lessons/03-filter-sort.md">03 — Filter & Sort</a></li>
-                    <li><a data-md="02-data-with-pandas/week-4/lessons/04-missing-data.md">04 — Missing Data</a></li>
-                  </ul>
+                        <li><a data-md="02-excel/week-4/lessons/01-formulas.md">01 — Formulas: SUM, AVG, IF, ROUND</a></li>
+                        <li><a data-md="02-excel/week-4/lessons/02-cell-references.md">02 — Cell References: relative &amp; absolute</a></li>
+                        <li><a data-md="02-excel/week-4/lessons/03-lookups.md">03 — Lookups: VLOOKUP / INDEX-MATCH</a></li>
+                        <li><a data-md="02-excel/week-4/lessons/04-pivots-and-aggregation.md">04 — Pivot Thinking &amp; Aggregation</a></li>
+                        <li><a data-md="02-excel/week-4/lessons/05-charts.md">05 — Charts: bar, line, pie</a></li>
+                        <li><a data-md="02-excel/week-4/lessons/06-when-excel-breaks.md">06 — When Excel Breaks</a></li>
+                      </ul>
                     </div>
                   </details>
                   <div class="lessons-label">Exercises</div>
                   <ul>
-                    <li><a data-md="02-data-with-pandas/week-4/exercises/README.md">All exercises (index)</a></li>
+                    <li><a data-md="02-excel/week-4/exercises/README.md">All exercises (index)</a></li>
                   </ul>
                   <details class="diff-group">
                     <summary><span class="chev">▶</span><span class="label">🟢 Easy</span></summary>
                     <div class="children">
                       <ul>
-                        <li><a href="#play/02-data-with-pandas/week-4/exercises/ex01_first_df.py">ex01 — First DataFrame</a></li>
-                        <li><a href="#play/02-data-with-pandas/week-4/exercises/ex02_read_xlsx.py">ex02 — Inspect P&amp;L</a></li>
-                        <li><a href="#play/02-data-with-pandas/week-4/exercises/ex06_top_products.py">ex06 — Top products</a></li>
+                        <li><a data-md="02-excel/week-4/exercises/ex01_sum_basics.md">ex01 — SUM basics</a></li>
+                        <li><a data-md="02-excel/week-4/exercises/ex02_if_logic.md">ex02 — IF logic</a></li>
                       </ul>
                     </div>
                   </details>
@@ -1521,9 +1581,9 @@
                     <summary><span class="chev">▶</span><span class="label">🟡 Medium</span></summary>
                     <div class="children">
                       <ul>
-                        <li><a href="#play/02-data-with-pandas/week-4/exercises/ex03_filter.py">ex03 — Boolean filter</a></li>
-                        <li><a href="#play/02-data-with-pandas/week-4/exercises/ex04_missing.py">ex04 — NaN handling</a></li>
-                        <li><a href="#play/02-data-with-pandas/week-4/exercises/ex05_save_xlsx.py">ex05 — Round-trip Excel</a></li>
+                        <li><a data-md="02-excel/week-4/exercises/ex03_vlookup.md">ex03 — VLOOKUP</a></li>
+                        <li><a data-md="02-excel/week-4/exercises/ex04_pivot_thinking.md">ex04 — Pivot thinking</a></li>
+                        <li><a data-md="02-excel/week-4/exercises/ex05_named_ranges.md">ex05 — Named ranges</a></li>
                       </ul>
                     </div>
                   </details>
@@ -1531,314 +1591,48 @@
                     <summary><span class="chev">▶</span><span class="label">🔴 Hard</span></summary>
                     <div class="children">
                       <ul>
-                        <li><a href="#play/02-data-with-pandas/week-4/exercises/ex07_columns_math.py">ex07 — Profit and margin</a></li>
-                        <li><a href="#play/02-data-with-pandas/week-4/exercises/ex08_multi_column_sort.py">ex08 — Multi-col sort &amp; rank</a></li>
+                        <li><a data-md="02-excel/week-4/exercises/ex06_dashboard.md">ex06 — Mini dashboard</a></li>
+                        <li><a data-md="02-excel/week-4/exercises/ex07_break_it.md">ex07 — Break it</a></li>
                       </ul>
                     </div>
                   </details>
                   <ul>
-                    <li><a data-md="02-data-with-pandas/week-4/project.md">Project</a></li>
-                    <li><a href="#play/02-data-with-pandas/week-4/project.py">▶ Project playground</a></li>
-                  </ul>
-                </div>
-              </details>
-
-              <details class="week">
-                <summary><span class="chev">▶</span><span class="label">Week 5 — Group & Reshape</span></summary>
-                <div class="children">
-                  <ul><li><a data-md="02-data-with-pandas/week-5/README.md">Overview</a></li></ul>
-                  <details class="diff-group">
-                    <summary><span class="chev">▶</span><span class="label">📖 Lessons</span></summary>
-                    <div class="children">
-                      <ul>
-                    <li><a data-md="02-data-with-pandas/week-5/lessons/01-groupby.md">01 — GroupBy</a></li>
-                    <li><a data-md="02-data-with-pandas/week-5/lessons/02-pivot.md">02 — Pivot</a></li>
-                    <li><a data-md="02-data-with-pandas/week-5/lessons/03-merge.md">03 — Merge</a></li>
-                    <li><a data-md="02-data-with-pandas/week-5/lessons/04-dates.md">04 — Dates</a></li>
-                    <li><a data-md="02-data-with-pandas/week-5/lessons/05-plotting.md">05 — Plotting</a></li>
-                  </ul>
-                    </div>
-                  </details>
-                  <div class="lessons-label">Exercises</div>
-                  <ul>
-                    <li><a data-md="02-data-with-pandas/week-5/exercises/README.md">All exercises (index)</a></li>
-                  </ul>
-                  <details class="diff-group">
-                    <summary><span class="chev">▶</span><span class="label">🟢 Easy</span></summary>
-                    <div class="children">
-                      <ul>
-                        <li><a href="#play/02-data-with-pandas/week-5/exercises/ex01_groupby.py">ex01 — GroupBy</a></li>
-                        <li><a href="#play/02-data-with-pandas/week-5/exercises/ex05_chart.py">ex05 — Bar chart</a></li>
-                        <li><a href="#play/02-data-with-pandas/week-5/exercises/ex09_yoy_growth.py">ex09 — YoY growth</a></li>
-                      </ul>
-                    </div>
-                  </details>
-                  <details class="diff-group">
-                    <summary><span class="chev">▶</span><span class="label">🟡 Medium</span></summary>
-                    <div class="children">
-                      <ul>
-                        <li><a href="#play/02-data-with-pandas/week-5/exercises/ex02_pivot.py">ex02 — Pivot table</a></li>
-                        <li><a href="#play/02-data-with-pandas/week-5/exercises/ex03_merge.py">ex03 — Merge tables</a></li>
-                        <li><a href="#play/02-data-with-pandas/week-5/exercises/ex04_dates.py">ex04 — Dates &amp; monthly totals</a></li>
-                        <li><a href="#play/02-data-with-pandas/week-5/exercises/ex06_two_level_groupby.py">ex06 — Two-level groupby</a></li>
-                      </ul>
-                    </div>
-                  </details>
-                  <details class="diff-group">
-                    <summary><span class="chev">▶</span><span class="label">🔴 Hard</span></summary>
-                    <div class="children">
-                      <ul>
-                        <li><a href="#play/02-data-with-pandas/week-5/exercises/ex07_running_total.py">ex07 — Running total</a></li>
-                        <li><a href="#play/02-data-with-pandas/week-5/exercises/ex08_segment_dashboard.py">ex08 — Segment dashboard</a></li>
-                      </ul>
-                    </div>
-                  </details>
-                  <ul>
-                    <li><a data-md="02-data-with-pandas/week-5/project.md">Project</a></li>
-                    <li><a href="#play/02-data-with-pandas/week-5/project.py">▶ Project playground</a></li>
+                    <li><a data-md="02-excel/week-4/project.md">Project — Sales Dashboard</a></li>
                   </ul>
                 </div>
               </details>
             </div>
           </details>
-
           <details class="phase">
-            <summary><span class="chev">▶</span><span class="label">Phase 3 — MBA Analytics</span></summary>
-            <div class="children">
-              <ul><li><a data-md="03-mba-analytics/README.md">Overview</a></li></ul>
-
-              <details class="week">
-                <summary><span class="chev">▶</span><span class="label">Week 6 — Finance</span></summary>
-                <div class="children">
-                  <ul><li><a data-md="03-mba-analytics/finance/README.md">Overview</a></li></ul>
-                  <details class="diff-group">
-                    <summary><span class="chev">▶</span><span class="label">📖 Lessons</span></summary>
-                    <div class="children">
-                      <ul>
-                    <li><a data-md="03-mba-analytics/finance/lessons/01-ratios.md">01 — Ratios</a></li>
-                    <li><a data-md="03-mba-analytics/finance/lessons/02-time-value.md">02 — Time Value</a></li>
-                  </ul>
-                    </div>
-                  </details>
-                  <div class="lessons-label">Exercises</div>
-                  <ul>
-                    <li><a data-md="03-mba-analytics/finance/exercises/README.md">All exercises (index)</a></li>
-                  </ul>
-                  <details class="diff-group">
-                    <summary><span class="chev">▶</span><span class="label">🟢 Easy</span></summary>
-                    <div class="children">
-                      <ul>
-                        <li><a href="#play/03-mba-analytics/finance/exercises/ex01_ratios.py">ex01 — Financial ratios</a></li>
-                        <li><a href="#play/03-mba-analytics/finance/exercises/ex02_npv.py">ex02 — NPV &amp; IRR</a></li>
-                      </ul>
-                    </div>
-                  </details>
-                  <details class="diff-group">
-                    <summary><span class="chev">▶</span><span class="label">🟡 Medium</span></summary>
-                    <div class="children">
-                      <ul>
-                        <li><a href="#play/03-mba-analytics/finance/exercises/ex03_dcf.py">ex03 — Mini DCF</a></li>
-                        <li><a href="#play/03-mba-analytics/finance/exercises/ex05_break_even.py">ex05 — Break-even analysis</a></li>
-                        <li><a href="#play/03-mba-analytics/finance/exercises/ex06_wacc.py">ex06 — WACC</a></li>
-                      </ul>
-                    </div>
-                  </details>
-                  <details class="diff-group">
-                    <summary><span class="chev">▶</span><span class="label">🔴 Hard</span></summary>
-                    <div class="children">
-                      <ul>
-                        <li><a href="#play/03-mba-analytics/finance/exercises/ex04_health_score.py">ex04 — Health score</a></li>
-                      </ul>
-                    </div>
-                  </details>
-                  <ul>
-                    <li><a data-md="03-mba-analytics/finance/project.md">Project</a></li>
-                    <li><a href="#play/03-mba-analytics/finance/project.py">▶ Project playground</a></li>
-                  </ul>
-                </div>
-              </details>
-
-              <details class="week">
-                <summary><span class="chev">▶</span><span class="label">Week 7 — Marketing</span></summary>
-                <div class="children">
-                  <ul><li><a data-md="03-mba-analytics/marketing/README.md">Overview</a></li></ul>
-                  <details class="diff-group">
-                    <summary><span class="chev">▶</span><span class="label">📖 Lessons</span></summary>
-                    <div class="children">
-                      <ul>
-                    <li><a data-md="03-mba-analytics/marketing/lessons/01-rfm.md">01 — RFM</a></li>
-                    <li><a data-md="03-mba-analytics/marketing/lessons/02-cohorts.md">02 — Cohorts</a></li>
-                    <li><a data-md="03-mba-analytics/marketing/lessons/03-ab-test.md">03 — A/B Test</a></li>
-                  </ul>
-                    </div>
-                  </details>
-                  <div class="lessons-label">Exercises</div>
-                  <ul>
-                    <li><a data-md="03-mba-analytics/marketing/exercises/README.md">All exercises (index)</a></li>
-                  </ul>
-                  <details class="diff-group">
-                    <summary><span class="chev">▶</span><span class="label">🟢 Easy</span></summary>
-                    <div class="children">
-                      <ul>
-                        <li><a href="#play/03-mba-analytics/marketing/exercises/ex01_rfm_compute.py">ex01 — Raw RFM metrics</a></li>
-                        <li><a href="#play/03-mba-analytics/marketing/exercises/ex05_churn_rate.py">ex05 — Churn rate</a></li>
-                        <li><a href="#play/03-mba-analytics/marketing/exercises/ex06_ltv_cac.py">ex06 — LTV &amp; CAC ratio</a></li>
-                      </ul>
-                    </div>
-                  </details>
-                  <details class="diff-group">
-                    <summary><span class="chev">▶</span><span class="label">🟡 Medium</span></summary>
-                    <div class="children">
-                      <ul>
-                        <li><a href="#play/03-mba-analytics/marketing/exercises/ex02_rfm_score.py">ex02 — RFM scoring</a></li>
-                        <li><a href="#play/03-mba-analytics/marketing/exercises/ex04_ab_test.py">ex04 — A/B test</a></li>
-                      </ul>
-                    </div>
-                  </details>
-                  <details class="diff-group">
-                    <summary><span class="chev">▶</span><span class="label">🔴 Hard</span></summary>
-                    <div class="children">
-                      <ul>
-                        <li><a href="#play/03-mba-analytics/marketing/exercises/ex03_cohort.py">ex03 — Cohort retention</a></li>
-                      </ul>
-                    </div>
-                  </details>
-                  <ul>
-                    <li><a data-md="03-mba-analytics/marketing/project.md">Project</a></li>
-                    <li><a href="#play/03-mba-analytics/marketing/project.py">▶ Project playground</a></li>
-                  </ul>
-                </div>
-              </details>
-
-              <details class="week">
-                <summary><span class="chev">▶</span><span class="label">Week 8 — Operations</span></summary>
-                <div class="children">
-                  <ul><li><a data-md="03-mba-analytics/operations/README.md">Overview</a></li></ul>
-                  <details class="diff-group">
-                    <summary><span class="chev">▶</span><span class="label">📖 Lessons</span></summary>
-                    <div class="children">
-                      <ul>
-                    <li><a data-md="03-mba-analytics/operations/lessons/01-moving-average.md">01 — Moving Average</a></li>
-                    <li><a data-md="03-mba-analytics/operations/lessons/02-ets.md">02 — ETS</a></li>
-                    <li><a data-md="03-mba-analytics/operations/lessons/03-inventory.md">03 — Inventory</a></li>
-                  </ul>
-                    </div>
-                  </details>
-                  <div class="lessons-label">Exercises</div>
-                  <ul>
-                    <li><a data-md="03-mba-analytics/operations/exercises/README.md">All exercises (index)</a></li>
-                  </ul>
-                  <details class="diff-group">
-                    <summary><span class="chev">▶</span><span class="label">🟢 Easy</span></summary>
-                    <div class="children">
-                      <ul>
-                        <li><a href="#play/03-mba-analytics/operations/exercises/ex01_moving_avg.py">ex01 — Moving average</a></li>
-                        <li><a href="#play/03-mba-analytics/operations/exercises/ex03_eoq.py">ex03 — EOQ formula</a></li>
-                      </ul>
-                    </div>
-                  </details>
-                  <details class="diff-group">
-                    <summary><span class="chev">▶</span><span class="label">🟡 Medium</span></summary>
-                    <div class="children">
-                      <ul>
-                        <li><a href="#play/03-mba-analytics/operations/exercises/ex02_ets.py">ex02 — ETS forecast</a></li>
-                        <li><a href="#play/03-mba-analytics/operations/exercises/ex05_lead_time_analysis.py">ex05 — Lead-time analysis</a></li>
-                        <li><a href="#play/03-mba-analytics/operations/exercises/ex06_demand_variance.py">ex06 — Demand variance</a></li>
-                      </ul>
-                    </div>
-                  </details>
-                  <details class="diff-group">
-                    <summary><span class="chev">▶</span><span class="label">🔴 Hard</span></summary>
-                    <div class="children">
-                      <ul>
-                        <li><a href="#play/03-mba-analytics/operations/exercises/ex04_reorder.py">ex04 — Safety stock &amp; reorder</a></li>
-                      </ul>
-                    </div>
-                  </details>
-                  <ul>
-                    <li><a data-md="03-mba-analytics/operations/project.md">Project</a></li>
-                    <li><a href="#play/03-mba-analytics/operations/project.py">▶ Project playground</a></li>
-                  </ul>
-                </div>
-              </details>
-
-              <details class="week">
-                <summary><span class="chev">▶</span><span class="label">Week 9 — Strategy</span></summary>
-                <div class="children">
-                  <ul><li><a data-md="03-mba-analytics/strategy/README.md">Overview</a></li></ul>
-                  <details class="diff-group">
-                    <summary><span class="chev">▶</span><span class="label">📖 Lessons</span></summary>
-                    <div class="children">
-                      <ul>
-                    <li><a data-md="03-mba-analytics/strategy/lessons/01-scenarios.md">01 — Scenarios</a></li>
-                    <li><a data-md="03-mba-analytics/strategy/lessons/02-sensitivity.md">02 — Sensitivity</a></li>
-                  </ul>
-                    </div>
-                  </details>
-                  <div class="lessons-label">Exercises</div>
-                  <ul>
-                    <li><a data-md="03-mba-analytics/strategy/exercises/README.md">All exercises (index)</a></li>
-                  </ul>
-                  <details class="diff-group">
-                    <summary><span class="chev">▶</span><span class="label">🟢 Easy</span></summary>
-                    <div class="children">
-                      <ul>
-                        <li><a href="#play/03-mba-analytics/strategy/exercises/ex01_revenue_model.py">ex01 — Revenue model</a></li>
-                      </ul>
-                    </div>
-                  </details>
-                  <details class="diff-group">
-                    <summary><span class="chev">▶</span><span class="label">🟡 Medium</span></summary>
-                    <div class="children">
-                      <ul>
-                        <li><a href="#play/03-mba-analytics/strategy/exercises/ex02_scenarios.py">ex02 — Three scenarios</a></li>
-                      </ul>
-                    </div>
-                  </details>
-                  <details class="diff-group">
-                    <summary><span class="chev">▶</span><span class="label">🔴 Hard</span></summary>
-                    <div class="children">
-                      <ul>
-                        <li><a href="#play/03-mba-analytics/strategy/exercises/ex03_tornado.py">ex03 — Tornado chart</a></li>
-                      </ul>
-                    </div>
-                  </details>
-                  <ul>
-                    <li><a data-md="03-mba-analytics/strategy/project.md">Project</a></li>
-                    <li><a href="#play/03-mba-analytics/strategy/project.py">▶ Project playground</a></li>
-                  </ul>
-                </div>
-              </details>
-            </div>
-          </details>
-
-          <details class="phase">
-            <summary><span class="chev">▶</span><span class="label">Phase 4 — AI</span></summary>
+            <summary><span class="chev">▶</span><span class="label">Phase 3 — SQL</span></summary>
             <div class="children">
               <details class="week">
-                <summary><span class="chev">▶</span><span class="label">Week 10 — Groq</span></summary>
+                <summary><span class="chev">▶</span><span class="label">Week 5 — SQL + Python</span></summary>
                 <div class="children">
-                  <ul><li><a data-md="04-ai-integration/README.md">Overview</a></li></ul>
+                  <ul><li><a data-md="03-sql/README.md">Overview</a></li></ul>
                   <details class="diff-group">
                     <summary><span class="chev">▶</span><span class="label">📖 Lessons</span></summary>
                     <div class="children">
                       <ul>
-                    <li><a data-md="04-ai-integration/lessons/01-first-call.md">01 — First Call</a></li>
-                    <li><a data-md="04-ai-integration/lessons/02-prompts.md">02 — Prompts</a></li>
-                    <li><a data-md="04-ai-integration/lessons/03-data-to-prompt.md">03 — Data to Prompt</a></li>
-                  </ul>
+                        <li><a data-md="03-sql/week-5/lessons/01-select-from-where.md">01 — SELECT · FROM · WHERE</a></li>
+                        <li><a data-md="03-sql/week-5/lessons/02-sorting-limit-distinct.md">02 — ORDER BY · LIMIT · DISTINCT</a></li>
+                        <li><a data-md="03-sql/week-5/lessons/03-aggregates-groupby.md">03 — Aggregates · GROUP BY · HAVING</a></li>
+                        <li><a data-md="03-sql/week-5/lessons/04-joins.md">04 — JOINs</a></li>
+                        <li><a data-md="03-sql/week-5/lessons/05-python-sqlalchemy.md">05 — Python + SQLAlchemy</a></li>
+                      </ul>
                     </div>
                   </details>
                   <div class="lessons-label">Exercises</div>
                   <ul>
-                    <li><a data-md="04-ai-integration/exercises/README.md">All exercises (index)</a></li>
+                    <li><a data-md="03-sql/week-5/exercises/README.md">All exercises (index)</a></li>
                   </ul>
                   <details class="diff-group">
                     <summary><span class="chev">▶</span><span class="label">🟢 Easy</span></summary>
                     <div class="children">
                       <ul>
-                        <li><a href="#play/04-ai-integration/exercises/ex01_hello_groq.py">ex01 — Hello, Groq!</a></li>
-                        <li><a href="#play/04-ai-integration/exercises/ex02_summarize.py">ex02 — Executive summary</a></li>
+                        <li><a href="#play/03-sql/week-5/exercises/ex01_basic_select.sql">ex01 — Basic SELECT</a></li>
+                        <li><a href="#play/03-sql/week-5/exercises/ex02_filter_customers.sql">ex02 — Filter customers</a></li>
+                        <li><a href="#play/03-sql/week-5/exercises/ex03_sort_limit.sql">ex03 — Sort &amp; limit</a></li>
                       </ul>
                     </div>
                   </details>
@@ -1846,9 +1640,9 @@
                     <summary><span class="chev">▶</span><span class="label">🟡 Medium</span></summary>
                     <div class="children">
                       <ul>
-                        <li><a href="#play/04-ai-integration/exercises/ex03_extract_json.py">ex03 — Extract JSON</a></li>
-                        <li><a href="#play/04-ai-integration/exercises/ex05_sentiment_score.py">ex05 — Sentiment scoring</a></li>
-                        <li><a href="#play/04-ai-integration/exercises/ex06_classification_pipeline.py">ex06 — Classification pipeline</a></li>
+                        <li><a href="#play/03-sql/week-5/exercises/ex04_group_aggregate.sql">ex04 — GROUP BY totals</a></li>
+                        <li><a href="#play/03-sql/week-5/exercises/ex05_having.sql">ex05 — HAVING filter</a></li>
+                        <li><a href="#play/03-sql/week-5/exercises/ex06_inner_join.sql">ex06 — INNER JOIN</a></li>
                       </ul>
                     </div>
                   </details>
@@ -1856,7 +1650,8 @@
                     <summary><span class="chev">▶</span><span class="label">🔴 Hard</span></summary>
                     <div class="children">
                       <ul>
-                        <li><a href="#play/04-ai-integration/exercises/ex04_data_summary.py">ex04 — Data → narrative</a></li>
+                        <li><a href="#play/03-sql/week-5/exercises/ex07_left_join.sql">ex07 — LEFT JOIN</a></li>
+                        <li><a href="#play/03-sql/week-5/exercises/ex08_python_sqlalchemy.py">ex08 — Python + SQLAlchemy</a></li>
                       </ul>
                     </div>
                   </details>
@@ -1866,12 +1661,394 @@
           </details>
 
           <details class="phase">
-            <summary><span class="chev">▶</span><span class="label">Phase 5 — Capstone</span></summary>
+            <summary><span class="chev">▶</span><span class="label">Phase 4 — pandas</span></summary>
+            <div class="children">
+              <ul><li><a data-md="04-data-with-pandas/README.md">Overview</a></li></ul>
+
+              <details class="week">
+                <summary><span class="chev">▶</span><span class="label">Week 6 — DataFrames</span></summary>
+                <div class="children">
+                  <ul><li><a data-md="04-data-with-pandas/week-6/README.md">Overview</a></li></ul>
+                  <details class="diff-group">
+                    <summary><span class="chev">▶</span><span class="label">📖 Lessons</span></summary>
+                    <div class="children">
+                      <ul>
+                    <li><a data-md="04-data-with-pandas/week-6/lessons/01-dataframes.md">01 — DataFrames</a></li>
+                    <li><a data-md="04-data-with-pandas/week-6/lessons/02-read-write-excel.md">02 — Read/Write Excel</a></li>
+                    <li><a data-md="04-data-with-pandas/week-6/lessons/03-filter-sort.md">03 — Filter & Sort</a></li>
+                    <li><a data-md="04-data-with-pandas/week-6/lessons/04-missing-data.md">04 — Missing Data</a></li>
+                  </ul>
+                    </div>
+                  </details>
+                  <div class="lessons-label">Exercises</div>
+                  <ul>
+                    <li><a data-md="04-data-with-pandas/week-6/exercises/README.md">All exercises (index)</a></li>
+                  </ul>
+                  <details class="diff-group">
+                    <summary><span class="chev">▶</span><span class="label">🟢 Easy</span></summary>
+                    <div class="children">
+                      <ul>
+                        <li><a href="#play/04-data-with-pandas/week-6/exercises/ex01_first_df.py">ex01 — First DataFrame</a></li>
+                        <li><a href="#play/04-data-with-pandas/week-6/exercises/ex02_read_xlsx.py">ex02 — Inspect P&amp;L</a></li>
+                        <li><a href="#play/04-data-with-pandas/week-6/exercises/ex06_top_products.py">ex06 — Top products</a></li>
+                      </ul>
+                    </div>
+                  </details>
+                  <details class="diff-group">
+                    <summary><span class="chev">▶</span><span class="label">🟡 Medium</span></summary>
+                    <div class="children">
+                      <ul>
+                        <li><a href="#play/04-data-with-pandas/week-6/exercises/ex03_filter.py">ex03 — Boolean filter</a></li>
+                        <li><a href="#play/04-data-with-pandas/week-6/exercises/ex04_missing.py">ex04 — NaN handling</a></li>
+                        <li><a href="#play/04-data-with-pandas/week-6/exercises/ex05_save_xlsx.py">ex05 — Round-trip Excel</a></li>
+                      </ul>
+                    </div>
+                  </details>
+                  <details class="diff-group">
+                    <summary><span class="chev">▶</span><span class="label">🔴 Hard</span></summary>
+                    <div class="children">
+                      <ul>
+                        <li><a href="#play/04-data-with-pandas/week-6/exercises/ex07_columns_math.py">ex07 — Profit and margin</a></li>
+                        <li><a href="#play/04-data-with-pandas/week-6/exercises/ex08_multi_column_sort.py">ex08 — Multi-col sort &amp; rank</a></li>
+                      </ul>
+                    </div>
+                  </details>
+                  <ul>
+                    <li><a data-md="04-data-with-pandas/week-6/project.md">Project</a></li>
+                    <li><a href="#play/04-data-with-pandas/week-6/project.py">▶ Project playground</a></li>
+                  </ul>
+                </div>
+              </details>
+
+              <details class="week">
+                <summary><span class="chev">▶</span><span class="label">Week 7 — Group & Reshape</span></summary>
+                <div class="children">
+                  <ul><li><a data-md="04-data-with-pandas/week-7/README.md">Overview</a></li></ul>
+                  <details class="diff-group">
+                    <summary><span class="chev">▶</span><span class="label">📖 Lessons</span></summary>
+                    <div class="children">
+                      <ul>
+                    <li><a data-md="04-data-with-pandas/week-7/lessons/01-groupby.md">01 — GroupBy</a></li>
+                    <li><a data-md="04-data-with-pandas/week-7/lessons/02-pivot.md">02 — Pivot</a></li>
+                    <li><a data-md="04-data-with-pandas/week-7/lessons/03-merge.md">03 — Merge</a></li>
+                    <li><a data-md="04-data-with-pandas/week-7/lessons/04-dates.md">04 — Dates</a></li>
+                    <li><a data-md="04-data-with-pandas/week-7/lessons/05-plotting.md">05 — Plotting</a></li>
+                  </ul>
+                    </div>
+                  </details>
+                  <div class="lessons-label">Exercises</div>
+                  <ul>
+                    <li><a data-md="04-data-with-pandas/week-7/exercises/README.md">All exercises (index)</a></li>
+                  </ul>
+                  <details class="diff-group">
+                    <summary><span class="chev">▶</span><span class="label">🟢 Easy</span></summary>
+                    <div class="children">
+                      <ul>
+                        <li><a href="#play/04-data-with-pandas/week-7/exercises/ex01_groupby.py">ex01 — GroupBy</a></li>
+                        <li><a href="#play/04-data-with-pandas/week-7/exercises/ex05_chart.py">ex05 — Bar chart</a></li>
+                        <li><a href="#play/04-data-with-pandas/week-7/exercises/ex09_yoy_growth.py">ex09 — YoY growth</a></li>
+                      </ul>
+                    </div>
+                  </details>
+                  <details class="diff-group">
+                    <summary><span class="chev">▶</span><span class="label">🟡 Medium</span></summary>
+                    <div class="children">
+                      <ul>
+                        <li><a href="#play/04-data-with-pandas/week-7/exercises/ex02_pivot.py">ex02 — Pivot table</a></li>
+                        <li><a href="#play/04-data-with-pandas/week-7/exercises/ex03_merge.py">ex03 — Merge tables</a></li>
+                        <li><a href="#play/04-data-with-pandas/week-7/exercises/ex04_dates.py">ex04 — Dates &amp; monthly totals</a></li>
+                        <li><a href="#play/04-data-with-pandas/week-7/exercises/ex06_two_level_groupby.py">ex06 — Two-level groupby</a></li>
+                      </ul>
+                    </div>
+                  </details>
+                  <details class="diff-group">
+                    <summary><span class="chev">▶</span><span class="label">🔴 Hard</span></summary>
+                    <div class="children">
+                      <ul>
+                        <li><a href="#play/04-data-with-pandas/week-7/exercises/ex07_running_total.py">ex07 — Running total</a></li>
+                        <li><a href="#play/04-data-with-pandas/week-7/exercises/ex08_segment_dashboard.py">ex08 — Segment dashboard</a></li>
+                      </ul>
+                    </div>
+                  </details>
+                  <ul>
+                    <li><a data-md="04-data-with-pandas/week-7/project.md">Project</a></li>
+                    <li><a href="#play/04-data-with-pandas/week-7/project.py">▶ Project playground</a></li>
+                  </ul>
+                </div>
+              </details>
+            </div>
+          </details>
+
+          <details class="phase">
+            <summary><span class="chev">▶</span><span class="label">Phase 5 — MBA Analytics</span></summary>
+            <div class="children">
+              <ul><li><a data-md="05-mba-analytics/README.md">Overview</a></li></ul>
+
+              <details class="week">
+                <summary><span class="chev">▶</span><span class="label">Week 8 — Finance</span></summary>
+                <div class="children">
+                  <ul><li><a data-md="05-mba-analytics/finance/README.md">Overview</a></li></ul>
+                  <details class="diff-group">
+                    <summary><span class="chev">▶</span><span class="label">📖 Lessons</span></summary>
+                    <div class="children">
+                      <ul>
+                    <li><a data-md="05-mba-analytics/finance/lessons/01-ratios.md">01 — Ratios</a></li>
+                    <li><a data-md="05-mba-analytics/finance/lessons/02-time-value.md">02 — Time Value</a></li>
+                  </ul>
+                    </div>
+                  </details>
+                  <div class="lessons-label">Exercises</div>
+                  <ul>
+                    <li><a data-md="05-mba-analytics/finance/exercises/README.md">All exercises (index)</a></li>
+                  </ul>
+                  <details class="diff-group">
+                    <summary><span class="chev">▶</span><span class="label">🟢 Easy</span></summary>
+                    <div class="children">
+                      <ul>
+                        <li><a href="#play/05-mba-analytics/finance/exercises/ex01_ratios.py">ex01 — Financial ratios</a></li>
+                        <li><a href="#play/05-mba-analytics/finance/exercises/ex02_npv.py">ex02 — NPV &amp; IRR</a></li>
+                      </ul>
+                    </div>
+                  </details>
+                  <details class="diff-group">
+                    <summary><span class="chev">▶</span><span class="label">🟡 Medium</span></summary>
+                    <div class="children">
+                      <ul>
+                        <li><a href="#play/05-mba-analytics/finance/exercises/ex03_dcf.py">ex03 — Mini DCF</a></li>
+                        <li><a href="#play/05-mba-analytics/finance/exercises/ex05_break_even.py">ex05 — Break-even analysis</a></li>
+                        <li><a href="#play/05-mba-analytics/finance/exercises/ex06_wacc.py">ex06 — WACC</a></li>
+                      </ul>
+                    </div>
+                  </details>
+                  <details class="diff-group">
+                    <summary><span class="chev">▶</span><span class="label">🔴 Hard</span></summary>
+                    <div class="children">
+                      <ul>
+                        <li><a href="#play/05-mba-analytics/finance/exercises/ex04_health_score.py">ex04 — Health score</a></li>
+                      </ul>
+                    </div>
+                  </details>
+                  <ul>
+                    <li><a data-md="05-mba-analytics/finance/project.md">Project</a></li>
+                    <li><a href="#play/05-mba-analytics/finance/project.py">▶ Project playground</a></li>
+                  </ul>
+                </div>
+              </details>
+
+              <details class="week">
+                <summary><span class="chev">▶</span><span class="label">Week 9 — Marketing</span></summary>
+                <div class="children">
+                  <ul><li><a data-md="05-mba-analytics/marketing/README.md">Overview</a></li></ul>
+                  <details class="diff-group">
+                    <summary><span class="chev">▶</span><span class="label">📖 Lessons</span></summary>
+                    <div class="children">
+                      <ul>
+                    <li><a data-md="05-mba-analytics/marketing/lessons/01-rfm.md">01 — RFM</a></li>
+                    <li><a data-md="05-mba-analytics/marketing/lessons/02-cohorts.md">02 — Cohorts</a></li>
+                    <li><a data-md="05-mba-analytics/marketing/lessons/03-ab-test.md">03 — A/B Test</a></li>
+                  </ul>
+                    </div>
+                  </details>
+                  <div class="lessons-label">Exercises</div>
+                  <ul>
+                    <li><a data-md="05-mba-analytics/marketing/exercises/README.md">All exercises (index)</a></li>
+                  </ul>
+                  <details class="diff-group">
+                    <summary><span class="chev">▶</span><span class="label">🟢 Easy</span></summary>
+                    <div class="children">
+                      <ul>
+                        <li><a href="#play/05-mba-analytics/marketing/exercises/ex01_rfm_compute.py">ex01 — Raw RFM metrics</a></li>
+                        <li><a href="#play/05-mba-analytics/marketing/exercises/ex05_churn_rate.py">ex05 — Churn rate</a></li>
+                        <li><a href="#play/05-mba-analytics/marketing/exercises/ex06_ltv_cac.py">ex06 — LTV &amp; CAC ratio</a></li>
+                      </ul>
+                    </div>
+                  </details>
+                  <details class="diff-group">
+                    <summary><span class="chev">▶</span><span class="label">🟡 Medium</span></summary>
+                    <div class="children">
+                      <ul>
+                        <li><a href="#play/05-mba-analytics/marketing/exercises/ex02_rfm_score.py">ex02 — RFM scoring</a></li>
+                        <li><a href="#play/05-mba-analytics/marketing/exercises/ex04_ab_test.py">ex04 — A/B test</a></li>
+                      </ul>
+                    </div>
+                  </details>
+                  <details class="diff-group">
+                    <summary><span class="chev">▶</span><span class="label">🔴 Hard</span></summary>
+                    <div class="children">
+                      <ul>
+                        <li><a href="#play/05-mba-analytics/marketing/exercises/ex03_cohort.py">ex03 — Cohort retention</a></li>
+                      </ul>
+                    </div>
+                  </details>
+                  <ul>
+                    <li><a data-md="05-mba-analytics/marketing/project.md">Project</a></li>
+                    <li><a href="#play/05-mba-analytics/marketing/project.py">▶ Project playground</a></li>
+                  </ul>
+                </div>
+              </details>
+
+              <details class="week">
+                <summary><span class="chev">▶</span><span class="label">Week 10 — Operations</span></summary>
+                <div class="children">
+                  <ul><li><a data-md="05-mba-analytics/operations/README.md">Overview</a></li></ul>
+                  <details class="diff-group">
+                    <summary><span class="chev">▶</span><span class="label">📖 Lessons</span></summary>
+                    <div class="children">
+                      <ul>
+                    <li><a data-md="05-mba-analytics/operations/lessons/01-moving-average.md">01 — Moving Average</a></li>
+                    <li><a data-md="05-mba-analytics/operations/lessons/02-ets.md">02 — ETS</a></li>
+                    <li><a data-md="05-mba-analytics/operations/lessons/03-inventory.md">03 — Inventory</a></li>
+                  </ul>
+                    </div>
+                  </details>
+                  <div class="lessons-label">Exercises</div>
+                  <ul>
+                    <li><a data-md="05-mba-analytics/operations/exercises/README.md">All exercises (index)</a></li>
+                  </ul>
+                  <details class="diff-group">
+                    <summary><span class="chev">▶</span><span class="label">🟢 Easy</span></summary>
+                    <div class="children">
+                      <ul>
+                        <li><a href="#play/05-mba-analytics/operations/exercises/ex01_moving_avg.py">ex01 — Moving average</a></li>
+                        <li><a href="#play/05-mba-analytics/operations/exercises/ex03_eoq.py">ex03 — EOQ formula</a></li>
+                      </ul>
+                    </div>
+                  </details>
+                  <details class="diff-group">
+                    <summary><span class="chev">▶</span><span class="label">🟡 Medium</span></summary>
+                    <div class="children">
+                      <ul>
+                        <li><a href="#play/05-mba-analytics/operations/exercises/ex02_ets.py">ex02 — ETS forecast</a></li>
+                        <li><a href="#play/05-mba-analytics/operations/exercises/ex05_lead_time_analysis.py">ex05 — Lead-time analysis</a></li>
+                        <li><a href="#play/05-mba-analytics/operations/exercises/ex06_demand_variance.py">ex06 — Demand variance</a></li>
+                      </ul>
+                    </div>
+                  </details>
+                  <details class="diff-group">
+                    <summary><span class="chev">▶</span><span class="label">🔴 Hard</span></summary>
+                    <div class="children">
+                      <ul>
+                        <li><a href="#play/05-mba-analytics/operations/exercises/ex04_reorder.py">ex04 — Safety stock &amp; reorder</a></li>
+                      </ul>
+                    </div>
+                  </details>
+                  <ul>
+                    <li><a data-md="05-mba-analytics/operations/project.md">Project</a></li>
+                    <li><a href="#play/05-mba-analytics/operations/project.py">▶ Project playground</a></li>
+                  </ul>
+                </div>
+              </details>
+
+              <details class="week">
+                <summary><span class="chev">▶</span><span class="label">Week 11 — Strategy</span></summary>
+                <div class="children">
+                  <ul><li><a data-md="05-mba-analytics/strategy/README.md">Overview</a></li></ul>
+                  <details class="diff-group">
+                    <summary><span class="chev">▶</span><span class="label">📖 Lessons</span></summary>
+                    <div class="children">
+                      <ul>
+                    <li><a data-md="05-mba-analytics/strategy/lessons/01-scenarios.md">01 — Scenarios</a></li>
+                    <li><a data-md="05-mba-analytics/strategy/lessons/02-sensitivity.md">02 — Sensitivity</a></li>
+                  </ul>
+                    </div>
+                  </details>
+                  <div class="lessons-label">Exercises</div>
+                  <ul>
+                    <li><a data-md="05-mba-analytics/strategy/exercises/README.md">All exercises (index)</a></li>
+                  </ul>
+                  <details class="diff-group">
+                    <summary><span class="chev">▶</span><span class="label">🟢 Easy</span></summary>
+                    <div class="children">
+                      <ul>
+                        <li><a href="#play/05-mba-analytics/strategy/exercises/ex01_revenue_model.py">ex01 — Revenue model</a></li>
+                      </ul>
+                    </div>
+                  </details>
+                  <details class="diff-group">
+                    <summary><span class="chev">▶</span><span class="label">🟡 Medium</span></summary>
+                    <div class="children">
+                      <ul>
+                        <li><a href="#play/05-mba-analytics/strategy/exercises/ex02_scenarios.py">ex02 — Three scenarios</a></li>
+                      </ul>
+                    </div>
+                  </details>
+                  <details class="diff-group">
+                    <summary><span class="chev">▶</span><span class="label">🔴 Hard</span></summary>
+                    <div class="children">
+                      <ul>
+                        <li><a href="#play/05-mba-analytics/strategy/exercises/ex03_tornado.py">ex03 — Tornado chart</a></li>
+                      </ul>
+                    </div>
+                  </details>
+                  <ul>
+                    <li><a data-md="05-mba-analytics/strategy/project.md">Project</a></li>
+                    <li><a href="#play/05-mba-analytics/strategy/project.py">▶ Project playground</a></li>
+                  </ul>
+                </div>
+              </details>
+            </div>
+          </details>
+
+          <details class="phase">
+            <summary><span class="chev">▶</span><span class="label">Phase 6 — AI</span></summary>
+            <div class="children">
+              <details class="week">
+                <summary><span class="chev">▶</span><span class="label">Week 12 — AI</span></summary>
+                <div class="children">
+                  <ul><li><a data-md="06-ai-integration/README.md">Overview</a></li></ul>
+                  <details class="diff-group">
+                    <summary><span class="chev">▶</span><span class="label">📖 Lessons</span></summary>
+                    <div class="children">
+                      <ul>
+                    <li><a data-md="06-ai-integration/lessons/01-first-call.md">01 — First Call</a></li>
+                    <li><a data-md="06-ai-integration/lessons/02-prompts.md">02 — Prompts</a></li>
+                    <li><a data-md="06-ai-integration/lessons/03-data-to-prompt.md">03 — Data to Prompt</a></li>
+                  </ul>
+                    </div>
+                  </details>
+                  <div class="lessons-label">Exercises</div>
+                  <ul>
+                    <li><a data-md="06-ai-integration/exercises/README.md">All exercises (index)</a></li>
+                  </ul>
+                  <details class="diff-group">
+                    <summary><span class="chev">▶</span><span class="label">🟢 Easy</span></summary>
+                    <div class="children">
+                      <ul>
+                        <li><a href="#play/06-ai-integration/exercises/ex01_hello_groq.py">ex01 — Hello, Groq!</a></li>
+                        <li><a href="#play/06-ai-integration/exercises/ex02_summarize.py">ex02 — Executive summary</a></li>
+                      </ul>
+                    </div>
+                  </details>
+                  <details class="diff-group">
+                    <summary><span class="chev">▶</span><span class="label">🟡 Medium</span></summary>
+                    <div class="children">
+                      <ul>
+                        <li><a href="#play/06-ai-integration/exercises/ex03_extract_json.py">ex03 — Extract JSON</a></li>
+                        <li><a href="#play/06-ai-integration/exercises/ex05_sentiment_score.py">ex05 — Sentiment scoring</a></li>
+                        <li><a href="#play/06-ai-integration/exercises/ex06_classification_pipeline.py">ex06 — Classification pipeline</a></li>
+                      </ul>
+                    </div>
+                  </details>
+                  <details class="diff-group">
+                    <summary><span class="chev">▶</span><span class="label">🔴 Hard</span></summary>
+                    <div class="children">
+                      <ul>
+                        <li><a href="#play/06-ai-integration/exercises/ex04_data_summary.py">ex04 — Data → narrative</a></li>
+                      </ul>
+                    </div>
+                  </details>
+                </div>
+              </details>
+            </div>
+          </details>
+
+          <details class="phase">
+            <summary><span class="chev">▶</span><span class="label">Phase 7 — Capstone</span></summary>
             <div class="children">
               <ul>
-                <li><a data-md="05-capstone-app/README.md">Overview</a></li>
-                <li><a data-md="05-capstone-app/backend/README.md">Backend</a></li>
-                <li><a data-md="05-capstone-app/frontend/README.md">Frontend</a></li>
+                <li><a data-md="07-capstone-app/README.md">Overview</a></li>
+                <li><a data-md="07-capstone-app/backend/README.md">Backend</a></li>
+                <li><a data-md="07-capstone-app/frontend/README.md">Frontend</a></li>
               </ul>
             </div>
           </details>
@@ -2164,7 +2341,11 @@
           setTimeout(() => loadPlayground(path), 100);
           return;
         }
-        await window.Playground.mountFullEditor(contentEl, path, code);
+        if (path.endsWith(".sql")) {
+          await window.Playground.mountFullSqlEditor(contentEl, path, code);
+        } else {
+          await window.Playground.mountFullEditor(contentEl, path, code);
+        }
         // Rewrite any links inside the rendered docstring so they route
         // through the SPA hash router instead of triggering file:// fetches.
         rewriteLinks(dirOf(path));

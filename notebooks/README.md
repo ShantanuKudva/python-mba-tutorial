@@ -1,5 +1,7 @@
 # Notebooks
 
+> **Note:** These notebooks are for the optional local workflow only — the main tutorial runs entirely in your browser via `index.html`. If you haven't installed Python locally, skip this folder and use the in-browser editors instead.
+
 Scratch space. Use this folder for any Jupyter notebook (`.ipynb`) where you experiment, plot, or explore data interactively.
 
 ## Why notebooks at all

@@ -1,0 +1,133 @@
+# Lesson 1 — Financial Ratios in pandas
+
+## The shape of the data
+
+A P&L workbook usually has rows like:
+
+| line_item | amount |
+|---|---|
+| Revenue | 5,000,000 |
+| COGS | 3,000,000 |
+| Gross Profit | 2,000,000 |
+| Operating Expenses | 1,200,000 |
+| Operating Income | 800,000 |
+| Interest Expense | 50,000 |
+| Tax | 200,000 |
+| Net Income | 550,000 |
+
+A balance sheet:
+
+| line_item | amount |
+|---|---|
+| Cash | 400,000 |
+| Receivables | 600,000 |
+| Inventory | 500,000 |
+| Total Current Assets | 1,500,000 |
+| Total Assets | 5,000,000 |
+| Current Liabilities | 800,000 |
+| Total Liabilities | 2,500,000 |
+| Total Equity | 2,500,000 |
+
+## Read into a dict for easy lookup
+
+```python
+import pandas as pd
+
+def to_lookup(df: pd.DataFrame) -> dict:
+    return dict(zip(df["line_item"].str.strip(), df["amount"]))
+
+pl = to_lookup(pd.read_excel("datasets/finance/sample_pl.xlsx"))
+bs = to_lookup(pd.read_excel("datasets/finance/sample_balance_sheet.xlsx"))
+
+print(pl["Revenue"])             # 5000000
+print(bs["Total Assets"])        # 5000000
+```
+
+## Liquidity
+
+```python
+def current_ratio(bs):
+    return bs["Total Current Assets"] / bs["Current Liabilities"]
+
+def quick_ratio(bs):
+    quick_assets = bs["Cash"] + bs["Receivables"]
+    return quick_assets / bs["Current Liabilities"]
+```
+
+Healthy current ratio is typically 1.5–3.0 depending on industry.
+
+## Leverage
+
+```python
+def debt_to_equity(bs):
+    return bs["Total Liabilities"] / bs["Total Equity"]
+
+def debt_to_assets(bs):
+    return bs["Total Liabilities"] / bs["Total Assets"]
+```
+
+## Profitability
+
+```python
+def gross_margin(pl):
+    return (pl["Revenue"] - pl["COGS"]) / pl["Revenue"]
+
+def operating_margin(pl):
+    return pl["Operating Income"] / pl["Revenue"]
+
+def net_margin(pl):
+    return pl["Net Income"] / pl["Revenue"]
+```
+
+## Display nicely
+
+```python
+def pct(x): return f"{x*100:.1f}%"
+def x(v):   return f"{v:.2f}x"
+
+print(f"Current ratio:    {x(current_ratio(bs))}")
+print(f"Debt/Equity:      {x(debt_to_equity(bs))}")
+print(f"Gross margin:     {pct(gross_margin(pl))}")
+print(f"Net margin:       {pct(net_margin(pl))}")
+```
+
+---
+
+## 📚 Resources
+
+**Official docs**
+- [Investopedia — financial ratios](https://www.investopedia.com/terms/r/ratioanalysis.asp)
+- [CFI — financial ratios reference](https://corporatefinanceinstitute.com/resources/accounting/financial-ratios/)
+
+**Deep dives**
+- [SEC — How to read financial statements](https://www.investor.gov/introduction-investing/general-resources/news-alerts/alerts-bulletins/investor-bulletins/how-read)
+
+**Video tutorials**
+- [YouTube — financial ratios explained](https://www.youtube.com/results?search_query=financial+ratios+analysis+explained)
+
+
+---
+
+Next: [`02-time-value.md`](02-time-value.md).
+
+---
+
+## 🏋️ Practice
+
+### Easy
+
+Given a P&L dict and a balance sheet dict (already provided in the exercise), compute and print the four ratios covered in this lesson: current ratio, debt-to-equity, gross margin, and net margin. Format ratios with two decimal places and margins as percentages.
+
+[▶ Open exercise](#play/05-mba-analytics/finance/exercises/ex01_ratios.py)
+
+### Medium
+
+Write a function `financial_health(pl, bs)` that accepts the two lookup dicts and returns a dict with all six ratios (current ratio, quick ratio, debt-to-equity, gross margin, operating margin, net margin). Call it on the sample data and print each ratio with a label and a brief benchmark comment.
+
+[▶ Open exercise](#play/05-mba-analytics/finance/exercises/ex04_health_score.py)
+
+### Hard
+
+Build a full scorecard function that: (a) computes all ratios, (b) assigns a RAG (Red/Amber/Green) status to each based on industry benchmarks, (c) prints a formatted table, and (d) returns an overall health score (0–100) as a weighted average. Use at least four benchmarks from the lesson.
+
+[▶ Open exercise](#play/05-mba-analytics/finance/exercises/ex04_health_score.py)

@@ -117,12 +117,12 @@ Import `math` from the standard library and `csv` from the standard library. Use
 
 ### Medium
 
-Create a file `helpers.py` with two functions: `gross_margin(revenue, cost)` and `format_currency(value)`. Then create a second script that imports from `helpers` and calls both functions on a list of products. Print a formatted summary table.
+In the editor below, define two helper functions — `gross_margin(revenue, cost)` and `format_currency(value)` — then use them on a list of products and print a formatted summary table. (In a local project these would live in `helpers.py` and be imported; here we keep them inline.)
 
 [▶ Open exercise](#play/01-foundations/week-3/exercises/ex05_module_import.py)
 
 ### Hard
 
-Write a module `expense_utils.py` containing functions for reading expenses, computing category totals, and formatting a report. In a separate `main.py`, import those functions and use the `if __name__ == "__main__":` guard to run the full pipeline. The pipeline should read `sample_expenses.csv`, compute totals, and write a report JSON.
+Build a small set of functions for reading expenses, computing category totals, and formatting a report — all in one playground cell. Wrap the pipeline run in the `if __name__ == "__main__":` guard. The pipeline should read `sample_expenses.csv`, compute totals, and write a report JSON. (Locally you'd split these into `expense_utils.py` and `main.py`; here they share a single editor.)
 
 [▶ Open exercise](#play/01-foundations/week-3/exercises/ex07_json_report.py)

@@ -78,8 +78,8 @@
 
   function isCountable(key) {
     if (!key) return false;
-    // Count lessons, exercises (.py), and projects.
-    if (key.endsWith(".md") || key.endsWith(".py")) return true;
+    // Count lessons, exercises (.py / .sql), and projects.
+    if (key.endsWith(".md") || key.endsWith(".py") || key.endsWith(".sql")) return true;
     return false;
   }
 
@@ -179,10 +179,12 @@
     if (!bar) return;
     const stats = getStats();
     const phase1 = getStats("01-foundations/");
-    const phase2 = getStats("02-data-with-pandas/");
-    const phase3 = getStats("03-mba-analytics/");
-    const phase4 = getStats("04-ai-integration/");
-    const phase5 = getStats("05-capstone-app/");
+    const phaseExcel = getStats("02-excel/");
+    const phaseSql = getStats("03-sql/");
+    const phasePandas = getStats("04-data-with-pandas/");
+    const phaseMba = getStats("05-mba-analytics/");
+    const phaseAi = getStats("06-ai-integration/");
+    const phaseCapstone = getStats("07-capstone-app/");
 
     const fillStyle = "width:" + stats.pct + "%";
     bar.innerHTML =
@@ -195,10 +197,12 @@
       fillStyle + '"></div></div>' +
       '<div class="progress-bar-phases">' +
       phaseChip("P1", phase1) +
-      phaseChip("P2", phase2) +
-      phaseChip("P3", phase3) +
-      phaseChip("P4", phase4) +
-      phaseChip("P5", phase5) +
+      phaseChip("P2", phaseExcel) +
+      phaseChip("P3", phaseSql) +
+      phaseChip("P4", phasePandas) +
+      phaseChip("P5", phaseMba) +
+      phaseChip("P6", phaseAi) +
+      phaseChip("P7", phaseCapstone) +
       "</div>";
   }
   function phaseChip(label, s) {

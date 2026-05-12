@@ -2,7 +2,7 @@
 
 Welcome. This repository is a self-paced course that takes a complete beginner from "I've never written code" to "I shipped a working web app that analyzes Excel files with AI." It is built specifically for an MBA learner — every Python concept is tied to something you already do (or will do) in spreadsheets.
 
-> **Read [`ROADMAP.md`](ROADMAP.md) first** for the full 12-week plan, philosophy, and resource library.
+> **Read [`ROADMAP.md`](ROADMAP.md) first** for the full 14-week plan, philosophy, and resource library.
 > This `README.md` is the **navigation map** — how to move through the repo day to day.
 
 ---
@@ -56,10 +56,12 @@ If that's you — you're in the right place.
 |---|---|---|
 | [`00-setup/`](00-setup/) | Optional: local Python install for power users. | Only if you want to run Python outside the browser. |
 | [`01-foundations/`](01-foundations/) | Weeks 1–3: pure Python basics. | Weeks 1, 2, 3. |
-| [`02-data-with-pandas/`](02-data-with-pandas/) | Weeks 4–5: read/write Excel with pandas. | Weeks 4, 5. |
-| [`03-mba-analytics/`](03-mba-analytics/) | Weeks 6–9: one MBA domain per week. | Weeks 6, 7, 8, 9. |
-| [`04-ai-integration/`](04-ai-integration/) | Week 10: connect to Groq AI. | Week 10. |
-| [`05-capstone-app/`](05-capstone-app/) | Weeks 11–12: full app — frontend done, backend you build. | Weeks 11, 12. |
+| [`02-excel/`](02-excel/) | Week 4: Excel fundamentals — formulas, pivot tables, charts, and when Excel breaks down. | Week 4. |
+| [`03-sql/`](03-sql/) | Week 5: SQL syntax + Python + SQLAlchemy. Runs in-browser via SQLite-WASM. | Week 5. |
+| [`04-data-with-pandas/`](04-data-with-pandas/) | Weeks 6–7: read/write Excel with pandas. | Weeks 6, 7. |
+| [`05-mba-analytics/`](05-mba-analytics/) | Weeks 8–11: one MBA domain per week. | Weeks 8, 9, 10, 11. |
+| [`06-ai-integration/`](06-ai-integration/) | Week 12: connect to Groq AI. | Week 12. |
+| [`07-capstone-app/`](07-capstone-app/) | Weeks 13–14: full app — frontend done, backend you build. | Weeks 13, 14. |
 | [`datasets/`](datasets/) | Sample Excel/CSV files to practice on. | Any time you need data. |
 | [`notebooks/`](notebooks/) | Scratch space for experiments. | Whenever curious. |
 | [`solutions/`](solutions/) | Reference answers. | **Only after** you've tried. |
@@ -132,7 +134,7 @@ Double-click `index.html`. Done. Everything opens in your browser — lessons, e
 
 **Option B — Local Python install (optional, needed for AI + capstone weeks)**
 
-See [`00-setup/README.md`](00-setup/README.md) for the full Python + VSCode + git install guide. Required only for Week 10 (Groq API keys, `.env`) and Weeks 11–12 (FastAPI backend).
+See [`00-setup/README.md`](00-setup/README.md) for the full Python + VSCode + git install guide. Required only for Week 12 (Groq API keys, `.env`) and Weeks 13–14 (FastAPI backend). Week 5 (SQL) runs entirely in the browser via SQLite compiled to WebAssembly.
 
 ---
 
@@ -140,7 +142,7 @@ See [`00-setup/README.md`](00-setup/README.md) for the full Python + VSCode + gi
 
 > Upload an Excel file → pick "Finance / Marketing / Ops / Strategy" → get back a chart, the numbers, an AI-written summary, and a polished Excel report you can download.
 
-Frontend (Next.js) is **already built**. You wire up the backend (FastAPI). Everything you learned weeks 1–10 plugs into this. See [`05-capstone-app/README.md`](05-capstone-app/README.md).
+Frontend (Next.js) is **already built**. You wire up the backend (FastAPI). Everything you learned weeks 1–12 plugs into this. See [`07-capstone-app/README.md`](07-capstone-app/README.md).
 
 ---
 
@@ -189,4 +191,4 @@ Bookmark these — you'll come back to them constantly.
 - Open [`00-setup/README.md`](00-setup/README.md) if Python or VSCode breaks.
 - Skim [`solutions/README.md`](solutions/README.md) for the "peek policy."
 
-You've got this. 12 weeks. One exercise at a time.
+You've got this. 14 weeks. One exercise at a time.

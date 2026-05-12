@@ -4,7 +4,7 @@
 
 **Double-click `index.html`.** It opens in your browser. That's it.
 
-Every lesson and exercise from Week 1 through Week 9 runs entirely in the browser — no Python, no VSCode, no terminal. Python executes locally via [Pyodide](https://pyodide.org/) (WebAssembly), so nothing leaves your machine and nothing needs to be installed.
+Every lesson and exercise from Week 1 through Week 11 runs entirely in the browser — no Python, no VSCode, no terminal. Python executes locally via [Pyodide](https://pyodide.org/) (WebAssembly), so nothing leaves your machine and nothing needs to be installed.
 
 Use the sidebar to navigate lessons, click `▶` links to open exercises, and hit **Run** to execute code.
 
@@ -18,16 +18,16 @@ A local Python install is only required for:
 
 | Week | Why |
 |---|---|
-| Week 10 — Groq AI | Needs a `.env` file with your API key; browser sandbox can't load local secrets. |
-| Weeks 11–12 — Capstone | FastAPI server must run locally (or be deployed). |
+| Week 12 — Groq AI | Needs a `.env` file with your API key; browser sandbox can't load local secrets. |
+| Weeks 13–14 — Capstone | FastAPI server must run locally (or be deployed). |
 
-If you are on Week 1–9, skip everything below and open `index.html`.
+If you are on Week 1–12, skip everything below and open `index.html`.
 
 ---
 
 ## Advanced: local Python install (optional)
 
-Do this only when you reach Week 10, or if you want to run scripts from the terminal.
+Do this only when you reach Week 13, or if you want to run scripts from the terminal.
 
 ### 1. Install Python 3.12
 
@@ -158,9 +158,9 @@ If anything shows `❌`, re-run `pip install -r requirements.txt` and read the e
 
 ---
 
-### 8. Node.js (capstone frontend only — Week 11)
+### 8. Node.js (capstone frontend only — Week 13)
 
-**Skip until Week 11.**
+**Skip until Week 13.**
 
 - Download: https://nodejs.org/ → LTS version (20.x or higher).
 - Verify: `node --version` and `npm --version`.

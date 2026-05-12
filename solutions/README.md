@@ -21,20 +21,24 @@ Reading a solution feels like progress. It isn't. You're just watching someone e
 
 ```
 solutions/
-├── week-1/
-├── week-2/
-├── week-3/
-├── week-4/
-├── week-5/
-├── finance/         (week 6)
-├── marketing/       (week 7)
-├── operations/      (week 8)
-├── strategy/        (week 9)
-├── ai/              (week 10)
-└── capstone/        (weeks 11–12)
+├── 01-foundations/
+│   ├── week-1/
+│   ├── week-2/
+│   └── week-3/
+├── 03-sql/
+│   └── week-5/
+├── 04-data-with-pandas/
+│   ├── week-6/
+│   └── week-7/
+├── 05-mba-analytics/
+│   ├── finance/     (week 8)
+│   ├── marketing/   (week 9)
+│   ├── operations/  (week 10)
+│   └── strategy/    (week 11)
+└── 06-ai-integration/
 ```
 
-Each subfolder contains the same filenames as the corresponding `exercises/` and project file, prefixed with `_solution_` so they don't accidentally get imported.
+No `02-excel/` solutions — the Excel week's exercises are spreadsheet tasks, not code. Each subfolder contains the same filenames as the corresponding `exercises/` and project file, prefixed with `_solution_` so they don't accidentally get imported.
 
 ## When solutions are added
 

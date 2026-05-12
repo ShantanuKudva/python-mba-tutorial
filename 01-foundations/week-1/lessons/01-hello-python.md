@@ -4,7 +4,7 @@
 
 Before writing anything fancy, you need to be 100% sure you can:
 
-1. Open a file.
+1. Click into a code block.
 2. Run it.
 3. See the output.
 
@@ -14,18 +14,12 @@ That's it. This entire lesson is about making sure that loop works.
 
 ## Your first script
 
-Open `lessons/hello.py` (already created next to this file). It contains:
+The code block below is already filled in and ready to run. Click the **▶ Run** button (or press Ctrl+Enter inside the editor):
 
 ```python
 print("Hello, Python!")
 print(2 + 2)
 print("MBA cohort", 2026)
-```
-
-### Run it from the terminal
-
-```bash
-python 01-foundations/week-1/lessons/hello.py
 ```
 
 You should see:
@@ -36,7 +30,7 @@ Hello, Python!
 MBA cohort 2026
 ```
 
-📍 If you don't, go back to [`00-setup/README.md`](../../../00-setup/README.md). Don't continue until this works.
+📍 If you see an error instead, check for a typo — Python is picky about quotes and parentheses. Fix it in the editor and click Run again.
 
 ---
 

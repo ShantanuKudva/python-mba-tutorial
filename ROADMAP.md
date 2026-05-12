@@ -1,11 +1,11 @@
-# Python + MBA Roadmap — 12-Week Plan
+# Python + MBA Roadmap — 14-Week Plan
 
-A comprehensive, hands-on learning workspace combining **Python programming**, **MBA analytics**, and a **capstone web app**. Built for a learner with zero coding background, ramping up to shipping a real Excel-analysis tool.
+A comprehensive, hands-on learning workspace combining **Python programming**, **MBA analytics**, **SQL**, **Excel**, and a **capstone web app**. Built for a learner with zero coding background, ramping up to shipping a real Excel-analysis tool.
 
-> **How to start:** Double-click `index.html`. It opens in your browser. Everything through Week 9 runs in-browser — no Python install needed. Install Python locally only when you reach Week 10 (Groq API) or Week 11 (FastAPI capstone).
+> **How to start:** Double-click `index.html`. It opens in your browser. Everything through Week 12 runs in-browser — no install needed (Python via Pyodide, SQL via SQLite-WASM). Install locally only when you reach Week 13 (FastAPI capstone). (Phase 6 — AI — uses browser localStorage for your Groq key, no local install needed)
 
-- **Pace:** 12 weeks · ~6–8 hrs/week
-- **Stack:** Python · pandas · Streamlit (early) → FastAPI + Next.js (capstone)
+- **Pace:** 14 weeks · ~6–8 hrs/week
+- **Stack:** Python · Excel · SQL/SQLAlchemy · pandas · FastAPI + Next.js (capstone)
 - **AI:** Groq free tier (Llama 3.x / Mixtral)
 - **MBA domains:** Finance · Marketing · Operations · Strategy
 
@@ -19,14 +19,16 @@ python-excel-mba/
 ├── README.md                   ← quickstart, install, daily workflow
 ├── 00-setup/                   ← install Python, VSCode, git, venv
 ├── 01-foundations/             ← weeks 1–3: Python core
-├── 02-data-with-pandas/        ← weeks 4–5: Excel + pandas
-├── 03-mba-analytics/           ← weeks 6–9: domain-specific projects
+├── 02-excel/                   ← week 4: Excel fundamentals before pandas
+├── 03-sql/                     ← week 5: SQL syntax + Python+SQLAlchemy (in-browser SQLite)
+├── 04-data-with-pandas/        ← weeks 6–7: Excel + pandas
+├── 05-mba-analytics/           ← weeks 8–11: domain-specific projects
 │   ├── finance/
 │   ├── marketing/
 │   ├── operations/
 │   └── strategy/
-├── 04-ai-integration/          ← week 10: Groq API basics
-├── 05-capstone-app/            ← weeks 11–12: full-stack analyzer
+├── 06-ai-integration/          ← week 12: Groq API basics
+├── 07-capstone-app/            ← weeks 13–14: full-stack analyzer
 │   ├── backend/                ← FastAPI (LEARNER FILLS IN)
 │   └── frontend/               ← Next.js (PRE-BUILT)
 ├── datasets/                   ← sample Excel/CSV files per domain
@@ -81,9 +83,34 @@ Each weekly folder contains:
 - Mini-project: Expense-categorizer reads CSV, outputs summary.
 - 6 lessons, 8 exercises.
 
-### Phase 2 — Data with pandas (Weeks 4–5)
+### Phase 2 — Excel (Week 4)
 
-**Week 4 — pandas fundamentals**
+**Week 4 — Excel fundamentals**
+
+- Core formulas: `SUM`, `AVERAGE`, `COUNT`, `IF`, `SUMIF`, `COUNTIF`.
+- Lookup functions: [`VLOOKUP`](https://support.microsoft.com/en-us/office/vlookup-function-0bbc8083-26fe-4963-8ab8-93a18ad188a1) / [`XLOOKUP`](https://support.microsoft.com/en-us/office/xlookup-function-b7fd680e-6d10-43e6-84f9-88eae8bf5929) for cross-sheet references; [`INDEX/MATCH`](https://exceljet.net/articles/how-to-use-index-match) for flexible lookups.
+- Pivot tables: group, summarize, filter, and cross-tab data without writing code.
+- Charts: bar, line, combo — the mechanics of turning a range into a chart.
+- Named ranges and table references (`Table1[Revenue]`) for readable formulas.
+- When Excel breaks down: row limits, no reproducibility, no version control → why you need pandas and SQL.
+- **MBA tie-in:** build the kind of monthly reporting you'd do manually in finance or ops, then spot where Python could automate it.
+- **Project:** Build a 1-page sales dashboard in Excel from raw transaction data — revenue by region, top products, month-over-month trend line.
+
+### Phase 3 — SQL (Week 5)
+
+**Week 5 — Python + SQL**
+
+- The relational mental model: tables, primary/foreign keys, why we split data across tables.
+- Core SQL verbs: [`SELECT`](https://sqlite.org/lang_select.html), [`WHERE`](https://sqlite.org/lang_expr.html), [`ORDER BY` / `LIMIT`](https://sqlite.org/lang_select.html#orderby), [`GROUP BY` / `HAVING`](https://sqlite.org/lang_aggfunc.html), [`JOIN`](https://sqlite.org/lang_select.html#strange).
+- Python ↔ DB: [`sqlite3`](https://docs.python.org/3/library/sqlite3.html) stdlib, [pandas `read_sql_query`](https://pandas.pydata.org/docs/reference/api/pandas.read_sql_query.html), [SQLAlchemy 2.0](https://docs.sqlalchemy.org/en/20/tutorial/index.html) (`create_engine`, `text`, parameter binding).
+- Why push aggregation into SQL instead of loading everything into pandas first.
+- **In-browser runtime:** every SQL block is backed by [sql.js](https://github.com/sql-js/sql.js) — SQLite compiled to WebAssembly. No install.
+- **MBA tie-in:** the same orders/products/customers schema you'd see in any real CRM / ERP / e-commerce backend.
+- 5 lessons, 8 exercises (3 easy + 3 medium + 2 hard, last one is Python+SQLAlchemy).
+
+### Phase 4 — Data with pandas (Weeks 6–7)
+
+**Week 6 — pandas fundamentals**
 
 - [DataFrame](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html), [Series](https://pandas.pydata.org/docs/reference/api/pandas.Series.html), [indexing with `loc`/`iloc`](https://pandas.pydata.org/docs/user_guide/indexing.html).
 - [Read Excel](https://pandas.pydata.org/docs/reference/api/pandas.read_excel.html) (via [openpyxl](https://openpyxl.readthedocs.io/)), [write Excel](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.to_excel.html).
@@ -91,47 +118,47 @@ Each weekly folder contains:
 - [Missing data](https://pandas.pydata.org/docs/user_guide/missing_data.html) (`NaN`, `fillna`, `dropna`).
 - **Project:** Clean messy P&L workbook → standardized DataFrame. Reference: [P&L statement explained](https://corporatefinanceinstitute.com/resources/accounting/profit-and-loss-statement-pl/).
 
-**Week 5 — Aggregations + plotting**
+**Week 7 — Aggregations + plotting**
 
 - [`groupby`](https://pandas.pydata.org/docs/user_guide/groupby.html), [pivot tables](https://pandas.pydata.org/docs/user_guide/reshaping.html#pivot-tables), [merge / join](https://pandas.pydata.org/docs/user_guide/merging.html).
 - [Date handling](https://pandas.pydata.org/docs/user_guide/timeseries.html), [resampling](https://pandas.pydata.org/docs/user_guide/timeseries.html#resampling).
 - [matplotlib pyplot tutorial](https://matplotlib.org/stable/tutorials/pyplot.html), [pandas built-in plotting](https://pandas.pydata.org/docs/user_guide/visualization.html).
 - **Project:** Multi-sheet workbook → consolidated dashboard image.
 
-### Phase 3 — MBA analytics (Weeks 6–9)
+### Phase 5 — MBA analytics (Weeks 8–11)
 
 Each week = one domain, one dataset, one deliverable.
 
-**Week 6 — Finance**
+**Week 8 — Finance**
 
 - Ratio analysis: [liquidity](https://corporatefinanceinstitute.com/resources/accounting/liquidity-ratio/), [leverage](https://corporatefinanceinstitute.com/resources/accounting/leverage-ratios/), [profitability](https://corporatefinanceinstitute.com/resources/accounting/profitability-ratios/). Cheat sheet: [Investopedia ratios](https://www.investopedia.com/financial-ratios-4689817).
 - [DCF model](https://corporatefinanceinstitute.com/resources/financial-modeling/dcf-model-training-free-guide/) in pandas. Theory: [Damodaran on valuation](https://pages.stern.nyu.edu/~adamodar/New_Home_Page/lectures/valintro.html).
 - [NPV](https://numpy.org/numpy-financial/latest/npv.html) / [IRR](https://numpy.org/numpy-financial/latest/irr.html) via [`numpy-financial`](https://numpy.org/numpy-financial/).
 - **Project:** Auto-generate 1-page financial-health report from raw P&L + balance-sheet Excel.
 
-**Week 7 — Marketing/Sales**
+**Week 9 — Marketing/Sales**
 
 - [Cohort retention analysis](https://mode.com/blog/cohort-analysis-tutorial), [funnel conversion](https://amplitude.com/explore/analytics/funnel-analysis-guide).
 - [RFM segmentation tutorial (Kaggle)](https://www.kaggle.com/code/regivm/rfm-analysis-tutorial). Background: [RFM model — Optimove](https://www.optimove.com/resources/learning-center/rfm-segmentation).
 - A/B test → [`scipy.stats.ttest_ind`](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.ttest_ind.html). Concept: [StatQuest — t-test](https://www.youtube.com/watch?v=pTmLQvMM-1M).
 - **Project:** Customer-segmentation script → Excel with segment labels + chart.
 
-**Week 8 — Operations**
+**Week 10 — Operations**
 
 - Inventory: [EOQ](https://corporatefinanceinstitute.com/resources/management/economic-order-quantity-eoq/), [safety stock](https://www.investopedia.com/terms/s/safety-stock.asp), [reorder point](https://corporatefinanceinstitute.com/resources/management/reorder-point/).
 - Time-series forecasting: [moving average (`Series.rolling`)](https://pandas.pydata.org/docs/user_guide/window.html), [exponential smoothing (`statsmodels` ETS)](https://www.statsmodels.org/stable/examples/notebooks/generated/exponential_smoothing.html). Free book: [Forecasting: Principles and Practice (Hyndman)](https://otexts.com/fpp3/).
 - **Project:** 12-month demand forecast workbook with confidence band.
 
-**Week 9 — Strategy/Consulting**
+**Week 11 — Strategy/Consulting**
 
 - [KPI design (KPI.org)](https://kpi.org/KPI-Basics), [market sizing — TAM/SAM/SOM](https://corporatefinanceinstitute.com/resources/management/total-addressable-market-tam/).
 - [Sensitivity analysis](https://corporatefinanceinstitute.com/resources/financial-modeling/what-is-sensitivity-analysis/), [scenario analysis](https://corporatefinanceinstitute.com/resources/financial-modeling/scenario-analysis/) in pandas.
 - [Tornado chart in matplotlib](https://matplotlib.org/stable/gallery/lines_bars_and_markers/horizontal_barchart_distribution.html), [Plotly bar examples](https://plotly.com/python/bar-charts/).
 - **Project:** Scenario model (best/base/worst) exported as formatted Excel.
 
-### Phase 4 — AI integration (Week 10)
+### Phase 6 — AI integration (Week 12)
 
-**Week 10 — Groq API**
+**Week 12 — Groq API**
 
 - [Groq API keys](https://console.groq.com/keys), env vars, [`python-dotenv`](https://github.com/theskumar/python-dotenv).
 - HTTP basics: [MDN — HTTP overview](https://developer.mozilla.org/en-US/docs/Web/HTTP/Overview), [`requests` quickstart](https://requests.readthedocs.io/en/latest/user/quickstart/), [`httpx`](https://www.python-httpx.org/).
@@ -140,7 +167,7 @@ Each week = one domain, one dataset, one deliverable.
 - [Groq rate limits](https://console.groq.com/docs/rate-limits), [model pricing](https://groq.com/pricing/).
 - **Project:** "Explain this dataset" — pass DataFrame summary to Groq, get plain-English insights.
 
-### Phase 5 — Capstone (Weeks 11–12)
+### Phase 7 — Capstone (Weeks 13–14)
 
 **The app:** _Excel Insights_ — upload an Excel file, pick a domain (finance/marketing/ops/strategy), get analysis + AI summary + downloadable report.
 
@@ -156,16 +183,16 @@ Each week = one domain, one dataset, one deliverable.
 - `POST /summarize` — call Groq with metrics, return narrative.
 - `GET /report/{id}` — return generated xlsx.
 
-**Week 11 — Backend wiring**
+**Week 13 — Backend wiring**
 
 - [FastAPI tutorial](https://fastapi.tiangolo.com/tutorial/), [path operations](https://fastapi.tiangolo.com/tutorial/first-steps/), [request body via pydantic](https://fastapi.tiangolo.com/tutorial/body/). [pydantic v2 docs](https://docs.pydantic.dev/latest/).
 - [File uploads](https://fastapi.tiangolo.com/tutorial/request-files/), [Python `tempfile`](https://docs.python.org/3/library/tempfile.html).
-- Reuse pandas pipelines from weeks 6–9.
+- Reuse pandas + SQL pipelines from weeks 6–12.
 
-**Week 12 — Polish + ship**
+**Week 14 — Polish + ship**
 
 - [FastAPI CORS](https://fastapi.tiangolo.com/tutorial/cors/), [error handling](https://fastapi.tiangolo.com/tutorial/handling-errors/).
-- Connect Groq endpoint (reuse Week 10 client).
+- Connect Groq endpoint (reuse Week 12 client).
 - Deploy: [Railway docs](https://docs.railway.com/), [Render — Python service](https://render.com/docs/deploy-fastapi). Frontend: [Vercel — Next.js](https://vercel.com/docs/frameworks/nextjs).
 - Record demo video — [OBS Studio (free)](https://obsproject.com/) or [Loom free tier](https://www.loom.com/).
 
@@ -212,7 +239,20 @@ Curated, all free. Organized to match the weekly phases — bookmark these, you 
 - `csv` module — https://docs.python.org/3/library/csv.html
 - Errors and exceptions — https://docs.python.org/3/tutorial/errors.html
 
-### pandas + Excel (Weeks 4–5)
+### Excel (Week 4)
+
+- ExcelJet — https://exceljet.net/
+- Microsoft Excel function reference — https://support.microsoft.com/en-us/office/excel-functions-by-category-5f91f4e9-7b42-46d2-9bd1-63f26a86c0eb
+- Chandoo blog — https://chandoo.org/wp/
+
+### SQL (Week 5)
+
+- SQLite docs — https://sqlite.org/docs.html
+- sql.js (SQLite in the browser) — https://github.com/sql-js/sql.js
+- SQLAlchemy 2.0 tutorial — https://docs.sqlalchemy.org/en/20/tutorial/index.html
+- SQLBolt interactive SQL — https://sqlbolt.com/
+
+### pandas + Excel (Weeks 6–7)
 
 - pandas user guide — https://pandas.pydata.org/docs/user_guide/index.html
 - 10 minutes to pandas — https://pandas.pydata.org/docs/user_guide/10min.html
@@ -222,26 +262,26 @@ Curated, all free. Organized to match the weekly phases — bookmark these, you 
 - matplotlib tutorials — https://matplotlib.org/stable/tutorials/index.html
 - Jupyter docs — https://docs.jupyter.org/
 
-### Finance (Week 6)
+### Finance (Week 8)
 
 - `numpy-financial` — https://numpy.org/numpy-financial/
 - Corporate Finance Institute free resources — https://corporatefinanceinstitute.com/resources/
 - Investopedia ratio library — https://www.investopedia.com/financial-ratios-4689817
 - Damodaran Online (valuation, free) — https://pages.stern.nyu.edu/~adamodar/
 
-### Marketing/Sales analytics (Week 7)
+### Marketing/Sales analytics (Week 9)
 
 - `scipy.stats` — https://docs.scipy.org/doc/scipy/reference/stats.html
 - Cohort analysis primer (Mode) — https://mode.com/blog/cohort-analysis-tutorial
 - RFM segmentation walkthrough — https://www.kaggle.com/code/regivm/rfm-analysis-tutorial
 
-### Operations / forecasting (Week 8)
+### Operations / forecasting (Week 10)
 
 - statsmodels user guide — https://www.statsmodels.org/stable/user-guide.html
 - Forecasting: Principles and Practice (Hyndman, free book) — https://otexts.com/fpp3/
 - EOQ / inventory primer — https://corporatefinanceinstitute.com/resources/management/economic-order-quantity-eoq/
 
-### Strategy / scenario modeling (Week 9)
+### Strategy / scenario modeling (Week 11)
 
 - McKinsey "Three horizons" + scenario writing — https://www.mckinsey.com/featured-insights
 - Plotly tornado/sensitivity examples — https://plotly.com/python/
@@ -251,7 +291,7 @@ Curated, all free. Organized to match the weekly phases — bookmark these, you 
 - StatQuest YouTube — https://www.youtube.com/@statquest
 - Khan Academy statistics — https://www.khanacademy.org/math/statistics-probability
 
-### AI / Groq (Week 10)
+### AI / Groq (Week 12)
 
 - Groq console + docs — https://console.groq.com/docs
 - Groq Python SDK — https://github.com/groq/groq-python
@@ -260,7 +300,7 @@ Curated, all free. Organized to match the weekly phases — bookmark these, you 
 - `requests` quickstart — https://requests.readthedocs.io/en/latest/user/quickstart/
 - Prompt engineering guide (free) — https://www.promptingguide.ai/
 
-### Capstone — backend (Weeks 11–12)
+### Capstone — backend (Weeks 13–14)
 
 - FastAPI tutorial — https://fastapi.tiangolo.com/tutorial/
 - FastAPI file uploads — https://fastapi.tiangolo.com/tutorial/request-files/
@@ -288,7 +328,7 @@ Curated, all free. Organized to match the weekly phases — bookmark these, you 
 
 ## What "done" looks like
 
-By end of week 12, learner can:
+By end of week 14, learner can:
 
 - Read any Excel file into pandas, clean it, analyze it.
 - Write a function library reusable across workbooks.
@@ -302,8 +342,9 @@ By end of week 12, learner can:
 
 1. `00-setup/` — write install guide for macOS + Windows.
 2. `01-foundations/week-1/` — first lesson + 5 exercises + solution stubs.
-3. `datasets/` — seed 4 sample workbooks (one per MBA domain).
-4. `05-capstone-app/frontend/` — Next.js scaffold with mocked API.
-5. `README.md` — top-level quickstart pointing into Week 1.
+3. `02-excel/` — Excel module content (week 4).
+4. `datasets/` — seed 4 sample workbooks (one per MBA domain).
+5. `07-capstone-app/frontend/` — Next.js scaffold with mocked API.
+6. `README.md` — top-level quickstart pointing into Week 1.
 
-Order of build: setup → week 1 → datasets → capstone frontend skeleton → fill weeks 2–12 progressively.
+Order of build: setup → week 1 → datasets → excel module → capstone frontend skeleton → fill weeks 5–14 progressively.

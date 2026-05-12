@@ -40,14 +40,20 @@ def should_skip(path: Path) -> bool:
     return any(part in SKIP_DIRS for part in path.parts)
 
 
-EXTS = ("*.md", "*.py")
-# Only bundle .py from these subtrees — runnable exercises/solutions/lessons.
-PY_PREFIXES = ("01-foundations", "02-data-with-pandas", "03-mba-analytics",
-               "04-ai-integration", "solutions")
+EXTS = ("*.md", "*.py", "*.sql", "*.json")
+# Only bundle .py / .sql from these subtrees — runnable exercises/solutions/lessons.
+CODE_PREFIXES = ("01-foundations", "02-excel", "03-sql", "04-data-with-pandas",
+                 "05-mba-analytics", "06-ai-integration", "solutions")
+# Only bundle .json from these subtrees — dataset files for in-browser modules.
+JSON_PREFIXES = ("02-excel/datasets",)
 
 
-def include_py(rel_posix: str) -> bool:
-    return any(rel_posix.startswith(p + "/") for p in PY_PREFIXES)
+def include_code(rel_posix: str) -> bool:
+    return any(rel_posix.startswith(p + "/") for p in CODE_PREFIXES)
+
+
+def include_json(rel_posix: str) -> bool:
+    return any(rel_posix.startswith(p + "/") for p in JSON_PREFIXES)
 
 
 def collect() -> dict[str, str]:
@@ -58,7 +64,9 @@ def collect() -> dict[str, str]:
             if should_skip(rel):
                 continue
             key = rel.as_posix()
-            if ext == "*.py" and not include_py(key):
+            if ext in ("*.py", "*.sql") and not include_code(key):
+                continue
+            if ext == "*.json" and not include_json(key):
                 continue
             try:
                 files[key] = path.read_text(encoding="utf-8")
