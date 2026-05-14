@@ -1,6 +1,6 @@
 # Week 4 — Excel Basics
 
-Six lessons, seven exercises, one project. By the end of the week you'll be fluent in the formulas that drive 90% of real business spreadsheets — and you'll know exactly where Excel stops being the right tool.
+Nine lessons, sixteen exercises, one project. By the end of the week you'll be fluent in the formulas that drive 90% of real business spreadsheets — and you'll know exactly where Excel stops being the right tool.
 
 ## Lessons this week
 
@@ -12,10 +12,13 @@ Six lessons, seven exercises, one project. By the end of the week you'll be flue
 | 4 | Pivot Thinking: aggregation without a wizard | [04-pivots-and-aggregation.md](lessons/04-pivots-and-aggregation.md) |
 | 5 | Charts: bar, line, pie basics | [05-charts.md](lessons/05-charts.md) |
 | 6 | When Excel Breaks: bridge to SQL/pandas | [06-when-excel-breaks.md](lessons/06-when-excel-breaks.md) |
+| 7 | Text & Data Cleaning: TRIM, PROPER, LEFT/MID/RIGHT, SUBSTITUTE | [07-text-and-data-cleaning.md](lessons/07-text-and-data-cleaning.md) |
+| 8 | IFERROR, IFS, SWITCH, COUNTIFS, SUMIFS | [08-iferror-and-conditionals.md](lessons/08-iferror-and-conditionals.md) |
+| 9 | Dates & Times: TODAY, EDATE, NETWORKDAYS, DATEDIF | [09-dates-and-times.md](lessons/09-dates-and-times.md) |
 
 ## Exercises
 
-[Exercise index](exercises/README.md) — 7 exercises from 🟢 easy to 🔴 hard.
+[Exercise index](exercises/README.md) — 16 exercises from 🟢 easy to 🔴 hard.
 
 ## Project
 

@@ -23,6 +23,10 @@ SQL is the second language you need for analytics. Most real business data lives
 | Lesson 03 | Aggregates + `GROUP BY` + `HAVING` | [03-aggregates-groupby.md](week-5/lessons/03-aggregates-groupby.md) |
 | Lesson 04 | Joining tables | [04-joins.md](week-5/lessons/04-joins.md) |
 | Lesson 05 | Python ↔ SQL with `sqlite3` and SQLAlchemy | [05-python-sqlalchemy.md](week-5/lessons/05-python-sqlalchemy.md) |
+| Lesson 06 | Subqueries: scalar, IN, correlated | [06-subqueries.md](week-5/lessons/06-subqueries.md) |
+| Lesson 07 | Window functions: ROW_NUMBER, RANK, LAG, LEAD, running totals | [07-window-functions.md](week-5/lessons/07-window-functions.md) |
+| Lesson 08 | NULLs & data types: COALESCE, NULLIF, CAST, type affinity | [08-nulls-and-data-types.md](week-5/lessons/08-nulls-and-data-types.md) |
+| Lesson 09 | Data modeling: keys, normalization, when to denormalize | [09-data-modeling.md](week-5/lessons/09-data-modeling.md) |
 | Exercises | 🟢 Easy → 🟡 Medium → 🔴 Hard | [exercises index](week-5/exercises/README.md) |
 
 ## The dataset (mini-store)
@@ -42,7 +46,7 @@ You will see it again and again — that repetition is the point. Same tables, h
 - You can write `SELECT … FROM … WHERE … GROUP BY … HAVING … ORDER BY … LIMIT …` from scratch.
 - You can join two or three tables without copying from a previous example.
 - You can run a SQL query from Python and pull the result into a pandas DataFrame.
-- All five lessons and ≥6 of the 8 exercises are marked complete.
+- All nine lessons and ≥14 of the 20 exercises are marked complete.
 
 ## Why SQL comes before pandas
 

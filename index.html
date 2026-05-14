@@ -71,8 +71,12 @@
 
       .layout {
         display: grid;
-        grid-template-columns: 288px 1fr;
+        grid-template-columns: 288px 1fr 220px;
         min-height: 100vh;
+      }
+      @media (max-width: 1200px) {
+        .layout { grid-template-columns: 288px 1fr; }
+        .toc { display: none !important; }
       }
 
       /* === Sidebar === */
@@ -283,6 +287,58 @@
         color: var(--accent);
         background: transparent;
         text-decoration: underline;
+      }
+
+      /* === TOC (on this page) === */
+      .toc {
+        position: sticky;
+        top: 0;
+        align-self: start;
+        max-height: 100vh;
+        overflow-y: auto;
+        padding: 36px 20px 24px 8px;
+        font-size: 13px;
+        line-height: 1.5;
+      }
+      .toc-title {
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--text-muted);
+        margin: 0 0 12px 14px;
+        padding: 0;
+      }
+      .toc ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        border-left: 1px solid var(--border);
+      }
+      .toc li { margin: 0; }
+      .toc a {
+        display: block;
+        padding: 5px 8px 5px 14px;
+        margin-left: -1px;
+        border-left: 1px solid transparent;
+        color: var(--text-muted);
+        text-decoration: none;
+        font-size: 13px;
+        line-height: 1.5;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        transition: color 0.12s ease, border-color 0.12s ease;
+      }
+      .toc a:hover { color: var(--text); }
+      .toc a.toc-h3 {
+        padding-left: 26px;
+        font-size: 12.5px;
+      }
+      .toc a.toc-active {
+        color: var(--accent);
+        border-left-color: var(--accent);
+        font-weight: 600;
       }
 
       /* === Main === */
@@ -1378,6 +1434,9 @@
                     <li><a data-md="01-foundations/week-1/lessons/02-variables-and-types.md">02 — Variables & Types</a></li>
                     <li><a data-md="01-foundations/week-1/lessons/03-conditionals.md">03 — Conditionals</a></li>
                     <li><a data-md="01-foundations/week-1/lessons/04-strings.md">04 — Strings & f-strings</a></li>
+                    <li><a data-md="01-foundations/week-1/lessons/05-loops.md">05 — Loops</a></li>
+                    <li><a data-md="01-foundations/week-1/lessons/06-operators-and-math.md">06 — Operators & Math</a></li>
+                    <li><a data-md="01-foundations/week-1/lessons/07-input-and-print.md">07 — Input, Print & Comments</a></li>
                   </ul>
                     </div>
                   </details>
@@ -1392,6 +1451,9 @@
                         <li><a href="#play/01-foundations/week-1/exercises/ex01_age_in_days.py">ex01 — Age in days</a></li>
                         <li><a href="#play/01-foundations/week-1/exercises/ex04_bonus_eligibility.py">ex04 — Bonus eligibility</a></li>
                         <li><a href="#play/01-foundations/week-1/exercises/ex06_clean_customer.py">ex06 — Clean customer name</a></li>
+                        <li><a href="#play/01-foundations/week-1/exercises/ex10_sum_revenue.py">ex10 — Sum monthly revenue</a></li>
+                        <li><a href="#play/01-foundations/week-1/exercises/ex13_weeks_and_growth.py">ex13 — Weeks and compound growth</a></li>
+                        <li><a href="#play/01-foundations/week-1/exercises/ex16_product_prompt.py">ex16 — Product price prompt</a></li>
                       </ul>
                     </div>
                   </details>
@@ -1402,6 +1464,9 @@
                         <li><a href="#play/01-foundations/week-1/exercises/ex02_sales_summary.py">ex02 — Sales summary</a></li>
                         <li><a href="#play/01-foundations/week-1/exercises/ex03_grade_margin.py">ex03 — Grade a margin</a></li>
                         <li><a href="#play/01-foundations/week-1/exercises/ex07_sku_parts.py">ex07 — SKU parts</a></li>
+                        <li><a href="#play/01-foundations/week-1/exercises/ex11_profitable_months.py">ex11 — Profitable months</a></li>
+                        <li><a href="#play/01-foundations/week-1/exercises/ex14_revenue_share.py">ex14 — Revenue share</a></li>
+                        <li><a href="#play/01-foundations/week-1/exercises/ex17_company_snapshot.py">ex17 — Company snapshot</a></li>
                       </ul>
                     </div>
                   </details>
@@ -1412,6 +1477,9 @@
                         <li><a href="#play/01-foundations/week-1/exercises/ex05_tip_calculator.py">ex05 — Tip calculator</a></li>
                         <li><a href="#play/01-foundations/week-1/exercises/ex08_growth_rate.py">ex08 — Growth rate</a></li>
                         <li><a href="#play/01-foundations/week-1/exercises/ex09_margin_table.py">ex09 — Margin table</a></li>
+                        <li><a href="#play/01-foundations/week-1/exercises/ex12_budget_burndown.py">ex12 — Budget burn-down</a></li>
+                        <li><a href="#play/01-foundations/week-1/exercises/ex15_shipping_cost.py">ex15 — Shipping cost</a></li>
+                        <li><a href="#play/01-foundations/week-1/exercises/ex18_invoice_generator.py">ex18 — Invoice generator</a></li>
                       </ul>
                     </div>
                   </details>
@@ -1561,6 +1629,9 @@
                         <li><a data-md="02-excel/week-4/lessons/04-pivots-and-aggregation.md">04 — Pivot Thinking &amp; Aggregation</a></li>
                         <li><a data-md="02-excel/week-4/lessons/05-charts.md">05 — Charts: bar, line, pie</a></li>
                         <li><a data-md="02-excel/week-4/lessons/06-when-excel-breaks.md">06 — When Excel Breaks</a></li>
+                        <li><a data-md="02-excel/week-4/lessons/07-text-and-data-cleaning.md">07 — Text &amp; Data Cleaning</a></li>
+                        <li><a data-md="02-excel/week-4/lessons/08-iferror-and-conditionals.md">08 — IFERROR, IFS, SWITCH, SUMIFS</a></li>
+                        <li><a data-md="02-excel/week-4/lessons/09-dates-and-times.md">09 — Dates &amp; Times</a></li>
                       </ul>
                     </div>
                   </details>
@@ -1574,6 +1645,9 @@
                       <ul>
                         <li><a data-md="02-excel/week-4/exercises/ex01_sum_basics.md">ex01 — SUM basics</a></li>
                         <li><a data-md="02-excel/week-4/exercises/ex02_if_logic.md">ex02 — IF logic</a></li>
+                        <li><a data-md="02-excel/week-4/exercises/ex08_trim_and_proper.md">ex08 — TRIM &amp; PROPER</a></li>
+                        <li><a data-md="02-excel/week-4/exercises/ex11_iferror_ifna.md">ex11 — IFERROR &amp; IFNA</a></li>
+                        <li><a data-md="02-excel/week-4/exercises/ex14_date_basics.md">ex14 — Date basics</a></li>
                       </ul>
                     </div>
                   </details>
@@ -1584,6 +1658,10 @@
                         <li><a data-md="02-excel/week-4/exercises/ex03_vlookup.md">ex03 — VLOOKUP</a></li>
                         <li><a data-md="02-excel/week-4/exercises/ex04_pivot_thinking.md">ex04 — Pivot thinking</a></li>
                         <li><a data-md="02-excel/week-4/exercises/ex05_named_ranges.md">ex05 — Named ranges</a></li>
+                        <li><a data-md="02-excel/week-4/exercises/ex09_left_mid_right.md">ex09 — LEFT, MID &amp; RIGHT</a></li>
+                        <li><a data-md="02-excel/week-4/exercises/ex10_substitute_clean.md">ex10 — SUBSTITUTE</a></li>
+                        <li><a data-md="02-excel/week-4/exercises/ex12_ifs_and_switch.md">ex12 — IFS &amp; SWITCH</a></li>
+                        <li><a data-md="02-excel/week-4/exercises/ex15_networkdays_edate.md">ex15 — NETWORKDAYS &amp; EDATE</a></li>
                       </ul>
                     </div>
                   </details>
@@ -1593,6 +1671,8 @@
                       <ul>
                         <li><a data-md="02-excel/week-4/exercises/ex06_dashboard.md">ex06 — Mini dashboard</a></li>
                         <li><a data-md="02-excel/week-4/exercises/ex07_break_it.md">ex07 — Break it</a></li>
+                        <li><a data-md="02-excel/week-4/exercises/ex13_countifs_sumifs.md">ex13 — COUNTIFS &amp; SUMIFS</a></li>
+                        <li><a data-md="02-excel/week-4/exercises/ex16_datedif_tenure.md">ex16 — DATEDIF tenure</a></li>
                       </ul>
                     </div>
                   </details>
@@ -1619,6 +1699,10 @@
                         <li><a data-md="03-sql/week-5/lessons/03-aggregates-groupby.md">03 — Aggregates · GROUP BY · HAVING</a></li>
                         <li><a data-md="03-sql/week-5/lessons/04-joins.md">04 — JOINs</a></li>
                         <li><a data-md="03-sql/week-5/lessons/05-python-sqlalchemy.md">05 — Python + SQLAlchemy</a></li>
+                        <li><a data-md="03-sql/week-5/lessons/06-subqueries.md">06 — Subqueries</a></li>
+                        <li><a data-md="03-sql/week-5/lessons/07-window-functions.md">07 — Window Functions</a></li>
+                        <li><a data-md="03-sql/week-5/lessons/08-nulls-and-data-types.md">08 — NULLs &amp; Data Types</a></li>
+                        <li><a data-md="03-sql/week-5/lessons/09-data-modeling.md">09 — Data Modeling</a></li>
                       </ul>
                     </div>
                   </details>
@@ -1633,6 +1717,10 @@
                         <li><a href="#play/03-sql/week-5/exercises/ex01_basic_select.sql">ex01 — Basic SELECT</a></li>
                         <li><a href="#play/03-sql/week-5/exercises/ex02_filter_customers.sql">ex02 — Filter customers</a></li>
                         <li><a href="#play/03-sql/week-5/exercises/ex03_sort_limit.sql">ex03 — Sort &amp; limit</a></li>
+                        <li><a href="#play/03-sql/week-5/exercises/ex09_scalar_subquery.sql">ex09 — Scalar subquery</a></li>
+                        <li><a href="#play/03-sql/week-5/exercises/ex12_row_number.sql">ex12 — ROW_NUMBER</a></li>
+                        <li><a href="#play/03-sql/week-5/exercises/ex15_null_filter.sql">ex15 — NULL filtering</a></li>
+                        <li><a href="#play/03-sql/week-5/exercises/ex18_pk_fk_integrity.sql">ex18 — PK &amp; FK integrity</a></li>
                       </ul>
                     </div>
                   </details>
@@ -1643,6 +1731,10 @@
                         <li><a href="#play/03-sql/week-5/exercises/ex04_group_aggregate.sql">ex04 — GROUP BY totals</a></li>
                         <li><a href="#play/03-sql/week-5/exercises/ex05_having.sql">ex05 — HAVING filter</a></li>
                         <li><a href="#play/03-sql/week-5/exercises/ex06_inner_join.sql">ex06 — INNER JOIN</a></li>
+                        <li><a href="#play/03-sql/week-5/exercises/ex10_in_subquery.sql">ex10 — IN subquery</a></li>
+                        <li><a href="#play/03-sql/week-5/exercises/ex13_running_total.sql">ex13 — Running total</a></li>
+                        <li><a href="#play/03-sql/week-5/exercises/ex16_coalesce.sql">ex16 — COALESCE &amp; NULLIF</a></li>
+                        <li><a href="#play/03-sql/week-5/exercises/ex19_normalization.sql">ex19 — Normalization</a></li>
                       </ul>
                     </div>
                   </details>
@@ -1652,6 +1744,10 @@
                       <ul>
                         <li><a href="#play/03-sql/week-5/exercises/ex07_left_join.sql">ex07 — LEFT JOIN</a></li>
                         <li><a href="#play/03-sql/week-5/exercises/ex08_python_sqlalchemy.py">ex08 — Python + SQLAlchemy</a></li>
+                        <li><a href="#play/03-sql/week-5/exercises/ex11_correlated_subquery.sql">ex11 — Correlated subquery</a></li>
+                        <li><a href="#play/03-sql/week-5/exercises/ex14_lag_lead.sql">ex14 — LAG &amp; LEAD</a></li>
+                        <li><a href="#play/03-sql/week-5/exercises/ex17_cast_types.sql">ex17 — CAST &amp; types</a></li>
+                        <li><a href="#play/03-sql/week-5/exercises/ex20_denormalize_for_analytics.sql">ex20 — Denormalize for analytics</a></li>
                       </ul>
                     </div>
                   </details>
@@ -2080,6 +2176,7 @@
         <div class="breadcrumb" id="breadcrumb"></div>
         <article id="content">Loading…</article>
       </main>
+      <aside id="toc-panel" class="toc" aria-label="On this page"></aside>
     </div>
 
     <script>
@@ -2261,7 +2358,97 @@
         contentEl.querySelectorAll("pre code").forEach((b) => hljs.highlightElement(b));
         if (window.Playground) window.Playground.enhanceCodeBlocks(contentEl);
         if (window.Progress) window.Progress.attachMarkButton(contentEl, path);
+        buildToc();
         window.scrollTo(0, 0);
+      }
+
+      // Build a right-side "On this page" TOC from the rendered h2/h3.
+      function slugify(s) {
+        return String(s)
+          .toLowerCase()
+          .replace(/[^\w\s-]/g, "")
+          .trim()
+          .replace(/\s+/g, "-")
+          .slice(0, 60);
+      }
+      let tocObserver = null;
+      function buildToc() {
+        const panel = document.getElementById("toc-panel");
+        if (!panel) return;
+        if (tocObserver) { tocObserver.disconnect(); tocObserver = null; }
+
+        const headings = Array.from(
+          contentEl.querySelectorAll("h2, h3")
+        ).filter((h) => h.textContent.trim());
+
+        if (headings.length < 2) {
+          panel.innerHTML = "";
+          return;
+        }
+
+        const used = new Set();
+        const items = headings.map((h) => {
+          let id = h.id;
+          if (!id) {
+            let base = slugify(h.textContent);
+            id = base || "section";
+            let n = 1;
+            while (used.has(id)) id = base + "-" + n++;
+            h.id = id;
+          }
+          used.add(id);
+          return { id, level: h.tagName.toLowerCase(), text: h.textContent };
+        });
+
+        panel.innerHTML =
+          '<div class="toc-title">On this page</div><ul>' +
+          items
+            .map(
+              (it) =>
+                '<li><a class="toc-' +
+                it.level +
+                '" href="#' +
+                location.hash.replace(/^#/, "").split("?")[0] + // preserve current page hash
+                '" data-toc-id="' +
+                it.id +
+                '">' +
+                it.text
+                  .replace(/[<>&]/g, (c) => ({ "<": "&lt;", ">": "&gt;", "&": "&amp;" }[c])) +
+                "</a></li>"
+            )
+            .join("") +
+          "</ul>";
+
+        // Click → smooth scroll to heading.
+        panel.querySelectorAll("a[data-toc-id]").forEach((a) => {
+          a.addEventListener("click", (e) => {
+            e.preventDefault();
+            const target = document.getElementById(a.dataset.tocId);
+            if (target) {
+              target.scrollIntoView({ behavior: "smooth", block: "start" });
+            }
+          });
+        });
+
+        // Active-state on scroll via IntersectionObserver.
+        tocObserver = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              const link = panel.querySelector(
+                'a[data-toc-id="' + entry.target.id + '"]'
+              );
+              if (!link) return;
+              if (entry.isIntersecting) {
+                panel
+                  .querySelectorAll("a.toc-active")
+                  .forEach((l) => l.classList.remove("toc-active"));
+                link.classList.add("toc-active");
+              }
+            });
+          },
+          { rootMargin: "-20% 0px -70% 0px", threshold: 0 }
+        );
+        headings.forEach((h) => tocObserver.observe(h));
       }
 
       async function loadMarkdown(path) {
@@ -2350,6 +2537,7 @@
         // through the SPA hash router instead of triggering file:// fetches.
         rewriteLinks(dirOf(path));
         if (window.Progress) window.Progress.attachMarkButton(contentEl, path);
+        buildToc();
         window.scrollTo(0, 0);
         // Pre-load Pyodide so squigglies + Run feel snappy.
         window.Playground.ensurePyodide(null).catch(() => {});
