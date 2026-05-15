@@ -23,8 +23,8 @@
     <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/highlight.min.js"></script>
 
     <!-- Monaco editor (real VSCode editor) loaded lazily by playground.js -->
-    <script src="playground.js?v=11" defer></script>
-    <script src="progress.js?v=11" defer></script>
+    <script src="playground.js?v=12" defer></script>
+    <script src="progress.js?v=12" defer></script>
 
     <style>
       :root {
@@ -2376,6 +2376,8 @@
         const panel = document.getElementById("toc-panel");
         if (!panel) return;
         if (tocObserver) { tocObserver.disconnect(); tocObserver = null; }
+        // Wipe stale TOC + active state immediately so it doesn't carry to next page.
+        panel.innerHTML = "";
 
         const headings = Array.from(
           contentEl.querySelectorAll("h2, h3")

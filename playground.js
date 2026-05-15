@@ -1661,6 +1661,25 @@ def __reset_ns():
     host.style.height = (spec.height || 540) + "px";
     wrap.appendChild(host);
 
+    // Lock page scroll while pointer is over the sheet — otherwise
+    // wheel scroll inside x-spreadsheet bubbles up and scrolls the page.
+    host.addEventListener("mouseenter", () => {
+      document.body.dataset.prevOverflow = document.body.style.overflow || "";
+      document.body.style.overflow = "hidden";
+    });
+    host.addEventListener("mouseleave", () => {
+      document.body.style.overflow = document.body.dataset.prevOverflow || "";
+      delete document.body.dataset.prevOverflow;
+    });
+    // Belt-and-braces: stop wheel events from bubbling past the host.
+    host.addEventListener(
+      "wheel",
+      (e) => {
+        e.stopPropagation();
+      },
+      { passive: true }
+    );
+
     let wb = null;
     let xs = null;
 
